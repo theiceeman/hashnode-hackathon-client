@@ -1,6 +1,6 @@
 # Eth-Wallet Dapp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_Always push your updates, new features and changes to the development branch. Only reviewed code(after merging conflicts) should be pushed to the main branch!_
 
 ## Available Scripts
 
