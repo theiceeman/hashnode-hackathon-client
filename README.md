@@ -11,6 +11,8 @@ yarn install
 ```
 
 In the project directory, you can run:\
- `yarn start`: Runs the app in the development mode.\
+`yarn run watch-css`: Rebuilding the css on new changes
+`yarn build-css`: minfiy the css for production
+`yarn start`: Runs the app in the development mode.\
  `yarn test`: Launches the test runner in the interactive watch mode.\
  `yarn run build`: Builds the app for production to the `build` folder.\
