@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-// import './index.css'; // main css
+// flowbite js
+import '@themesberg/flowbite';
+// tailwind css styles
 import './css/tailwind.css';
 
 import App from './App';
