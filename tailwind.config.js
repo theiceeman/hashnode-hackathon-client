@@ -3,6 +3,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
+				'dm-sans': ['DM Sans', 'sans-serif'],
 				'segoe-ui': [
 					'Nunito',
 					'-apple-system',
@@ -30,12 +31,35 @@ module.exports = {
 					800: '#32363E',
 					900: '#20232A',
 					dark: '#212121',
-					darker: '#20232A',
+					darker: '#22262D',
 				},
-				secondary: {
-					lighter: '#FFD3BC',
-					light: '#FFC5A6',
-					main: '#FB9678',
+				norm: {
+					light: '#777490',
+					gray: '#F4F5F6',
+					black: '#23262F',
+					blue: '#3772FF',
+					green: '#58BD7D',
+				},
+				'norm-dark': {
+					black: '#141416',
+					card: '#18191D',
+				},
+				nature: {
+					100: '#FAFBFB',
+					200: '#00C292',
+					300: '#e46a76',
+					400: '#fec90f',
+					700: '#777e90',
+					800: '#32363E',
+					900: '#20232A',
+				},
+				glitz: {
+					100: '#FAFBFB',
+					200: '#C3E4FC',
+					300: '#1A97F5',
+					400: '#1682D4',
+					500: '#2956BA',
+					600: '#1E4DB7',
 				},
 			},
 		},
