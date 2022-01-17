@@ -1,31 +1,20 @@
+import Features from 'components/Features';
+import Hero from 'components/Hero';
+import MarketTrend from 'components/MarketTrend';
+import Pricing from 'components/Pricing';
+import Steps from 'components/Steps';
 import React from 'react';
-import { ThirdwebProvider, ConnectWallet } from '@3rdweb/react';
-import TokenComponent from 'components/token';
-const supportedChainIds = [1, 4, 137, 250, 43114, 80001];
-const connectors = {
-  injected: {},
-  magic: { 
-  },
-  walletconnect: {},
-  walletlink: {
-    appName: "thirdweb - demo",
-    url: "https://thirdweb.com",
-    darkMode: false,
-  },
-};
 
-const Home = () => {
-	return (
-		<div>
-	<ThirdwebProvider
-      connectors={connectors}
-      supportedChainIds={supportedChainIds}
-    >
-      <ConnectWallet />
-      <TokenComponent />
-    </ThirdwebProvider>
-		</div>
-	);
-};
+function Home() {
+    return (
+        <div className='overflow-hidden'>
+           <Hero />
+           <Pricing />
+           <MarketTrend />
+           <Features />
+           <Steps />
+        </div>
+    )
+}
 
-export default Home;
+export default Home
