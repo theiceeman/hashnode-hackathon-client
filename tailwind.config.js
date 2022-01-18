@@ -11,19 +11,19 @@ module.exports = {
       }},
 		extend: {
 			fontFamily: {
-				'dm-sans': ['DM Sans', 'sans-serif'],
+				"dm-sans": ['DM Sans', 'sans-serif'],
 				'segoe-ui': [
 					'Nunito',
 					'-apple-system',
 					'BlinkMacSystemFont',
-					'"Segoe UI"',
+					'Segoe UI',
 					'Roboto',
-					'"Helvetica Neue"',
+					'Helvetica Neue',
 					'Arial',
 					'sans-serif',
-					'"Apple Color Emoji"',
-					'"Segoe UI Emoji"',
-					'"Segoe UI Symbol"',
+					'Apple Color Emoji',
+					'Segoe UI Emoji',
+					'Segoe UI Symbol',
 				],
 			},
 			basis: {
@@ -78,3 +78,5 @@ module.exports = {
 	},
 	plugins: [require('@themesberg/flowbite/plugin')],
 };
+
+// Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
