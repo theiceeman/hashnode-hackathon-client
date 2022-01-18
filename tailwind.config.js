@@ -25,6 +25,20 @@ module.exports = {
 					'Segoe UI Emoji',
 					'Segoe UI Symbol',
 				],
+				nunito: [
+					'Nunito',
+					'-apple-system',
+					'BlinkMacSystemFont',
+					'Segoe UI',
+					'Roboto',
+					'Helvetica',
+					'Neue',
+					'Arial',
+					'sans-serif',
+					'Apple Color Emoji',
+					'Segoe UI Emoji',
+					'Segoe UI Symbol',
+				],
 			},
 			basis: {
 				"3/5": "60%",
@@ -78,5 +92,3 @@ module.exports = {
 	},
 	plugins: [require('@themesberg/flowbite/plugin')],
 };
-
-// Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
