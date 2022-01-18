@@ -1,6 +1,14 @@
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}', './node_modules/@themesberg/flowbite/**/*.js'],
 	theme: {
+		   container: {
+      center: true,
+      padding: "0.5rem",
+      screens: {
+        lg: "1124px",
+        xl: "1124px",
+        "2xl": "1124px",
+      }},
 		extend: {
 			fontFamily: {
 				'dm-sans': ['DM Sans', 'sans-serif'],
@@ -17,6 +25,10 @@ module.exports = {
 					'"Segoe UI Emoji"',
 					'"Segoe UI Symbol"',
 				],
+			},
+			basis: {
+				"3/5": "60%",
+				"2/5" : "40"
 			},
 			colors: {
 				grey: {
