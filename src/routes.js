@@ -10,7 +10,7 @@ import { HomePage, WalletPage } from 'pages';
 export default function Routes() {
 	return useRoutes([
 		{
-			path: '/dashboard',
+			path: '/app',
 			element: <DashboardLayout />,
 			children: [{ path: '', element: <WalletPage /> }],
 		},
