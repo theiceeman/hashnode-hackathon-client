@@ -10,9 +10,14 @@ Install dependencies:
 yarn install
 ```
 
+Rebuild the css on new changes:
+
+```bash
+yarn run watch-css
+```
+
 In the project directory, you can run:\
-`yarn run watch-css`: Rebuilding the css on new changes
-`yarn build-css`: minfiy the css for production
 `yarn start`: Runs the app in the development mode.\
+`yarn build-css`: minfiy the css for production.\
  `yarn test`: Launches the test runner in the interactive watch mode.\
  `yarn run build`: Builds the app for production to the `build` folder.\
