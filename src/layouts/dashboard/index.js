@@ -22,8 +22,8 @@ const DashboardLayout = () => {
 						<Navbar show={show} setShow={setShow} profile={profile} setProfile={setProfile} />
 						{/* Navigation ends */}
 						{/* Remove class [ h-64 ] when adding a card block */}
-						<div className='container mx-auto py-10  md:w-4/5 w-11/12 px-6'>
-							<main className='w-full h-full rounded'>
+						<div className='container mx-auto py-12 md:w-full w-11/12 px-8'>
+							<main className='w-full h-full'>
 								<Outlet />
 							</main>
 						</div>
