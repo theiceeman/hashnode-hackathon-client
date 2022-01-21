@@ -7,7 +7,7 @@ function OneFeature ({img, topic, body}) {
     return (
         <div className='mr-4 bg-white mb-8 lg:mb-0 rounded-2xl py-12 px-8 flex flex-col  items-center justify-center'>
             <div className='py-4 mb-1'>
-                <img src={img} className='bg-cover' />
+                <img  src={img} className='bg-cover' />
             </div>
             <span className='mb-1 font-semibold text-center text-lg text-gray-600 py-2'>{topic}</span>
             <p className='mb-3 text-center py-2 font-dm-sans text-gray-400' > {body} </p>

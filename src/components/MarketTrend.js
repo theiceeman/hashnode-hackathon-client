@@ -9,7 +9,7 @@ function MarketTrend() {
              <div className='flex w-full justify-between flex-col lg:flex-row gap-y-3 px-4 lg:px-0 mb-8 lg:mb-16  content-center'>
                  <h1 className='justify-self-start text-5xl'>MarketTrend</h1>
                  <div className='flex items-center'>
-                    <button className='w-full border-2 w-1/2 lg:w-full  border-gray-200 rounded-3xl font-segoe-ui hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white text-gray-800 font-semibold text-lg px-8 py-2'>View more</button>
+                    <button className='w-full border-2 w-1/2 lg:w-full  border-gray-200 rounded-3xl font-segoe-ui hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none text-gray-800 font-semibold text-lg px-8 py-2'>View more</button>
                  </div>
              </div>
              {/* <!-- component --> */}
@@ -36,7 +36,7 @@ function MarketTrend() {
                             </tr>
                         </thead>
                         <tbody class="text-lg">
-                            <tr className='hover:bg-gray-50 hover:rounded-lg hover:cursor-pointer' >
+                            <tr className='hover:bg-gray-100 hover:rounded-3xl hover:cursor-pointer' >
                             <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center py-2">
                                        <span className='text-lg text-gray-500 font-dm-sans'>1</span>
@@ -56,10 +56,10 @@ function MarketTrend() {
                                     <div class="text-left py-2 font-medium text-lg text-green-500">+1.7%</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap flex items-end content-end justify-center">
-                                    <button class="text-lg py-1 px-6 mt-2 text-right  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl">Trade</button>
+                                    <button class="text-lg py-1 px-6 mt-2 text-right hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl">Trade</button>
                                 </td>
                             </tr>
-                            <tr className='hover:bg-gray-50 hover:rounded-lg hover:cursor-pointer' >
+                            <tr className='hover:bg-gray-100 hover:rounded-xl hover:cursor-pointer' >
                             <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center py-2">
                                        <span className='text-lg text-gray-500 font-dm-sans'>2</span>
@@ -79,10 +79,10 @@ function MarketTrend() {
                                     <div class="text-left py-2 font-medium text-lg text-green-500">+1.7%</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap flex items-end content-end justify-center">
-                                    <button class="text-lg py-1 px-6 mt-2 text-right  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl">Trade</button>
+                                    <button class="text-lg py-1 px-6 mt-2 text-right hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl">Trade</button>
                                 </td>
                             </tr>
-                            <tr className='hover:bg-gray-50 hover:rounded-lg hover:cursor-pointer' >
+                            <tr className='hover:bg-gray-100 hover:rounded-xl hover:cursor-pointer' >
                             <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center py-2">
                                        <span className='text-lg text-gray-500 font-dm-sans'>3</span>
@@ -101,8 +101,9 @@ function MarketTrend() {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left py-2 font-medium text-lg text-green-500">+1.7%</div>
                                 </td>
+                        
                                 <td class="p-2 whitespace-nowrap flex items-end content-end justify-center">
-                                    <button class="text-lg py-1 px-6 mt-2 text-right  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl">Trade</button>
+                                    <button class="text-lg py-1 px-6 mt-2 text-right hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl">Trade</button>
                                 </td>
                             </tr>
                         </tbody>

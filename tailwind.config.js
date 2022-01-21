@@ -1,34 +1,25 @@
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}', './node_modules/@themesberg/flowbite/**/*.js'],
+	darkMode: 'class', // or 'media' or 'class'
 	theme: {
-		   container: {
-      center: true,
-      padding: "0.5rem",
-      screens: {
-        lg: "1124px",
-        xl: "1124px",
-        "2xl": "1124px",
-      }},
+		container: {
+			center: true,
+			padding: '0.5rem',
+			screens: {
+				lg: '1124px',
+				xl: '1124px',
+				'2xl': '1124px',
+			},
+		},
 		extend: {
 			fontFamily: {
+				nunito: ['Nunito', 'sans-serif'],
 				'dm-sans': ['DM Sans', 'sans-serif'],
-				'segoe-ui': [
-					'Nunito',
-					'-apple-system',
-					'BlinkMacSystemFont',
-					'"Segoe UI"',
-					'Roboto',
-					'"Helvetica Neue"',
-					'Arial',
-					'sans-serif',
-					'"Apple Color Emoji"',
-					'"Segoe UI Emoji"',
-					'"Segoe UI Symbol"',
-				],
+				'nunito-sans': ['Nunito Sans', 'sans-serif'],
 			},
 			basis: {
-				"3/5": "60%",
-				"2/5" : "40"
+				'3/5': '60%',
+				'2/5': '40',
 			},
 			colors: {
 				grey: {
@@ -57,13 +48,15 @@ module.exports = {
 					card: '#18191D',
 				},
 				nature: {
-					100: '#FAFBFB',
+					50: '#F7F7F7',
+					100: '#F6F7F8',
 					200: '#00C292',
 					300: '#e46a76',
 					400: '#fec90f',
 					700: '#777e90',
 					800: '#32363E',
 					900: '#20232A',
+					text: '#E6E5E8',
 				},
 				glitz: {
 					100: '#FAFBFB',
