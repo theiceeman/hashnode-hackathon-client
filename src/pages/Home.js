@@ -13,7 +13,7 @@ function Home() {
            <Pricing />
            <MarketTrend />
            <Features />
-           <TransferModal />
+           {/* <TransferModal /> */}
            <Steps />
         </div>
     )
