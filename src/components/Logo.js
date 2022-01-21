@@ -1,7 +1,16 @@
 import React from 'react';
+import Darkmode from './Darkmode';
 
 const Logo = ({ className }) => {
-	return <img className={className ?? ' w-[200px] h-10'} src='/images/logo-light.svg' alt='logo' />;
+	const [colorTheme] = Darkmode();
+	// const theme = localStorage.getItem('color-theme');
+	return (
+		<img
+			className={className ?? 'w-full'}
+			src={colorTheme === 'light' ? '/images/logo-light.svg' : '/images/logo-dark.svg'}
+			alt='logo'
+		/>
+	);
 };
 
 export default Logo;
