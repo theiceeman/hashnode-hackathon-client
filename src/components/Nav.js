@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import img1 from "../Public/imgs/logo-light.svg";
+import TransferModal from './TransferModal';
 
 function Nav() {
     const [show, setShow] = useState(false);
@@ -31,6 +32,7 @@ function Nav() {
                         <a class="li" href="#">Market</a>
                         <a class="li" href="#">Discover</a>
                         <a class="li" href="#">Dashboard</a>
+                        {/* <TransferModal /> */}
                     </div>
 
                     <div class={`${show ? 'flex' : 'hidden'} md:flex items-center py-2 -mx-1 md:mx-0`}>

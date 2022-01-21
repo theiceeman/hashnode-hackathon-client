@@ -1,11 +1,13 @@
 import React from 'react';
+import Darkmode from './Darkmode';
 
 const Logo = ({ className }) => {
-	const theme = localStorage.getItem('color-theme');
+	const [colorTheme] = Darkmode();
+	// const theme = localStorage.getItem('color-theme');
 	return (
 		<img
 			className={className ?? 'w-full'}
-			src={theme === 'dark' ? '/images/logo-dark.svg' : '/images/logo-light.svg'}
+			src={colorTheme === 'light' ? '/images/logo-light.svg' : '/images/logo-dark.svg'}
 			alt='logo'
 		/>
 	);

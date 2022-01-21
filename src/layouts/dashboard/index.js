@@ -14,7 +14,7 @@ const DashboardLayout = () => {
 					<Navbar />
 					<TopBar />
 					{/* Navigation ends */}
-					<main className=' mx-auto py-12 w-full px-8'>
+					<main className='lg:container lg:mx-auto py-12 w-full lg:px-8'>
 						<Outlet />
 					</main>
 				</div>
