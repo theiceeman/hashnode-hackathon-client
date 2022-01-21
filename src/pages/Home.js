@@ -3,6 +3,7 @@ import Hero from 'components/Hero';
 import MarketTrend from 'components/MarketTrend';
 import Pricing from 'components/Pricing';
 import Steps from 'components/Steps';
+import TransferModal from 'components/TransferModal';
 import React from 'react';
 
 function Home() {
@@ -12,6 +13,7 @@ function Home() {
            <Pricing />
            <MarketTrend />
            <Features />
+           <TransferModal />
            <Steps />
         </div>
     )
