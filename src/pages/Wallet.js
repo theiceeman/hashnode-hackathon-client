@@ -1,3 +1,4 @@
+import TransferModal from 'components/TransferModal';
 import React from 'react';
 import { MdVisibility } from 'react-icons/md';
 // import bitcoin from '../Public/imgs/bitcoin.svg';
@@ -265,6 +266,7 @@ const Wallet = () => {
 					</p> */}
 				</div>
 			</div>
+			<TransferModal />
 		</>
 	);
 };
