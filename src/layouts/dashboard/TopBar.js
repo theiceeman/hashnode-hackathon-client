@@ -1,3 +1,4 @@
+import TransferModal from 'components/TransferModal';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -21,16 +22,7 @@ const TopBar = () => {
 					</Link>
 				</li>
 				<li className='w-full'>
-					<Link
-						to='/stake'
-						className={`inline-block relative py-4 px-4 w-full text-sm font-medium font-dm-sans capitalize text-center ${
-							pathname === '/stake'
-								? 'text-white bg-glitz-300 hover:bg-glitz-400 hover:text-glitz-100'
-								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-nature-50 dark:hover:bg-norm-black'
-						}`}
-					>
-						Stake
-					</Link>
+					<TransferModal />
 				</li>
 			</ul>
 		</div>

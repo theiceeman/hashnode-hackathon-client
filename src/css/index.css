@@ -8,7 +8,7 @@
 		@apply text-grey-700 mr-10 hover:cursor-pointer hover:text-grey-900 font-semibold tracking-wider;
 	}
 	.btn {
-		@apply border-2 w-1/2 lg:w-full  border-gray-200 rounded-3xl font-segoe-ui hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white text-gray-800 font-semibold text-lg px-8 py-2;
+		@apply border-2 w-1/2 lg:w-full  border-gray-200 rounded-3xl  hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white text-gray-800 font-semibold text-lg px-8 py-2;
 	}
 }
 
