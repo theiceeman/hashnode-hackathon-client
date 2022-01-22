@@ -2722,4 +2722,14 @@ th{
     font-size: 1.5rem;
     line-height: 2rem;
   }
+
+  .lg\:text-lg{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .lg\:first-line\:text-lg::first-line{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
