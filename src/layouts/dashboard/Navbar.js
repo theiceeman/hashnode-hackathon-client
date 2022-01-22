@@ -27,7 +27,7 @@ const Navbar = () => {
 						</button>
 						<button
 							type='button'
-							className='text-white bg-glitz-300 hover:bg-glitz-400 text-base leading-6 font-dm-sans font-medium transition duration-150 ease-in-out rounded-3xl px-6 py-2 mr-3 md:mr-0'
+							className='text-white bg-norm-blue hover:bg-norm-dblue text-base leading-6 font-dm-sans font-medium transition duration-150 ease-in-out rounded-3xl px-6 py-2 mr-3 md:mr-0'
 						>
 							Connect a Wallet
 						</button>

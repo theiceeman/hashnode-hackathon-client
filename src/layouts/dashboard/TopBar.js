@@ -13,8 +13,8 @@ const TopBar = () => {
 						to='/app'
 						className={`inline-block relative py-4 px-4 w-full text-sm font-medium font-dm-sans capitalize text-center ${
 							pathname === '/dashboard'
-								? 'text-white bg-glitz-300 hover:bg-glitz-400 hover:text-glitz-100'
-								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-nature-50 dark:hover:bg-norm-black'
+								? 'text-white bg-norm-blue hover:bg-norm-dblue hover:text-nature-100'
+								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-glitz-100 dark:hover:bg-norm-black'
 						}`}
 					>
 						overview
@@ -25,8 +25,8 @@ const TopBar = () => {
 						to='/stake'
 						className={`inline-block relative py-4 px-4 w-full text-sm font-medium font-dm-sans capitalize text-center ${
 							pathname === '/stake'
-								? 'text-white bg-glitz-300 hover:bg-glitz-400 hover:text-glitz-100'
-								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-nature-50 dark:hover:bg-norm-black'
+								? 'text-white bg-norm-blue hover:bg-norm-dblue hover:text-glitz-100'
+								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-glitz-100 dark:hover:bg-norm-black'
 						}`}
 					>
 						Stake
