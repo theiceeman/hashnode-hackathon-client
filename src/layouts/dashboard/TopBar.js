@@ -1,3 +1,4 @@
+import TransferModal from 'components/TransferModal';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -31,6 +32,7 @@ const TopBar = () => {
 					>
 						Stake
 					</Link>
+					{/* <TransferModal /> */}
 				</li>
 			</ul>
 		</div>

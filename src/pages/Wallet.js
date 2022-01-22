@@ -1,3 +1,4 @@
+import TransferModal from 'components/TransferModal';
 import React from 'react';
 import { MdVisibility } from 'react-icons/md';
 import { formater } from 'components/atom';
@@ -240,6 +241,7 @@ const Wallet = () => {
 					</div>
 				</div>
 			</div>
+			<TransferModal />
 		</>
 	);
 };
