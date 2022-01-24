@@ -5,14 +5,17 @@ import { useRoutes } from 'react-router-dom';
 import MainLayout from 'layouts/MainLayout';
 import DashboardLayout from 'layouts/dashboard';
 // pages
-import { Error404Page, HomePage, WalletPage } from 'pages';
+import { Error404Page, HomePage, StakePage, WalletPage } from 'pages';
 
 export default function Routes() {
 	return useRoutes([
 		{
 			path: '/dashboard',
 			element: <DashboardLayout />,
-			children: [{ path: '', element: <WalletPage /> }],
+			children: [
+				{ path: '', element: <WalletPage /> },
+				{ path: 'stake', element: <StakePage /> },
+			],
 		},
 		{
 			path: '/',

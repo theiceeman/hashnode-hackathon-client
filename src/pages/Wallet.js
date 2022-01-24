@@ -1,35 +1,20 @@
 import TransferModal from 'components/TransferModal';
-import React from 'react';
+import React, { useState } from 'react';
 import { MdVisibility } from 'react-icons/md';
-// import bitcoin from '../Public/imgs/bitcoin.svg';
-// import chainlink from '../Public/imgs/chainlink.svg';
-// import maid from '../Public/imgs/maid.svg';
-const formater = new Intl.NumberFormat('en-US', {
-	style: 'currency',
-	currency: 'USD',
-	maximumFractionDigits: 2,
-});
-
-const people = [
-	{
-		name: 'Jane Cooper',
-		title: 'Regional Paradigm Technician',
-		department: 'Optimization',
-		role: 'Admin',
-		email: 'jane.cooper@example.com',
-		image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-	},
-	// More people...
-];
+import { formater } from 'components/atom';
+import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
+import tokens from 'components/_mock_/coin';
 
 const Wallet = () => {
+	const [show, setShow] = useState(false);
+
 	return (
 		<>
 			<div className='bg-white pb-7 rounded-t-lg dark:bg-nature-800'>
 				<div className='container px-6 py-4 mx-auto'>
 					<div className='flex items-center justify-between'>
 						<div>
-							<h4 className='text-xl font-normal leading-5 font-dm-sans text-neutral-500 mb-4'>
+							<h4 className='text-xl font-normal leading-5 font-dm-sans text-neutral-500 dark:text-norm-text mb-4'>
 								Total balance
 							</h4>
 							<p className='flex items-center text-lg font-nunito font-bold text-center text-gray-800 capitalize lg:text-2xl dark:text-white'>
@@ -40,7 +25,7 @@ const Wallet = () => {
 								/>{' '}
 								0 ETH
 							</p>
-							<p className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 mt-2'>
+							<p className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>
 								= {formater.format(0)}
 							</p>
 						</div>
@@ -53,9 +38,34 @@ const Wallet = () => {
 							</button>
 						</div>
 					</div>
+
+					<div className='flex items-center justify-center w-full mt-10'>
+						<button
+							type='button'
+							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+						>
+							<DepositIcon className='mr-1 -ml-1 w-4 h-4' />
+							Deposit
+						</button>
+						<button
+							type='button'
+							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+						>
+							<WithdrawalIcon className='mr-1 -ml-1 w-4 h-4' />
+							Withdraw
+						</button>
+						<button
+							type='button'
+							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+							onClick={() => setShow(true)}
+						>
+							<TransferIcon className='mr-1 -ml-1 w-4 h-4' />
+							Transfer
+						</button>
+					</div>
 				</div>
 			</div>
-			<div className='bg-white dark:bg-nature-800 mb-4 border-b border-gray-200 dark:border-gray-700'>
+			<div className='bg-white dark:bg-nature-800'>
 				<ul className='flex -mb-px' id='myTab' data-tabs-toggle='#myTabContent' role='tablist'>
 					<li className='w-full' role='presentation'>
 						<button
@@ -86,114 +96,56 @@ const Wallet = () => {
 				</ul>
 			</div>
 			<div id='myTabContent'>
-				<div
-					className='bg-gray-50  dark:bg-nature-800'
-					id='profile'
-					role='tabpanel'
-					aria-labelledby='profile-tab'
-				>
-					<div class='overflow-x-auto w-full'>
-						<table class='table-auto w-full'>
-							<tbody class='text-lg'>
-								<tr className='hover:bg-gray-50 hover:rounded-lg hover:cursor-pointer'>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<span className='text-lg text-gray-500 font-dm-sans'>1</span>
-										</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
-												<img
-													class='rounded-full'
-													src='/images/bitcoin.svg'
-													widtd='40'
-													height='40'
-													alt='Alex Shatov'
-												/>
+				<div className='bg-white dark:bg-nature-800' id='profile' role='tabpanel' aria-labelledby='profile-tab'>
+					<div class='overflow-x-auto max-w-full'>
+						<table class='w-full'>
+							<tbody>
+								{tokens.map((token) => (
+									<tr className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'>
+										<td class='p-2 pl-5 whitespace-nowrap'>
+											<div class='flex items-center py-2'>
+												<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
+													<img
+														class='rounded-full'
+														src={token.image}
+														widtd='40'
+														height='40'
+														alt={token.name}
+													/>
+												</div>
+												<div className='ml-4'>
+													<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+														{token.name}
+													</div>
+													<div class='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
+														{formater.format(token.price)}{' '}
+														<span
+															className={`ml-3 ${
+																token.profit.startsWith('-')
+																	? ' text-nature-300'
+																	: 'text-nature-200'
+															}`}
+														>
+															{token.profit}%
+														</span>
+													</div>
+												</div>
 											</div>
-											<div class='font-medium text-lg mr-3 text-gray-800'>Bitcoin</div>
-											<div class='font-medium text-lg tracking-wider text-gray-300'>BTC</div>
-										</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='text-left py-2 text-lg font-semibold text-gray-600'>$36,450.21</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='text-left py-2 font-medium text-lg text-green-500'>+1.7%</div>
-									</td>
-									<td class='p-2 whitespace-nowrap flex items-end content-end justify-center'>
-										<button class='text-lg py-1 px-6 mt-2 text-right  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
-											Trade
-										</button>
-									</td>
-								</tr>
-								<tr className='hover:bg-gray-50 hover:rounded-lg hover:cursor-pointer'>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<span className='text-lg text-gray-500 font-dm-sans'>2</span>
-										</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
-												<img
-													class='rounded-full'
-													src='/images/maid.svg'
-													widtd='40'
-													height='40'
-													alt='Alex Shatov'
-												/>
+										</td>
+										<td className='p-2'></td>
+										{/* <td className='p-2'></td> */}
+										<td class='p-2 pr-5 whitespace-nowrap'>
+											<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+												{token.balance}
 											</div>
-											<div class='font-medium text-lg mr-3 text-gray-800'>Bitcoin</div>
-											<div class='font-medium text-lg tracking-wider text-gray-300'>BTC</div>
-										</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='text-left py-2 text-lg font-semibold text-gray-600'>$36,450.21</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='text-left py-2 font-medium text-lg text-green-500'>+1.7%</div>
-									</td>
-									<td class='p-2 whitespace-nowrap flex items-end content-end justify-center'>
-										<button class='text-lg py-1 px-6 mt-2 text-right  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
-											Trade
-										</button>
-									</td>
-								</tr>
-								<tr className='hover:bg-gray-50 hover:rounded-lg hover:cursor-pointer'>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<span className='text-lg text-gray-500 font-dm-sans'>3</span>
-										</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
-												<img
-													class='rounded-full'
-													src='/images/chainlink.svg'
-													widtd='40'
-													height='40'
-													alt='Alex Shatov'
-												/>
-											</div>
-											<div class='font-medium text-lg mr-3 text-gray-800'>Bitcoin</div>
-											<div class='font-medium text-lg tracking-wider text-gray-300'>BTC</div>
-										</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='text-left py-2 text-lg font-semibold text-gray-600'>$36,450.21</div>
-									</td>
-									<td class='p-2 whitespace-nowrap'>
-										<div class='text-left py-2 font-medium text-lg text-green-500'>+1.7%</div>
-									</td>
-									<td class='p-2 whitespace-nowrap flex items-end content-end justify-center'>
-										<button class='text-lg py-1 px-6 mt-2 text-right  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
-											Trade
-										</button>
-									</td>
-								</tr>
+										</td>
+										{/* <td class='p-2 pl-10 whitespace-nowrap'>
+		<div class='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
+			<HiArrowRight className='w-4 h-4' />
+		</div>
+	</td> */}
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
@@ -204,69 +156,56 @@ const Wallet = () => {
 					role='tabpanel'
 					aria-labelledby='dashboard-tab'
 				>
-					<div className='flex flex-col'>
-						<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
-							<div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-								<div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
-									<table className='min-w-full divide-y divide-gray-200'>
-										<tbody className='bg-white divide-y divide-gray-200'>
-											{people.map((person) => (
-												<tr key={person.email}>
-													<td className='px-6 py-4 whitespace-nowrap'>
-														<div className='flex items-center'>
-															<div className='flex-shrink-0 h-10 w-10'>
-																<img
-																	className='h-10 w-10 rounded-full'
-																	src={person.image}
-																	alt=''
-																/>
-															</div>
-															<div className='ml-4'>
-																<div className='text-sm font-medium text-gray-900'>
-																	{person.name}
-																</div>
-																<div className='text-sm text-gray-500'>
-																	{person.email}
-																</div>
-															</div>
-														</div>
-													</td>
-													<td className='px-6 py-4 whitespace-nowrap'>
-														<div className='text-sm text-gray-900'>{person.title}</div>
-														<div className='text-sm text-gray-500'>{person.department}</div>
-													</td>
-													<td className='px-6 py-4 whitespace-nowrap'>
-														<span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800'>
-															Active
+					<div class='overflow-x-auto max-w-full'>
+						<table class='w-full'>
+							<tbody>
+								{tokens.map((token) => (
+									<tr className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'>
+										<td class='p-2 pl-5 whitespace-nowrap'>
+											<div class='flex items-center py-2'>
+												<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
+													<img
+														class='rounded-full'
+														src={token.image}
+														widtd='40'
+														height='40'
+														alt={token.name}
+													/>
+												</div>
+												<div className='ml-4'>
+													<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+														{token.name}
+													</div>
+													<div class='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
+														{formater.format(token.price)}{' '}
+														<span
+															className={`ml-3 ${
+																token.profit.startsWith('-')
+																	? ' text-nature-300'
+																	: 'text-nature-200'
+															}`}
+														>
+															{token.profit}%
 														</span>
-													</td>
-													<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-														{person.role}
-													</td>
-													<td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-														<a href='#' className='text-indigo-600 hover:text-indigo-900'>
-															Edit
-														</a>
-													</td>
-												</tr>
-											))}
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td className='p-2'></td>
+										{/* <td className='p-2'></td> */}
+										<td class='p-2 pr-5 whitespace-nowrap'>
+											<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+												{token.balance}
+											</div>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					</div>
-					{/* <p className='text-sm text-gray-500 dark:text-gray-400'>
-						This is some placeholder content the{' '}
-						<strong className='font-medium text-gray-800 dark:text-white'>
-							Dashboard tab's associated content
-						</strong>
-						. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript
-						swaps classes to control the content visibility and styling.
-					</p> */}
 				</div>
 			</div>
-			<TransferModal />
+			<TransferModal show={show} setShow={setShow} />
 		</>
 	);
 };

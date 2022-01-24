@@ -22,5 +22,5 @@
 }
 
 [role='tab'].active {
-	@apply text-glitz-300 border-glitz-400 dark:text-glitz-400 dark:border-glitz-500 hover:text-glitz-300 hover:border-glitz-400 dark:hover:text-glitz-300 dark:hover:border-glitz-400;
+	@apply text-norm-blue border-norm-dblue dark:text-norm-blue dark:border-norm-dblue hover:text-norm-blue hover:border-norm-dblue dark:hover:text-norm-blue dark:hover:border-norm-dblue;
 }
