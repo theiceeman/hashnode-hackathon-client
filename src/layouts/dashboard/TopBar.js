@@ -10,21 +10,21 @@ const TopBar = () => {
 			<ul className='flex divide-x pt-4 divide-gray-200 sm:flex dark:divide-gray-700'>
 				<li className='w-full'>
 					<Link
-						to='/app'
-						className={`inline-block relative py-4 px-4 w-full text-sm font-medium font-dm-sans capitalize text-center ${
+						to='/dashboard'
+						className={`inline-block relative py-4 px-4 w-full text-base leading-5 tracking-wider font-medium font-dm-sans capitalize text-center ${
 							pathname === '/dashboard'
 								? 'text-white bg-norm-blue hover:bg-norm-dblue hover:text-nature-100'
 								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-glitz-100 dark:hover:bg-norm-black'
 						}`}
 					>
-						overview
+						Wallet
 					</Link>
 				</li>
 				<li className='w-full'>
 					<Link
-						to='/stake'
-						className={`inline-block relative py-4 px-4 w-full text-sm font-medium font-dm-sans capitalize text-center ${
-							pathname === '/stake'
+						to='stake'
+						className={`inline-block relative py-4 px-4 w-full text-base leading-5 tracking-wider font-medium font-dm-sans capitalize text-center ${
+							pathname === '/dashboard/stake'
 								? 'text-white bg-norm-blue hover:bg-norm-dblue hover:text-glitz-100'
 								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-glitz-100 dark:hover:bg-norm-black'
 						}`}
