@@ -56,7 +56,7 @@ function Nav() {
 						</div>
 
 						<div className={`${show ? 'flex' : 'hidden'} md:flex items-center py-2 -mx-1 md:mx-0`}>
-							<button className='bg-norm-blue border-none px-4 py-2 shadow-2xl rounded-2xl text-white font-segoe-ui font-semibold'>
+							<button className='bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium'>
 								Connect Wallet
 							</button>{' '}
 						</div>

@@ -181,7 +181,7 @@ const Wallet = () => {
 														<span
 															className={`ml-3 ${
 																token.profit.startsWith('-')
-																	? ' text-nature-300'
+																	? 'text-nature-300'
 																	: 'text-nature-200'
 															}`}
 														>

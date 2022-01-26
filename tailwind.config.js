@@ -44,6 +44,7 @@ module.exports = {
 					blue: '#3772FF',
 					dblue: '#0045EA',
 					green: '#58BD7D',
+					orange: '#FF6838',
 					ldark: '#282C34',
 				},
 				'norm-dark': {
