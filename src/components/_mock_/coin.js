@@ -1,5 +1,6 @@
 const tokens = [
 	{
+		id: 'BTC',
 		image: '/images/token/bitcoin.svg',
 		name: 'Bitcoin',
 		price: '36376.81',
@@ -7,6 +8,7 @@ const tokens = [
 		balance: '0 BTC',
 	},
 	{
+		id: 'ETH',
 		image: '/images/token/ethereum.svg',
 		name: 'Ethereum',
 		price: '2593.08',
@@ -14,6 +16,7 @@ const tokens = [
 		balance: '0.3708 ETH',
 	},
 	{
+		id: 'BNB',
 		image: '/images/token/bnb.svg',
 		name: 'BNB',
 		price: '386.59',
@@ -21,6 +24,7 @@ const tokens = [
 		balance: '0 BNB',
 	},
 	{
+		id: 'USDT',
 		image: '/images/token/tether.svg',
 		name: 'Tether USD',
 		price: '1.00',
@@ -28,6 +32,7 @@ const tokens = [
 		balance: '0 USDT',
 	},
 	{
+		id: 'XRP',
 		image: '/images/token/ripple.svg',
 		name: 'XRP Ripple',
 		price: '0.64',
@@ -35,6 +40,7 @@ const tokens = [
 		balance: '0 XRP',
 	},
 	{
+		id: 'TRX',
 		image: '/images/token/tron.svg',
 		name: 'Tron',
 		price: '0.06',
@@ -42,6 +48,7 @@ const tokens = [
 		balance: '0 TRX',
 	},
 	{
+		id: 'LINK',
 		image: '/images/token/chainlink.svg',
 		name: 'LINK',
 		price: '17.53',
