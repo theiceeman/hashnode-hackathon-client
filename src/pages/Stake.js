@@ -1,7 +1,11 @@
 import React from 'react';
 import MyListbox from 'components/List';
+import { formater } from 'components/atom';
+import tokens from 'components/_mock_/coin';
+import { useNavigate } from 'react-router-dom';
 
 const Stake = () => {
+	const navigate = useNavigate();
 	return (
 		<>
 			<div className='bg-white pb-7 rounded-t-lg dark:bg-nature-800'>
@@ -57,35 +61,64 @@ const Stake = () => {
 					</div>
 				</div>
 			</div>
-			<div className='bg-white dark:bg-nature-800'>
-				<ul className='flex -mb-px' id='myTab' data-tabs-toggle='#myTabContent' role='tablist'>
-					<li className='w-full' role='presentation'>
-						<button
-							className='inline-block relative py-4 px-4 w-full text-base font-dm-sans leading-5 capitalize font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 active'
-							id='profile-tab'
-							data-tabs-target='#profile'
-							type='button'
-							role='tab'
-							aria-controls='profile'
-							aria-selected='true'
-						>
-							Savings
-						</button>
-					</li>
-					{/* <li className='w-full' role='presentation'>
-						<button
-							className='inline-block relative py-4 px-4 w-full text-base font-dm-sans leading-5 capitalize font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
-							id='dashboard-tab'
-							data-tabs-target='#dashboard'
-							type='button'
-							role='tab'
-							aria-controls='dashboard'
-							aria-selected='false'
-						>
-							Transactions
-						</button>
-					</li> */}
-				</ul>
+
+			<div className='bg-white dark:bg-nature-800' id='profile' role='tabpanel' aria-labelledby='profile-tab'>
+				<div class='overflow-x-auto max-w-full'>
+					<table class='w-full'>
+						<tbody>
+							{tokens.map((token) => (
+								<tr
+									key={token.name}
+									className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
+									onClick={() => navigate('/')}
+								>
+									<td class='p-2 pl-5 whitespace-nowrap'>
+										<div class='flex items-center py-2'>
+											<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
+												<img
+													class='rounded-full'
+													src={token.image}
+													widtd='40'
+													height='40'
+													alt={token.name}
+												/>
+											</div>
+											<div className='ml-4'>
+												<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+													{token.name}
+												</div>
+												<div class='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
+													{formater.format(token.price)}{' '}
+													<span
+														className={`ml-3 ${
+															token.profit.startsWith('-')
+																? ' text-nature-300'
+																: 'text-nature-200'
+														}`}
+													>
+														{token.profit}%
+													</span>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td className='p-2'></td>
+									{/* <td className='p-2'></td> */}
+									<td class='p-2 pr-5 whitespace-nowrap'>
+										<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+											{token.balance}
+										</div>
+									</td>
+									{/* <td class='p-2 pl-10 whitespace-nowrap'>
+		<div class='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
+			<HiArrowRight className='w-4 h-4' />
+		</div>
+	</td> */}
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</>
 	);

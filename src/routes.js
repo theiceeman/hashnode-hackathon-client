@@ -5,7 +5,7 @@ import { useRoutes } from 'react-router-dom';
 import MainLayout from 'layouts/MainLayout';
 import DashboardLayout from 'layouts/dashboard';
 // pages
-import { Error404Page, HomePage, StakePage, WalletPage } from 'pages';
+import { Error404Page, HomePage, StakePage, TransactionPage, WalletPage } from 'pages';
 
 export default function Routes() {
 	return useRoutes([
@@ -14,6 +14,7 @@ export default function Routes() {
 			element: <DashboardLayout />,
 			children: [
 				{ path: '', element: <WalletPage /> },
+				{ path: 'asset/:slug', element: <TransactionPage /> },
 				{ path: 'stake', element: <StakePage /> },
 			],
 		},

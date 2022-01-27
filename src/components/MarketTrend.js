@@ -4,7 +4,7 @@ function MarketTrend() {
 	return (
 		<div className='py-8 my-16 container mx-auto'>
 			<div className='flex w-full justify-between flex-col lg:flex-row gap-y-3 px-4 lg:px-0 mb-8 lg:mb-16  content-center'>
-				<h1 className='justify-self-start text-5xl'>MarketTrend</h1>
+				<h1 className='justify-self-start text-5xl font-dm-sans'>Market trend</h1>
 				<div className='flex items-center'>
 					<button className='w-1/2 lg:w-full border-2 border-gray-200 rounded-3xl font-segoe-ui hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none text-gray-800 font-semibold text-lg px-8 py-2'>
 						View more
@@ -34,11 +34,11 @@ function MarketTrend() {
 								</td>
 							</tr>
 						</thead>
-						<tbody className='text-lg'>
+						<tbody>
 							<tr className='hover:bg-gray-100 hover:rounded-3xl hover:cursor-pointer'>
 								<td className='p-2 whitespace-nowrap'>
 									<div className='flex items-center py-2'>
-										<span className='text-lg text-gray-500 font-dm-sans'>1</span>
+										<span className='text-base leading-5 text-gray-500 font-dm-sans'>1</span>
 									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
@@ -52,18 +52,24 @@ function MarketTrend() {
 												alt='Alex Shatov'
 											/>
 										</div>
-										<div className='font-medium text-lg mr-3 text-gray-800'>Bitcoin</div>
-										<div className='font-medium text-lg tracking-wider text-gray-300'>BTC</div>
+										<div className='font-medium text-lg leading-5 font-dm-sans mr-3 tracking-wider text-gray-800'>
+											Bitcoin
+										</div>
+										<div className='font-medium text-lg tracking-wider font-nunito text-gray-300'>
+											BTC
+										</div>
 									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
 									<div className='text-left py-2 text-lg font-semibold text-gray-600'>$36,450.21</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
-									<div className='text-left py-2 font-medium text-lg text-green-500'>+1.7%</div>
+									<div className='text-left py-2 font-medium font-nunito text-lg text-green-500'>
+										+1.7%
+									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap flex items-end content-end justify-center'>
-									<button className='lg:text-lg py-1 px-6 mt-2 text-right hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
+									<button className='lg:text-lg py-1 px-6 mt-2 text-center hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
 										Trade
 									</button>
 								</td>
@@ -71,7 +77,7 @@ function MarketTrend() {
 							<tr className='hover:bg-gray-100 hover:rounded-xl hover:cursor-pointer'>
 								<td className='p-2 whitespace-nowrap'>
 									<div className='flex items-center py-2'>
-										<span className='text-lg text-gray-500 font-dm-sans'>2</span>
+										<span className='text-base leading-5 text-gray-500 font-dm-sans'>2</span>
 									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
@@ -85,18 +91,24 @@ function MarketTrend() {
 												alt='Alex Shatov'
 											/>
 										</div>
-										<div className='font-medium text-lg mr-3 text-gray-800'>Bitcoin</div>
-										<div className='font-medium text-lg tracking-wider text-gray-300'>BTC</div>
+										<div className='font-medium text-lg leading-5 font-dm-sans mr-3 tracking-wider text-gray-800'>
+											Bitcoin
+										</div>
+										<div className='font-medium text-lg tracking-wider font-nunito text-gray-300'>
+											BTC
+										</div>
 									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
 									<div className='text-left py-2 text-lg font-semibold text-gray-600'>$36,450.21</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
-									<div className='text-left py-2 font-medium text-lg text-green-500'>+1.7%</div>
+									<div className='text-left py-2 font-medium font-nunito text-lg text-green-500'>
+										+1.7%
+									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap flex items-end content-end justify-center'>
-									<button className='lg:first-line:text-lg py-1 px-6 mt-2 text-right hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
+									<button className='lg:first-line:text-lg py-1 px-6 mt-2 text-center hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
 										Trade
 									</button>
 								</td>
@@ -104,7 +116,7 @@ function MarketTrend() {
 							<tr className='hover:bg-gray-100 hover:rounded-xl hover:cursor-pointer'>
 								<td className='p-2 whitespace-nowrap'>
 									<div className='flex items-center py-2'>
-										<span className='text-lg text-gray-500 font-dm-sans'>3</span>
+										<span className='text-base leading-5 text-gray-500 font-dm-sans'>3</span>
 									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
@@ -118,19 +130,25 @@ function MarketTrend() {
 												alt='Alex Shatov'
 											/>
 										</div>
-										<div className='font-medium text-lg mr-3 text-gray-800'>Bitcoin</div>
-										<div className='font-medium text-lg tracking-wider text-gray-300'>BTC</div>
+										<div className='font-medium text-lg leading-5 font-dm-sans mr-3 tracking-wider text-gray-800'>
+											Bitcoin
+										</div>
+										<div className='font-medium text-lg tracking-wider font-nunito text-gray-300'>
+											BTC
+										</div>
 									</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
 									<div className='text-left py-2 text-lg font-semibold text-gray-600'>$36,450.21</div>
 								</td>
 								<td className='p-2 whitespace-nowrap'>
-									<div className='text-left py-2 font-medium text-lg text-green-500'>+1.7%</div>
+									<div className='text-left py-2 font-medium font-nunito text-lg text-green-500'>
+										+1.7%
+									</div>
 								</td>
 
 								<td className='p-2 whitespace-nowrap flex items-end content-end justify-center'>
-									<button className='lg:text-lg py-1 px-6 mt-2 text-right hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
+									<button className='lg:text-lg py-1 px-6 mt-2 text-center hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white focus:border-none  border-2 text-gray-600 text-sm font-semibold border-gray-200 rounded-3xl'>
 										Trade
 									</button>
 								</td>
