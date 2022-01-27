@@ -8,7 +8,7 @@
 		@apply text-grey-700 mr-10 hover:cursor-pointer hover:text-grey-900 font-semibold tracking-wider;
 	}
 	.btn {
-		@apply border-2 w-1/2 lg:w-full  border-gray-200 rounded-3xl font-segoe-ui hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white text-gray-800 font-semibold text-lg px-8 py-2;
+		@apply border-2 w-1/2 lg:w-full  border-gray-200 rounded-3xl  hover:cursor-pointer hover:bg-norm-black hover:border-none hover:text-white text-gray-800 font-semibold text-lg px-8 py-2;
 	}
 }
 
@@ -22,5 +22,5 @@
 }
 
 [role='tab'].active {
-	@apply text-glitz-300 border-glitz-400 dark:text-glitz-400 dark:border-glitz-500 hover:text-glitz-300 hover:border-glitz-400 dark:hover:text-glitz-300 dark:hover:border-glitz-400;
+	@apply text-norm-blue border-norm-dblue dark:text-norm-blue dark:border-norm-dblue hover:text-norm-blue hover:border-norm-dblue dark:hover:text-norm-blue dark:hover:border-norm-dblue;
 }
