@@ -1,14 +1,25 @@
 import { useEffect, useState } from 'react';
 
+const app_theme = () => {
+	const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark').matches;
+	if (!('theme-mode' in localStorage) || userPrefersDark) return 'light';
+};
+
 export default function Darkmode() {
-	const [theme, setTheme] = useState('light');
-	const colorTheme = theme === 'light' ? 'dark' : 'light';
+	const [theme, setTheme] = useState(app_theme);
+
+	const setUserTheme = (userTheme) => {
+		const root = window.document.documentElement;
+		const isDark = userTheme === 'dark';
+
+		root.classList.remove(isDark ? 'light' : 'dark');
+		root.classList.add(userTheme);
+
+		localStorage.setItem('theme-mode', userTheme);
+	};
 
 	useEffect(() => {
-		const root = window.document.documentElement;
-		root.classList.remove(colorTheme);
-		root.classList.add(theme);
-		localStorage.setItem('color-theme', theme);
-	}, [theme, colorTheme]);
-	return [colorTheme, setTheme];
+		setUserTheme(theme);
+	}, [theme]);
+	return [theme, setTheme];
 }
