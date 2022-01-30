@@ -46,6 +46,7 @@ module.exports = {
 					green: '#58BD7D',
 					orange: '#FF6838',
 					ldark: '#282C34',
+					mdark: '#23262F',
 				},
 				'norm-dark': {
 					black: '#141416',
@@ -73,5 +74,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require('@themesberg/flowbite/plugin')],
+	plugins: [require('@themesberg/flowbite/plugin'), require('tailwind-scrollbar')],
 };
