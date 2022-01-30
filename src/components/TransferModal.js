@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import MyListbox from './List';
+// import MyListbox from './List';
 import Modal from './Modal';
+import tokens from './_mock_/coin';
+import { TokenSelector } from './Selector/selector';
 
 function TransferModal({ show, setShow }) {
 	const [completed, setCompleted] = useState(false);
+	const myRef = React.createRef();
+	const [isOpen, setIsOpen] = useState(false);
+	// Default this to a country's code to preselect it
+	const [coin, setCoin] = useState('ETH');
 	const Action = () => {
 		setShow(false);
 		setCompleted(true);
@@ -13,17 +19,23 @@ function TransferModal({ show, setShow }) {
 			{show && (
 				<Modal>
 					<div className='justify-self-center lg:w-1/2 w-full'>
-						<div className='px-8 py-8 bg-white   z-50 rounded-lg shadow-lg flex flex-col '>
+						<div className='px-8 py-8 bg-white dark:bg-nature-900 z-50 rounded-xl shadow-lg flex flex-col '>
 							<div className='flex justify-between mb-6 items-center'>
-								<h2 className='justify-self-start text-center font-semibold text-3xl text-gray-700 font-dm-sans'>
+								<h2 className='justify-self-start text-center font-bold text-[32px] leading-10 text-norm-black dark:text-norm-text font-dm-sans'>
 									Transfer{' '}
 								</h2>
-								<div
+								<button
+									onClick={() => setShow(false)}
+									className=' py-1 px-3 rounded-full text-2xl text-norm-black dark:text-norm-light dark:hover:text-norm-text font-dm-sans font-extrabold justify-center border dark:hover:border-norm-text'
+								>
+									x
+								</button>
+								{/* <div
 									onClick={() => setShow(false)}
 									className='h-12 w-12 rounded-full justify-center border-2 hover:cursor-pointer flex items-center border-gray-100'
 								>
 									<span className='text-lg hover:cursor-pointer'>X</span>
-								</div>
+								</div> */}
 							</div>
 							<div className='bg-gray-100 rounded-lg flex mb-6 justify-between items-center px-3 md:px-6 py-5'>
 								<span className='font-medium font-dm-sans text-lg text-gray-600'>
@@ -34,8 +46,18 @@ function TransferModal({ show, setShow }) {
 									<p className='text-gray-500'>$10,123.98</p>
 								</span>
 							</div>
-							<div className='mb-6'>
-								<MyListbox />
+							<div className='mb-6 w-full'>
+								{/* <MyListbox /> */}
+								<span className='text-gray-500 text-sm font-semibold'>Coin</span>
+								<TokenSelector
+									id={'countries'}
+									ref={myRef}
+									open={isOpen}
+									onToggle={() => setIsOpen(!isOpen)}
+									tokens={tokens}
+									onChange={(val) => setCoin(val)}
+									selectedValue={tokens.find((option) => option.id === coin)}
+								/>
 							</div>
 							<div className='mb-6 w-full'>
 								<span className='text-gray-500 text-sm font-semibold'>Recipient Address</span>

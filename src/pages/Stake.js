@@ -1,10 +1,15 @@
-import React from 'react';
-import MyListbox from 'components/List';
+import React, { useState } from 'react';
+// import MyListbox from 'components/List';
 import { formater } from 'components/atom';
 import tokens from 'components/_mock_/coin';
 import { useNavigate } from 'react-router-dom';
+import { TokenSelector } from 'components/Selector/selector';
 
 const Stake = () => {
+	const myRef = React.createRef();
+	const [isOpen, setIsOpen] = useState(false);
+	// Default this to a country's code to preselect it
+	const [coin, setCoin] = useState('ETH');
 	const navigate = useNavigate();
 	return (
 		<>
@@ -21,7 +26,7 @@ const Stake = () => {
 								0
 							</span>
 							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
-								ETH
+								{coin}
 							</span>
 						</div>
 						<span className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>
@@ -31,9 +36,18 @@ const Stake = () => {
 				</div>
 				<div className='justify-self-center w-full px-20'>
 					<div className='px-8 py-8 flex flex-col'>
-						<div className='mb-6'>
+						<div className='mb-6 w-full'>
 							{/* <div className='flex items-center'> */}
-							<MyListbox />
+							<span className='text-gray-500 text-sm font-semibold'>Coin</span>
+							<TokenSelector
+								id={'countries'}
+								ref={myRef}
+								open={isOpen}
+								onToggle={() => setIsOpen(!isOpen)}
+								tokens={tokens}
+								onChange={(val) => setCoin(val)}
+								selectedValue={tokens.find((option) => option.id === coin)}
+							/>
 							{/* <input
 									type='number'
 									id='base-input'
@@ -43,14 +57,12 @@ const Stake = () => {
 							{/* </div> */}
 						</div>
 						<div className='mb-6 w-full'>
-							<span className='text-norm-light leading-6 tracking-wide text-lg font-dm-sans font-semibold'>
-								Recipient Address
-							</span>
+							<span className='text-gray-500 text-sm font-semibold'>Amount</span>
 							<input
 								type='text'
 								id='base-input'
 								placeholder='0.0'
-								class='mt-2 border-1 w-full py-3 text-norm-light text-2xl font-nunito font-bold focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
+								class='mt-2 border w-full py-2 text-norm-light text-[28px] font-nunito  font-medium focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
 							/>
 						</div>
 						<div className='flex items-center justify-center w-full'>
