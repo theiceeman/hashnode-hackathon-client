@@ -9,24 +9,28 @@ const Stake = () => {
 	return (
 		<>
 			<div className='bg-white pb-7 rounded-t-lg dark:bg-nature-800'>
+				<div className='flex items-center justify-between px-6 py-3 mx-auto border-b border-grey-50  dark:border-norm-light'>
+					<h1 className='w-full text-center tracking-wider text-2xl font-medium leading-5 font-dm-sans text-norm-light dark:text-norm-text'>
+						Stake
+					</h1>
+				</div>
+				<div className='container px-6 py-4 mx-auto'>
+					<div className='flex flex-col items-center justify-between w-full mt-4'>
+						<div className='flex items-center'>
+							<span className='text-[32px] font-normal font-nunito-sans tracking-wide text-norm-black dark:text-white mr-1'>
+								0
+							</span>
+							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
+								ETH
+							</span>
+						</div>
+						<span className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>
+							= {formater.format(0.0)}
+						</span>
+					</div>
+				</div>
 				<div className='justify-self-center w-full px-20'>
 					<div className='px-8 py-8 flex flex-col'>
-						<div className='flex justify-between mb-6 items-center'>
-							<h2 className='justify-self-start text-center font-semibold text-3xl text-gray-700 dark:text-norm-text font-dm-sans'>
-								Stake{' '}
-							</h2>
-						</div>
-						<div className='bg-gray-100 dark:bg-norm-ldark rounded-lg flex mb-6 justify-between items-center px-3 md:px-6 py-5'>
-							<span className='font-medium font-dm-sans text-lg text-gray-600 dark:text-norm-light'>
-								Available <br /> balance
-							</span>
-							<span className='text-right'>
-								<p className='text-lg text-gray-800 dark:text-norm-text font-dm-sans font-semibold'>
-									2,4637 ETH
-								</p>
-								<p className='text-gray-500 dark'>$10,123.98</p>
-							</span>
-						</div>
 						<div className='mb-6'>
 							{/* <div className='flex items-center'> */}
 							<MyListbox />
@@ -39,22 +43,21 @@ const Stake = () => {
 							{/* </div> */}
 						</div>
 						<div className='mb-6 w-full'>
-							<span className='text-gray-500 text-sm font-semibold'>Recipient Address</span>
+							<span className='text-norm-light leading-6 tracking-wide text-lg font-dm-sans font-semibold'>
+								Recipient Address
+							</span>
 							<input
-								type='number'
+								type='text'
 								id='base-input'
 								placeholder='0.0'
-								class=' mt-1 border-1 w-full py-4 text-gray-600 font-medium focus:outline-none hover:cursor-pointer border-norm-black rounded'
+								class='mt-2 border-1 w-full py-3 text-norm-light text-2xl font-nunito font-bold focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
 							/>
 						</div>
-						<div className='lg:flex lg:items-center lg:justify-center w-full'>
-							<button
-								className='w-full text-center rounded-3xl  hover:cursor-pointer bg-norm-blue
-                             text-white font-dm-sans font-semibold text-lg px-8 py-2'
-							>
+						<div className='flex items-center justify-center w-full'>
+							<button className='w-full text-center rounded-3xl  hover:cursor-pointer bg-norm-blue hover:bg-norm-dblue text-white hover:text-white font-dm-sans font-semibold text-lg px-8 py-2'>
 								Save
 							</button>
-							<button className='ml-4 w-full text-center rounded-3xl  hover:cursor-pointer border-2 border-norm-light text-norm-light hover:text-norm-text hover:bg-norm-black dark:text-white font-dm-sans font-semibold text-lg px-8 py-2'>
+							<button className='ml-4 lg:mt-0 w-full text-center rounded-3xl border border-norm-blue text-norm-light dark:text-norm-text hover:text-white hover:border-norm-dblue hover:bg-norm-dblue font-dm-sans font-medium text-lg px-8 py-2'>
 								Withdraw
 							</button>
 						</div>
@@ -62,7 +65,7 @@ const Stake = () => {
 				</div>
 			</div>
 
-			<div className='bg-white dark:bg-nature-800' id='profile' role='tabpanel' aria-labelledby='profile-tab'>
+			<div className='bg-white dark:bg-nature-800 border-t border-norm-light dark:border-norm-light'>
 				<div class='overflow-x-auto max-w-full'>
 					<table class='w-full'>
 						<tbody>

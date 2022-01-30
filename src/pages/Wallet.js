@@ -181,7 +181,7 @@ const Wallet = () => {
 									<tr
 										key={token.name}
 										className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
-										onClick={() => navigate(`/dashboard/asset/${token.id}`)}
+										// onClick={() => navigate(`/dashboard/asset/${token.id}`)}
 									>
 										<td class='p-2 pl-5 whitespace-nowrap'>
 											<div class='flex items-center py-2'>
