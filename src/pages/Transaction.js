@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { MdVisibility, MdVisibilityOff, MdArrowBackIosNew } from 'react-icons/md';
 import { formater } from 'components/atom';
 import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
-import { Link, useLocation } from 'react-router-dom';
+import tokens from 'components/_mock_/coin';
 
 const Transaction = () => {
 	const [visible, setVisible] = useState(false);
@@ -76,6 +77,55 @@ const Transaction = () => {
 							Send
 						</button>
 					</div>
+				</div>
+			</div>
+			<div className='bg-white dark:bg-nature-800 border-t border-norm-light dark:border-norm-light'>
+				<div class='overflow-x-auto max-w-full'>
+					<table class='w-full'>
+						<tbody>
+							{tokens.map((token) => (
+								<tr
+									key={token.name}
+									className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
+									// onClick={() => navigate(`/dashboard/asset/${token.id}`)}
+								>
+									<td class='p-2 pl-5 whitespace-nowrap'>
+										<div class='flex items-center py-2'>
+											<div class='text-norm-blue flex-shrink-0 mr-2 sm:mr-4'>
+												<TransferIcon className='p-2 border border-norm-blue rounded-full w-8 h-8' />
+											</div>
+											<div className='ml-4'>
+												<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+													Send {token.name}
+												</div>
+												<div class='mt-2 font-normal text-sm font-dm-sans tracking-wide text-norm-light'>
+													<span className='text-nature-200'>
+														{new Date().toLocaleDateString('en-US', {
+															month: 'short',
+															day: 'numeric',
+															year: '2-digit',
+														})}
+													</span>
+													{' . '}
+													<span> From: 0x0x...542</span>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td className='p-2'></td>
+									{/* <td className='p-2'></td> */}
+									<td class='p-2 pr-5 whitespace-nowrap'>
+										<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+											{token.balance}
+										</div>
+										<div className='text-right py-2 font-normal font-nunito text-sm text-norm-light leading-5 tracking-wider'>
+											{token.balance}
+										</div>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</>

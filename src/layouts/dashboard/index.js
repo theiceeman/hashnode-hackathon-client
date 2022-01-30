@@ -1,14 +1,13 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Footer from './Footer';
 import Navbar from './Navbar';
 import TopBar from './TopBar';
-// import SideBar from './SideBar';
 
 const DashboardLayout = () => {
 	return (
 		<>
 			<div className='bg-nature-100 dark:bg-nature-900'>
-				{/* <div className='flex flex-no-wrap'> */}
 				<div className='w-full'>
 					{/* Navigation starts */}
 					<Navbar />
@@ -18,7 +17,7 @@ const DashboardLayout = () => {
 						<Outlet />
 					</main>
 				</div>
-				{/* </div> */}
+				<Footer />
 			</div>
 		</>
 	);
