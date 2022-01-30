@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from './Logo';
 
 function Nav() {
 	const [show, setShow] = useState(false);
@@ -11,7 +10,7 @@ function Nav() {
 					<div className='flex items-center justify-between'>
 						<div className='flex items-center'>
 							<div className='col-span-1  flex py-1'>
-								<Logo />
+								<img className='w-full' src='/images/logo-light.svg' alt='logo' />
 							</div>
 						</div>
 
@@ -56,40 +55,16 @@ function Nav() {
 						</div>
 
 						<div className={`${show ? 'flex' : 'hidden'} md:flex items-center py-2 -mx-1 md:mx-0`}>
-							<button className='bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium'>
-								Connect Wallet
-							</button>{' '}
+							<Link to='/dashboard'>
+								<button className='bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium'>
+									Connect Wallet
+								</button>{' '}
+							</Link>
 						</div>
 					</div>
 				</div>
 			</div>
 		</nav>
-		//   <div className='w-full border-b-2 z-50 bg-white border-grey-100 py-4 sticky top-0' >
-		//       <div className='container mx-auto items-center grid grid-cols-5'>
-		//     <div className='col-span-1  flex py-1'>
-		//         <img src={img1} className='bg-cover border-r-2 pr-6 py-1' />
-		//     </div>
-		//     <div class="flex md:hidden">
-		//                 <button type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
-		//                     <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
-		//                         <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
-		//                     </svg>
-		//                 </button>
-		//             </div>
-
-		//     <div className='col-span-2'>
-		//         <ul className='text-left flex justify-start items-start'>
-		//              <li className='li' >Exchange</li>
-		//              <li className='li' >Market</li>
-		//              <li className='li'>Discover</li>
-		//              <li className='li'>Dashboard</li>
-		//         </ul>
-		//     </div>
-		//     <div className='col-span-2 justify-self-end flex items-center content-end'>
-		//         <button className='bg-norm-blue border-none px-4 py-2 shadow-2xl rounded-2xl text-white font-segoe-ui font-semibold' >Connect Wallet</button>
-		//     </div>
-		// </div>
-		//   </div>
 	);
 }
 
