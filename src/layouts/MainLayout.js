@@ -7,7 +7,7 @@ const MainLayout = () => {
 	return (
 		<div>
 			<Nav />
-			<main className='mx-auto py-3'>
+			<main className='mx-auto'>
 				<Outlet />
 			</main>
 			<Footer />

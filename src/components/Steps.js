@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+// import { Carousel } from 'react-responsive-carousel';
 
 function Steps() {
 	return (
@@ -9,11 +9,59 @@ function Steps() {
 				<div className='text-center w-full flex items-center justify-start  lg:justify-center mb-4'>
 					<img src='/images/logo-light.svg' alt='logo' />
 				</div>
-				<h1 className='md:text-center text-left text-4xl lg:text-5xl'>How it works</h1>
-				<p className='md:text-center text-left my-3 lg:my-5 text-xl text-grey-600 font-dm-sans'>
+				<h1 className='md:text-center text-left text-4xl lg:text-5xl font-dm-sans left-5 dark:text-norm-text'>
+					How it works
+				</h1>
+				<p className='md:text-center text-left my-3 leading-5 lg:my-5 text-xl text-grey-600 font-dm-sans'>
 					Stacks is a production-ready library of stackable content blocks built in React Native.
 				</p>
-				<div className='max-w-xl lg:px-8 mt-5 py-6 lg:mx-auto'>
+				<div className='px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20'>
+					<div className='grid gap-8 row-gap-8 lg:grid-cols-3'>
+						<div className='sm:text-center'>
+							<div className='flex items-center justify-center w-24 h-24 mb-4 text-5xl font-extrabold rounded-full text-deep-purple-accent-400 sm:mx-auto'>
+								<img src='/images/step-2.png' alt='step 1' />
+							</div>
+							<span className='inline-flex items-center font-dm-sans font-bold text-norm-light mb-3'>
+								Step 1
+							</span>
+							<h6 className='mb-2 font-semibold font-dm-sans text-norm-black dark:text-norm-text leading-5'>
+								Connect wallet
+							</h6>
+							<p className='max-w-md mb-3 text-sm text-norm-light font-dm-sans leading-5 sm:mx-auto'>
+								connnet to our Defi app using a MetaMask wallet on a Rinkeby Test Network
+							</p>
+						</div>
+						<div className='sm:text-center'>
+							<div className='flex items-center justify-center w-24 h-24 mb-4 text-5xl font-extrabold rounded-full text-deep-purple-accent-400 sm:mx-auto'>
+								<img src='/images/step-3.png' alt='step 2' />
+							</div>
+							<span className='inline-flex items-center font-dm-sans font-bold text-norm-light mb-3'>
+								Step 2
+							</span>
+							<h6 className='mb-2 font-semibold font-dm-sans text-norm-black dark:text-norm-text leading-5'>
+								Start Staking & Depositing
+							</h6>
+							<p className='max-w-md mb-3 text-sm text-norm-light font-dm-sans leading-5 sm:mx-auto'>
+								connnet to our Defi app using a MetaMask wallet on a Rinkeby Test Network
+							</p>
+						</div>
+						<div className='sm:text-center'>
+							<div className='flex items-center justify-center w-24 h-24 mb-4 text-5xl font-extrabold rounded-full text-deep-purple-accent-400 sm:mx-auto'>
+								<img src='/images/step-4.png' alt='step 2' />
+							</div>
+							<span className='inline-flex items-center font-dm-sans font-bold text-norm-light mb-3'>
+								Step 3
+							</span>
+							<h6 className='mb-2 font-semibold font-dm-sans text-norm-black dark:text-norm-text leading-5'>
+								Earn money
+							</h6>
+							<p className='max-w-md mb-3 text-sm text-norm-light font-dm-sans leading-5 sm:mx-auto'>
+								connnet to our Defi app using a MetaMask wallet on a Rinkeby Test Network
+							</p>
+						</div>
+					</div>
+				</div>
+				{/* <div className='max-w-xl lg:px-8 mt-5 py-6 lg:mx-auto'>
 					<Carousel
 						autoPlay={true}
 						interval={3000}
@@ -68,7 +116,7 @@ function Steps() {
 							</div>
 						</div>
 					</Carousel>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

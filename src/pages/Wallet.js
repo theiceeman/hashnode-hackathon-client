@@ -1,13 +1,15 @@
-import TransferModal from 'components/TransferModal';
 import React, { useState } from 'react';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { formater } from 'components/atom';
 import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
 import tokens from 'components/_mock_/coin';
 import { useNavigate } from 'react-router-dom';
+import TransferModal from 'components/TransferModal';
+import WithdrawModal from 'components/WithdrawModal';
 
 const Wallet = () => {
 	const [show, setShow] = useState(false);
+	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const navigate = useNavigate();
 
@@ -64,6 +66,7 @@ const Wallet = () => {
 						<button
 							type='button'
 							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+							onClick={() => setshowWithdrawModal(true)}
 						>
 							<WithdrawalIcon className='mr-1 -ml-1 w-4 h-4' />
 							Withdraw
@@ -224,6 +227,7 @@ const Wallet = () => {
 				</div>
 			</div>
 			<TransferModal show={show} setShow={setShow} />
+			<WithdrawModal show={showWithdrawModal} setShow={setshowWithdrawModal} />
 		</>
 	);
 };
