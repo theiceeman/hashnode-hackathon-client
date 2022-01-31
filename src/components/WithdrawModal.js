@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 // import MyListbox from './List';
 import Modal from './Modal';
-import tokens from './_mock_/coin';
-import { TokenSelector } from './Selector/selector';
 
-function TransferModal({ show, setShow }) {
+function WithdrawModal({ show, setShow }) {
 	const [completed, setCompleted] = useState(false);
-	const myRef = React.createRef();
-	const [isOpen, setIsOpen] = useState(false);
-	// Default this to a country's code to preselect it
-	const [coin, setCoin] = useState('ETH');
+
 	const Action = () => {
 		setShow(false);
 		setCompleted(true);
@@ -22,7 +17,7 @@ function TransferModal({ show, setShow }) {
 						<div className='px-4 lg:px-8 py-8 bg-white dark:bg-nature-900 z-50 rounded-xl shadow-lg flex flex-col '>
 							<div className='flex justify-between mb-6 items-center'>
 								<h2 className='justify-self-start text-center font-bold text-[32px] leading-10 text-norm-black dark:text-norm-text font-dm-sans'>
-									Transfer{' '}
+									Withdraw{' '}
 								</h2>
 								<button
 									onClick={() => setShow(false)}
@@ -30,12 +25,14 @@ function TransferModal({ show, setShow }) {
 								>
 									x
 								</button>
-								{/* <div
-									onClick={() => setShow(false)}
-									className='h-12 w-12 rounded-full justify-center border-2 hover:cursor-pointer flex items-center border-gray-100'
-								>
-									<span className='text-lg hover:cursor-pointer'>X</span>
-								</div> */}
+							</div>
+							<div className='mb-6 w-full'>
+								<span className='text-gray-500 text-sm font-semibold'>Address</span>
+								<input
+									type='text'
+									className='border-2 mt-1 w-full mb-1  focus:border-gray-600 focus:outline-none border-gray-200 rounded-lg'
+									placeholder='**********'
+								/>
 							</div>
 							<div className='bg-gray-100 rounded-lg flex mb-6 justify-between items-center px-3 md:px-6 py-5'>
 								<span className='font-medium font-dm-sans text-lg text-gray-600'>
@@ -47,47 +44,30 @@ function TransferModal({ show, setShow }) {
 								</span>
 							</div>
 							<div className='mb-6 w-full'>
-								{/* <MyListbox /> */}
-								<span className='text-gray-500 text-sm font-semibold'>Coin</span>
-								<TokenSelector
-									id={'countries'}
-									ref={myRef}
-									open={isOpen}
-									onToggle={() => setIsOpen(!isOpen)}
-									tokens={tokens}
-									onChange={(val) => setCoin(val)}
-									selectedValue={tokens.find((option) => option.id === coin)}
-								/>
-							</div>
-							<div className='mb-6 w-full'>
-								<span className='text-gray-500 text-sm font-semibold'>Recipient Address</span>
+								<span className='text-gray-500 text-sm font-semibold'>Amount to withdraw</span>
 								<input
 									type='text'
 									className='border-2 mt-1 w-full mb-1  focus:border-gray-600 focus:outline-none border-gray-200 rounded-lg'
 									placeholder='**********'
 								/>
+								<span className='text-gray-500 text-xs'>
+									$1,000,000.00 daily withdrawal limit remaining.
+								</span>
 							</div>
 							<div className='md:mb-10 mb-6 w-full'>
-								<span className='text-gray-500 text-sm font-semibold'>Amount to transfer</span>
+								<span className='text-gray-500 text-sm font-semibold'>Transaction fee</span>
 								<input
 									type='text'
 									className='border-2 mt-1 w-full mb-1 focus:border-gray-600 focus:outline-none border-gray-200 rounded-lg'
 									placeholder='20,000 ETH'
 								/>
-								<span className='text-gray-500'>max amount</span>
 							</div>
 							<div className='w-full'>
-								{/* <button
-									onClick={Action}
-									className='w-full border-2 text-center hover:border-gray-200 rounded-3xl  hover:cursor-pointer bg-gray-700  text-white  font-semibold text-lg px-8 py-2'
-								>
-									Transfer
-								</button> */}
 								<button
 									onClick={Action}
 									className='w-full text-center rounded-3xl hover:cursor-pointer bg-norm-blue hover:bg-norm-dblue text-white hover:text-white font-dm-sans font-semibold text-lg px-8 py-2'
 								>
-									Transfer
+									Withdraw
 								</button>
 							</div>
 						</div>
@@ -156,4 +136,4 @@ function TransferModal({ show, setShow }) {
 	);
 }
 
-export default TransferModal;
+export default WithdrawModal;

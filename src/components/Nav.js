@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 function Nav() {
 	const [show, setShow] = useState(false);
 	return (
-		<nav className='bg-white shadow dark:bg-gray-800'>
+		<nav className='bg-white shadow dark:bg-nature-900'>
 			<div className='container px-6 py-3 mx-auto'>
 				<div className='flex flex-col md:flex-row md:justify-between md:items-center'>
 					<div className='flex items-center justify-between'>
 						<div className='flex items-center'>
 							<div className='col-span-1  flex py-1'>
-								<img className='w-full' src='/images/logo-light.svg' alt='logo' />
+								{/* <img className='w-full' src='/images/logo-light.svg' alt='logo' /> */}
+								<Logo />
 							</div>
 						</div>
 
@@ -19,7 +21,7 @@ function Nav() {
 							<button
 								type='button'
 								onClick={() => setShow(!show)}
-								className='text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400'
+								className='text-gray-500 dark:text-norm-text hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400'
 								aria-label='toggle menu'
 							>
 								<svg viewBox='0 0 24 24' className='w-8 h-8 fill-current'>
@@ -39,21 +41,10 @@ function Nav() {
 								show ? 'flex' : 'hidden'
 							}   md:flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1`}
 						>
-							<Link to='/' className='li'>
-								Exchange
-							</Link>
-							<Link to='/' className='li'>
-								Market
-							</Link>
-							<Link to='/' className='li'>
-								Discover
-							</Link>
-							<Link to='/' className='li'>
+							<Link to='/dashboard' className='li font-semibold font-dm-sans dark:text-norm-text'>
 								Dashboard
 							</Link>
-							{/* <TransferModal /> */}
 						</div>
-
 						<div className={`${show ? 'flex' : 'hidden'} md:flex items-center py-2 -mx-1 md:mx-0`}>
 							<Link to='/dashboard'>
 								<button className='bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium'>

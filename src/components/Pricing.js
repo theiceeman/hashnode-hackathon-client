@@ -2,7 +2,7 @@ import React from 'react';
 function EachPricing({ img, coin_name, coin_number, coin_percent, color }) {
 	console.log(coin_percent);
 	return (
-		<div className='px-6 py-8 hover:bg-white hover:shadow-xl hover:rounded-xl hover:cursor-pointer flex lg:flex-col justify-start text-left gap-y-2 items-start content-center'>
+		<div className='px-6 py-8 hover:bg-white dark:hover:bg-norm-ldark hover:shadow-xl hover:rounded-xl hover:cursor-pointer flex lg:flex-col justify-start text-left gap-y-2 items-start content-center'>
 			<div className='justify-self-start mb-1 mr-4'>
 				<img src={img} alt='bitcoin' className='bg-cover' />
 			</div>
@@ -17,8 +17,10 @@ function EachPricing({ img, coin_name, coin_number, coin_percent, color }) {
 						{coin_percent}
 					</span>
 				</div>
-				<h2 className='text-2xl mb-1 tracking-wide text-gray-700 font-semibold font-dm-sans'>{coin_number}</h2>
-				<p className='text-sm tracking-wider text-gray-700'>{coin_number}</p>
+				<h2 className='text-2xl mb-1 tracking-wide text-gray-700 dark:text-norm-text font-semibold font-dm-sans'>
+					{coin_number}
+				</h2>
+				<p className='text-sm tracking-wider text-gray-700 dark:text-norm-text'>{coin_number}</p>
 			</div>
 		</div>
 	);
@@ -27,7 +29,7 @@ function EachPricing({ img, coin_name, coin_number, coin_percent, color }) {
 function Pricing() {
 	return (
 		<div className='mt-4 container mx-auto'>
-			<div className='grid grid-cols-1 lg:grid-cols-4 md:grid-col-2 gap-x-4 p-7 bg-gray-100 shadow-lg rounded-3xl'>
+			<div className='grid grid-cols-1 lg:grid-cols-4 md:grid-col-2 gap-x-4 p-7 bg-gray-100 dark:bg-nature-800 shadow-lg rounded-3xl'>
 				<EachPricing
 					img='/images/bitcoin.svg'
 					coin_name='BTC/USDT'
