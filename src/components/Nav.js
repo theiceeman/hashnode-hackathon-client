@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ConnectWallet } from '@3rdweb/react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
@@ -41,16 +42,19 @@ function Nav() {
 								show ? 'flex' : 'hidden'
 							}   md:flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1`}
 						>
-							<Link to='/dashboard' className='li font-semibold font-dm-sans dark:text-norm-text'>
-								Dashboard
-							</Link>
+							{window && window.ethereum && (
+								<Link to='/dashboard' className='li font-semibold font-dm-sans dark:text-norm-text'>
+									Dashboard
+								</Link>
+							)}
 						</div>
 						<div className={`${show ? 'flex' : 'hidden'} md:flex items-center py-2 -mx-1 md:mx-0`}>
-							<Link to='/dashboard'>
+							<ConnectWallet fontFamily={'Dm Sans, sans-serif'} borderRadius={'3xl'} />
+							{/* <Link to='/dashboard'>
 								<button className='bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium'>
 									Connect Wallet
 								</button>{' '}
-							</Link>
+							</Link> */}
 						</div>
 					</div>
 				</div>
