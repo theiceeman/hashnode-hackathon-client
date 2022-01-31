@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-// flowbite js
+import { ThirdwebProvider } from '@3rdweb/react';
+import { RinkeByChainID } from 'components/constants';
 import '@themesberg/flowbite';
-// tailwind css styles
 import './css/tailwind.css';
 
 import App from './App';
@@ -11,9 +11,16 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<ThirdwebProvider
+			supportedChainIds={RinkeByChainID}
+			connectors={{
+				injected: {},
+			}}
+		>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</ThirdwebProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
