@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaHashtag } from 'react-icons/fa';
 
 const Footer = () => {
 	return (
@@ -13,22 +13,39 @@ const Footer = () => {
 							target='blank'
 							className='text-nature-700 hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300 hover:text-teal-accent-400'
 						>
-							<FaGithub className='w-6 h-6' />
+							<FaGithub className='w-4 h-4 lg:w-6 lg:h-6' />
+						</a>
+						<a
+							href='https://kelviniot.hashnode.dev/building-a-crypto-wallet-with-thirdweb-x-hashnode'
+							target='blank'
+							className='text-nature-700 underline inline-flex items-center hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300 hover:text-teal-accent-400'
+						>
+							<FaHashtag className='w-4 h-4 lg:w-6 lg:h-6' />
+							<span className='font-dm-sans font-bold text-base lg:text-2xl'>thirdwebhackathon</span>
 						</a>
 					</div>
+					{/* <p className='text-base font-medium font-dm-sans leading-5 text-nature-700 dark:hover:text-norm-text md:order-2'>
+						© Bitcloud 2022 - All rights reserved
+					</p> */}
 					<div className='flex items-center mt-4 space-x-4'>
 						<a
 							href='https://github.com/okorieebube/hashnode-hackathon-client'
 							target='blank'
-							className='text-sm font-medium font-dm-sans leading-5 text-nature-700 hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300'
+							className='text-base font-medium font-dm-sans leading-5 hover:underline text-nature-700 hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300'
 						>
 							Docs
 						</a>
 						<Link
 							to='/'
-							className='text-sm font-medium font-dm-sans leading-5 text-nature-700 hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300'
+							className='text-base font-medium font-dm-sans leading-5 hover:underline text-nature-700 hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300'
 						>
-							Article
+							Contracts
+						</Link>
+						<Link
+							to='/'
+							className='text-base font-medium font-dm-sans leading-5 hover:underline text-nature-700 hover:text-nature-800 dark:hover:text-norm-text transition-colors duration-300'
+						>
+							Team
 						</Link>
 					</div>
 				</div>

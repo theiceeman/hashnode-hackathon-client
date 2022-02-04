@@ -1,31 +1,31 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-// import { ThirdwebProvider } from '@3rdweb/react';
-// import { ConnectorOptions } from '@3rdweb/hooks';
 // Dashboard components
 import Footer from './Footer';
 import Navbar from './Navbar';
 import TopBar from './TopBar';
-// const supportedChainIds = [1, 4, 137, 250, 43114, 80001];
-// const supportedChainIds = [1, 4, 137, 250, 43114, 80001];
-// const connectors = {
-// 	injected: {},
-// 	magic: {},
-// 	walletconnect: {},
-// 	walletlink: {
-// 		appName: 'thirdweb - demo',
-// 		url: 'https://thirdweb.com',
-// 		darkMode: true,
-// 	},
-// };
+import { HiExclamation } from 'react-icons/hi';
+
+const Notification = () => {
+	return (
+		<div className='w-full text-white bg-norm-blue'>
+			<div className='container flex items-center px-3 py-1 mx-auto'>
+				<HiExclamation className='w-5 h-5 text-white' />
+				<p className='mx-3 font-semibold font-sans text-sm'>
+					Please make sure you have Metamask installed on your PC.
+				</p>
+			</div>
+		</div>
+	);
+};
 
 const DashboardLayout = () => {
 	return (
 		<>
-			{/* <ThirdwebProvider connectors={connectors} supportedChainIds={supportedChainIds}> */}
 			<div className='bg-nature-100 dark:bg-nature-900'>
 				<div className='w-full'>
 					{/* Navigation starts */}
+					{window && !window.ethereum && <Notification />}
 					<Navbar />
 					<TopBar />
 					{/* Navigation ends */}
@@ -35,7 +35,6 @@ const DashboardLayout = () => {
 				</div>
 				<Footer />
 			</div>
-			{/* </ThirdwebProvider> */}
 		</>
 	);
 };

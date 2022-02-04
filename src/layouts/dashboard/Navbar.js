@@ -1,4 +1,4 @@
-// import { ConnectWallet } from '@3rdweb/react';
+import { ConnectWallet } from '@3rdweb/react';
 import Logo from 'components/Logo';
 import { Link } from 'react-router-dom';
 import { HiSun as SunIcon, HiMoon as MoonIcon } from 'react-icons/hi';
@@ -25,14 +25,17 @@ const Navbar = () => {
 						>
 							{theme === 'dark' ? <SunIcon className='w-6 h-6' /> : <MoonIcon className='w-6 h-6' />}
 						</button>
-						{/* <CustomConnect />
-						<ConnectWallet className='text-white bg-norm-blue hover:bg-norm-dblue text-base leading-6 font-dm-sans font-medium transition duration-150 ease-in-out rounded-3xl px-3 py-2 lg:px-6  lg:py-2 mr-3 md:mr-0' /> */}
-						<button
+						<ConnectWallet
+							fontFamily={'Dm Sans, sans-serif'}
+							borderRadius={'3xl'}
+							className='dark:text-white '
+						/>
+						{/* <button
 							type='button'
 							className='text-white bg-norm-blue hover:bg-norm-dblue text-base leading-6 font-dm-sans font-medium transition duration-150 ease-in-out rounded-3xl px-3 py-2 lg:px-6  lg:py-2 mr-3 md:mr-0'
 						>
 							Connect a Wallet
-						</button>
+						</button> */}
 					</div>
 				</div>
 			</nav>

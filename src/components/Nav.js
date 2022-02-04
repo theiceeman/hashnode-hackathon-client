@@ -46,7 +46,6 @@ function Nav() {
               </button>
             </div>
           </div>
-
           {/* <!-- Mobile Menu open: "block", Menu closed: "hidden" --> */}
           <div className="items-center justify-self-center md:flex">
             <div
