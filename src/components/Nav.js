@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { shortenIfAddress, useEthers } from "@usedapp/core";
 import Logo from "./Logo";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticateUser } from "providers/redux/_actions/user-actions";
 
 function Nav() {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const { activateBrowserWallet, account } = useEthers();
-  console.log(account)
+  const { data: userAuth } = useSelector((state) => state.UserAuth);
+  //   console.log(account)
   let isConnected = account !== undefined ? true : false;
+  
+  useEffect(() => {
+    console.log(account);
+  dispatch(authenticateUser(account));
+},[JSON.stringify(userAuth)]);
   return (
     <nav className="bg-white shadow dark:bg-nature-900">
       <div className="container px-6 py-3 mx-auto">
@@ -30,7 +39,7 @@ function Nav() {
               >
                 <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
                   ></path>
                 </svg>
@@ -45,12 +54,14 @@ function Nav() {
                 show ? "flex" : "hidden"
               }   md:flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1`}
             >
-              {isConnected && <Link
-                to="/dashboard"
-                className="li font-semibold font-dm-sans dark:text-norm-text"
-              >
-                Dashboard
-              </Link>}
+              {isConnected && (
+                <Link
+                  to="/dashboard"
+                  className="li font-semibold font-dm-sans dark:text-norm-text"
+                >
+                  Dashboard
+                </Link>
+              )}
             </div>
             <div
               className={`${
@@ -58,16 +69,15 @@ function Nav() {
               } md:flex items-center py-2 -mx-1 md:mx-0`}
             >
               {!isConnected ? (
-                <button onClick={() => activateBrowserWallet()}>
-                  <button className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium">
-                    Connect Wallet
-                  </button>
+                <button
+                  onClick={() => activateBrowserWallet()}
+                  className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium"
+                >
+                  Connect Wallet
                 </button>
               ) : (
-                <button>
-                  <button className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium">
-				  {shortenIfAddress(account)}
-                  </button>
+                <button className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium">
+                  {shortenIfAddress(account)}
                 </button>
               )}
             </div>

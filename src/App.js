@@ -1,11 +1,15 @@
-import Routes from 'routes';
+import Routes from "routes";
+import { Provider } from "react-redux";
+import store from "./providers/redux/store";
 
 function App() {
-	return (
-		<div>
-			<Routes />
-		</div>
-	);
+  return (
+    <Provider store={store}>
+      <div>
+        <Routes />
+      </div>
+    </Provider>
+  );
 }
 
 export default App;

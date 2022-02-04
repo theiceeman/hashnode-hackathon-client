@@ -1,6 +1,6 @@
 import React from 'react';
 function EachPricing({ img, coin_name, coin_number, coin_percent, color }) {
-	console.log(coin_percent);
+	// console.log(coin_percent);
 	return (
 		<div className='px-6 py-8 hover:bg-white dark:hover:bg-norm-ldark hover:shadow-xl hover:rounded-xl hover:cursor-pointer flex lg:flex-col justify-start text-left gap-y-2 items-start content-center'>
 			<div className='justify-self-start mb-1 mr-4'>
