@@ -17,7 +17,7 @@ function Home() {
   useEffect(() => {
       console.log(account);
     dispatch(authenticateUser(account));
-  },[JSON.stringify(userAuth)]);
+  },[ dispatch]);
   return (
     <div className="overflow-hidden bg-white dark:bg-nature-900">
       <Hero />
