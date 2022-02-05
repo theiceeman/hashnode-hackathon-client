@@ -11,14 +11,15 @@ import reportWebVitals from "./reportWebVitals";
 import { DAppProvider, ChainId} from "@usedapp/core";
 
 const config = {
-  readOnlyUrls: {
+  readOnlyChainId: ChainId.Localhost,
+  readOnlyUrls:{
     [ChainId.Localhost]: "http://localhost:8545",
   },
+  networks: [ChainId.Localhost],
   multicallAddresses: {
     [ChainId.Localhost]: "http://localhost:8545",
     // ...MULTICALL_ADDRESSES,
   },
-  networks: [ChainId.Localhost],
 };
 
 ReactDOM.render(
