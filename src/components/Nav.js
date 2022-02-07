@@ -12,11 +12,10 @@ function Nav() {
   const { data: userAuth } = useSelector((state) => state.UserAuth);
   //   console.log(account)
   let isConnected = account !== undefined ? true : false;
-  
+
   useEffect(() => {
-    console.log(account);
-  dispatch(authenticateUser(account));
-},[JSON.stringify(userAuth)]);
+    // dispatch(authenticateUser(account));
+  }, []);
   return (
     <nav className="bg-white shadow dark:bg-nature-900">
       <div className="container px-6 py-3 mx-auto">

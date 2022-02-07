@@ -9,15 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
   const dispatch = useDispatch();
-  const account = useEthers();
+  const {account} = useEthers();
 
   const { data: userAuth } = useSelector((state) => state.UserAuth);
 //   const [user, setUser] = useState();
 
   useEffect(() => {
-      console.log(account);
-    dispatch(authenticateUser(account));
-  },[ dispatch]);
+      // console.log(account);
+    // dispatch(authenticateUser(account));
+  },[]);
   return (
     <div className="overflow-hidden bg-white dark:bg-nature-900">
       <Hero />
