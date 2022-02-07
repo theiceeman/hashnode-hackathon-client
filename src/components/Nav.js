@@ -5,17 +5,12 @@ import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticateUser } from "providers/redux/_actions/user-actions";
 
-function Nav() {
-  const dispatch = useDispatch();
+function Nav({User, account}) {
   const [show, setShow] = useState(false);
-  const { activateBrowserWallet, account } = useEthers();
-  const { data: userAuth } = useSelector((state) => state.UserAuth);
+  const { activateBrowserWallet } = useEthers();
   //   console.log(account)
   let isConnected = account !== undefined ? true : false;
 
-  useEffect(() => {
-    // dispatch(authenticateUser(account));
-  }, []);
   return (
     <nav className="bg-white shadow dark:bg-nature-900">
       <div className="container px-6 py-3 mx-auto">

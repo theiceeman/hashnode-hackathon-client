@@ -1,12 +1,24 @@
-import { ConnectWallet } from '@3rdweb/react';
+// import { ConnectWallet } from '@3rdweb/react';
 import Logo from 'components/Logo';
 import { Link } from 'react-router-dom';
 import { HiSun as SunIcon, HiMoon as MoonIcon } from 'react-icons/hi';
 import Darkmode from 'components/Darkmode';
+import { shortenIfAddress, useEthers } from '@usedapp/core';
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
 // import CustomConnect from 'components/Connectwallet';
 
-const Navbar = () => {
+const Navbar = ({ account}) => {
 	const [theme, setTheme] = Darkmode();
+	const { activateBrowserWallet } = useEthers();
+	const themeMode = useSelector((state) => state.themeMode);
+	let isConnected = account !== undefined ? true : false;
+
+
+	
+	useEffect(() => {
+		setTheme(themeMode)
+	  },[themeMode]);
 
 	return (
 		<>
@@ -25,17 +37,23 @@ const Navbar = () => {
 						>
 							{theme === 'dark' ? <SunIcon className='w-6 h-6' /> : <MoonIcon className='w-6 h-6' />}
 						</button>
-						<ConnectWallet
+						{/* <ConnectWallet
 							fontFamily={'Dm Sans, sans-serif'}
 							borderRadius={'3xl'}
 							className='dark:text-white '
-						/>
-						{/* <button
-							type='button'
-							className='text-white bg-norm-blue hover:bg-norm-dblue text-base leading-6 font-dm-sans font-medium transition duration-150 ease-in-out rounded-3xl px-3 py-2 lg:px-6  lg:py-2 mr-3 md:mr-0'
-						>
-							Connect a Wallet
-						</button> */}
+						/> */}
+						{!isConnected ? (
+                <button
+                  onClick={() => activateBrowserWallet()}
+                  className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium"
+                >
+                  Connect Wallet
+                </button>
+              ) : (
+                <button className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium">
+                  {shortenIfAddress(account)}
+                </button>
+              )}
 					</div>
 				</div>
 			</nav>

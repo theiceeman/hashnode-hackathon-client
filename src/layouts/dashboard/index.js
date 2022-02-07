@@ -19,14 +19,14 @@ const Notification = () => {
 	);
 };
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ account}) => {
 	return (
 		<>
 			<div className='bg-nature-100 dark:bg-nature-900'>
 				<div className='w-full'>
 					{/* Navigation starts */}
 					{window && !window.ethereum && <Notification />}
-					<Navbar />
+					<Navbar account={account}/>
 					<TopBar />
 					{/* Navigation ends */}
 					<main className='lg:container lg:mx-auto py-12 w-full lg:px-8'>

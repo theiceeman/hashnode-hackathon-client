@@ -7,3 +7,8 @@ export const UserAuthConstants = {
     FETCH_USER_DATA_FAILURE: 'FETCH_USER_DATA_FAILURE',
 }
 
+export const themeModeConstants = {
+    LIGHT_MODE: 'LIGHT_MODE',
+    DARK_MODE: 'DARK_MODE',
+
+}

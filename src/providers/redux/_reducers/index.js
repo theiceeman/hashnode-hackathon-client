@@ -1,7 +1,8 @@
 // REDUCERS
 import { combineReducers } from "redux";
-import {  UserAuthReducer } from "./user-auth-reducer";
+import {  themeModeReducer, UserAuthReducer } from "./user-auth-reducer";
 
 export default combineReducers({
   UserAuth: UserAuthReducer,
+  themeMode: themeModeReducer,
 });
