@@ -5,19 +5,22 @@ import { HiSun as SunIcon, HiMoon as MoonIcon } from 'react-icons/hi';
 import Darkmode from 'components/Darkmode';
 import { shortenIfAddress, useEthers } from '@usedapp/core';
 import { useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setThemeMode } from 'providers/redux/_actions/user-actions';
 // import CustomConnect from 'components/Connectwallet';
 
 const Navbar = ({ account}) => {
+    const dispatch = useDispatch()
 	const [theme, setTheme] = Darkmode();
 	const { activateBrowserWallet } = useEthers();
 	const themeMode = useSelector((state) => state.themeMode);
+	console.log(themeMode)
 	let isConnected = account !== undefined ? true : false;
 
 
 	
 	useEffect(() => {
-		setTheme(themeMode)
+		setTheme(themeMode.data)
 	  },[themeMode]);
 
 	return (
@@ -33,7 +36,7 @@ const Navbar = ({ account}) => {
 						<button
 							type='button'
 							className='text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full text-sm p-1.5 mr-1 lg:mr-4'
-							onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+							onClick={() => {dispatch(setThemeMode(theme === 'dark' ? 'light' : 'dark'))}}
 						>
 							{theme === 'dark' ? <SunIcon className='w-6 h-6' /> : <MoonIcon className='w-6 h-6' />}
 						</button>

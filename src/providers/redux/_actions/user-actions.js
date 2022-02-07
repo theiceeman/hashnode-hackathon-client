@@ -19,7 +19,7 @@ export const authenticateUser = (data) => async (dispatch) => {
 };
 
 export const setThemeMode = (data) => async (dispatch) => {
-  console.log("authenticating user..");
+  console.log("setting theme mode..");
   data === "light"
     ? dispatch({ type: LIGHT_MODE })
     : dispatch({ type: DARK_MODE });
