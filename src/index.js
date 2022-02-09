@@ -5,25 +5,20 @@ import { BrowserRouter } from "react-router-dom";
 import "@themesberg/flowbite";
 // tailwind css styles
 import "./css/tailwind.css";
-
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-  DAppProvider,
-  ChainId,
-  Localhost
-} from "@usedapp/core";
-console.log(Localhost);
+import { DAppProvider, ChainId } from "@usedapp/core";
+
 const config = {
   autoConnect: false,
-  readOnlyChainId: ChainId.Localhost,
+  readOnlyChainId: ChainId.Hardhat,
   readOnlyUrls: {
-    [ChainId.Localhost]: "http://localhost:8545",
+    [ChainId.Hardhat]: "http://localhost:8545",
   },
-  networks: [ChainId.Localhost],
+  supportedChains: [ChainId.Hardhat, ChainId.Localhost, ChainId.Mainnet],
   multicallAddresses: {
-    [ChainId.Localhost]: process.env.REACT_APP_MULTICALL_ADDRESS,
-    [ChainId.Mainnet]: "0xeefba1e63905ef1d7acba5a8513c70307c1ce441"
+    [ChainId.Hardhat]: "0xeefba1e63905ef1d7acba5a8513c70307c1ce441",
+    // [ChainId.Mainnet]: "0xeefba1e63905ef1d7acba5a8513c70307c1ce441",
   },
 };
 

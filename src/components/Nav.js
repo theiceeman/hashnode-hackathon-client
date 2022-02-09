@@ -4,12 +4,29 @@ import { shortenIfAddress, useEthers } from "@usedapp/core";
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticateUser } from "providers/redux/_actions/user-actions";
+import Darkmode from "./Darkmode";
+import { getLocalStorage } from "lib/general/helper-functions";
 
 function Nav({User, account}) {
   const [show, setShow] = useState(false);
+  
+  const [theme, setTheme] = Darkmode();
   const { activateBrowserWallet } = useEthers();
-  //   console.log(account)
+  const { themeMode: themeModeReducer } = useSelector(
+    (state) => state.themeMode
+  );
+  const themeMode = getLocalStorage("user_theme");
   let isConnected = account !== undefined ? true : false;
+
+
+
+  useEffect(() => {
+    themeModeReducer && setTheme(themeModeReducer.data);
+  }, [themeModeReducer, setTheme]);
+
+  useEffect(() => {
+    themeMode && setTheme(themeMode);
+  });
 
   return (
     <nav className="bg-white shadow dark:bg-nature-900">
