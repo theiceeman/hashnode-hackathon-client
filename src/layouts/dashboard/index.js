@@ -5,8 +5,12 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import TopBar from "./TopBar";
 import { HiExclamation } from "react-icons/hi";
-import { useContractCall } from "@usedapp/core";
+import { useEthers, useContractFunction } from "@usedapp/core";
 import { Contract } from "ethers";
+import { useEffect } from "react";
+import dotenv from "dotenv";
+import VAULT_ABI from "../../abi/vault/Vault.sol/Vault.json";
+dotenv.config();
 
 const Notification = () => {
   return (
@@ -22,22 +26,17 @@ const Notification = () => {
 };
 
 const DashboardLayout = ({ account }) => {
-  function useTokenBalance(tokenAddress, address) {
-    const { value, error } =
-      useContractCall(
-        address &&
-          tokenAddress && {
-            contract: new Contract(tokenAddress, ERC20Interface), // instance of called contract
-            method: "balanceOf", // Method to be called
-            args: [address], // Method arguments - address to be checked for balance
-          }
-      ) ?? {};
-    if (error) {
-      console.error(error.message);
-      return undefined;
+  const VAULT_ADDRESS = process.env.REACT_APP_VAULT_ADDRESS;
+  const contract = new Contract(VAULT_ADDRESS, VAULT_ABI.abi);
+
+  const { send } = useContractFunction(contract, "getUserTokenBalance");
+
+  useEffect(() => {
+    async function sendTransaction() {
+      return await send(account, process.env.REACT_APP_VAULT_ADDRESS);
     }
-    return value?.[0];
-  }
+    console.log(sendTransaction());
+  });
   return (
     <>
       <div className="bg-nature-100 dark:bg-nature-900">
