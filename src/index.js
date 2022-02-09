@@ -8,14 +8,23 @@ import "./css/tailwind.css";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { DAppProvider, ChainId } from "@usedapp/core";
-
+import {
+  DAppProvider,
+  ChainId,
+  Localhost
+} from "@usedapp/core";
+console.log(Localhost);
 const config = {
+  autoConnect: false,
   readOnlyChainId: ChainId.Localhost,
   readOnlyUrls: {
     [ChainId.Localhost]: "http://localhost:8545",
   },
   networks: [ChainId.Localhost],
+  multicallAddresses: {
+    [ChainId.Localhost]: process.env.REACT_APP_MULTICALL_ADDRESS,
+    [ChainId.Mainnet]: "0xeefba1e63905ef1d7acba5a8513c70307c1ce441"
+  },
 };
 
 ReactDOM.render(

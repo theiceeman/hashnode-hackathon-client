@@ -52,7 +52,7 @@ const Stake = () => {
 									type='number'
 									id='base-input'
 									placeholder='0.0'
-									class=' mt-7 border-1 w-full py-4 text-gray-600 font-medium focus:outline-none hover:cursor-pointer border-norm-black rounded'
+									className=' mt-7 border-1 w-full py-4 text-gray-600 font-medium focus:outline-none hover:cursor-pointer border-norm-black rounded'
 								/> */}
 							{/* </div> */}
 						</div>
@@ -62,7 +62,7 @@ const Stake = () => {
 								type='text'
 								id='base-input'
 								placeholder='0.0'
-								class='mt-2 border w-full py-2 text-norm-light text-[28px] font-nunito  font-medium focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
+								className='mt-2 border w-full py-2 text-norm-light text-[28px] font-nunito  font-medium focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
 							/>
 						</div>
 						<div className='flex items-center justify-center w-full'>
@@ -78,8 +78,8 @@ const Stake = () => {
 			</div>
 
 			<div className='bg-white dark:bg-nature-800 border-t border-norm-light dark:border-norm-light'>
-				<div class='overflow-x-auto max-w-full'>
-					<table class='w-full'>
+				<div className='overflow-x-auto max-w-full'>
+					<table className='w-full'>
 						<tbody>
 							{tokens.map((token) => (
 								<tr
@@ -87,11 +87,11 @@ const Stake = () => {
 									className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
 									onClick={() => navigate('/')}
 								>
-									<td class='p-2 pl-5 whitespace-nowrap'>
-										<div class='flex items-center py-2'>
-											<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
+									<td className='p-2 pl-5 whitespace-nowrap'>
+										<div className='flex items-center py-2'>
+											<div className='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
 												<img
-													class='rounded-full'
+													className='rounded-full'
 													src={token.image}
 													widtd='40'
 													height='40'
@@ -99,10 +99,10 @@ const Stake = () => {
 												/>
 											</div>
 											<div className='ml-4'>
-												<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+												<div className='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
 													{token.name}
 												</div>
-												<div class='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
+												<div className='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
 													{formater.format(token.price)}{' '}
 													<span
 														className={`ml-3 ${
@@ -119,13 +119,13 @@ const Stake = () => {
 									</td>
 									<td className='p-2'></td>
 									{/* <td className='p-2'></td> */}
-									<td class='p-2 pr-5 whitespace-nowrap'>
-										<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+									<td className='p-2 pr-5 whitespace-nowrap'>
+										<div className='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
 											{token.balance}
 										</div>
 									</td>
-									{/* <td class='p-2 pl-10 whitespace-nowrap'>
-		<div class='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
+									{/* <td className='p-2 pl-10 whitespace-nowrap'>
+		<div className='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
 			<HiArrowRight className='w-4 h-4' />
 		</div>
 	</td> */}

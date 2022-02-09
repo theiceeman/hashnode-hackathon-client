@@ -1,3 +1,4 @@
+import { setLocalStorage } from "lib/general/helper-functions";
 import {
   UserAuthConstants,
   themeModeConstants,
@@ -23,4 +24,5 @@ export const setThemeMode = (data) => async (dispatch) => {
   data === "light"
     ? dispatch({ type: LIGHT_MODE })
     : dispatch({ type: DARK_MODE });
+  setLocalStorage('user_theme', data);
 };

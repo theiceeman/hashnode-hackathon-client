@@ -1,9 +1,12 @@
 import { BigNumber } from "ethers";
 
-
-const shortenAddress = (str) => {
-  return str.substring(0, 6) + "..." + str.substring(str.length - 4);
-};
+export function setLocalStorage(key, value) {
+  window.localStorage.setItem(key, value);
+  return true;
+}
+export function getLocalStorage(key) {
+  return window.localStorage.getItem(key);
+}
 
 export function capitalize(str) {
   const lower = str.toLowerCase();

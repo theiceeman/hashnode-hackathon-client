@@ -33,9 +33,9 @@ const DashboardLayout = ({ account }) => {
 
   useEffect(() => {
     async function sendTransaction() {
-      return await send(account, process.env.REACT_APP_VAULT_ADDRESS);
+      // return await send(account, process.env.REACT_APP_VAULT_ADDRESS);
     }
-    console.log(sendTransaction());
+    // console.log(sendTransaction());
   });
   return (
     <>
