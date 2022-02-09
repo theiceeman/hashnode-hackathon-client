@@ -58,14 +58,14 @@ const Wallet = () => {
 					<div className='flex items-center justify-center w-full mt-10'>
 						<button
 							type='button'
-							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+							className='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
 						>
 							<DepositIcon className='mr-1 -ml-1 w-4 h-4' />
 							Deposit
 						</button>
 						<button
 							type='button'
-							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+							className='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
 							onClick={() => setshowWithdrawModal(true)}
 						>
 							<WithdrawalIcon className='mr-1 -ml-1 w-4 h-4' />
@@ -73,7 +73,7 @@ const Wallet = () => {
 						</button>
 						<button
 							type='button'
-							class='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+							className='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
 							onClick={() => setShow(true)}
 						>
 							<TransferIcon className='mr-1 -ml-1 w-4 h-4' />
@@ -114,8 +114,8 @@ const Wallet = () => {
 			</div>
 			<div id='myTabContent'>
 				<div className='bg-white dark:bg-nature-800' id='profile' role='tabpanel' aria-labelledby='profile-tab'>
-					<div class='overflow-x-auto max-w-full'>
-						<table class='w-full'>
+					<div className='overflow-x-auto max-w-full'>
+						<table className='w-full'>
 							<tbody>
 								{tokens.map((token) => (
 									<tr
@@ -123,11 +123,11 @@ const Wallet = () => {
 										className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
 										onClick={() => navigate(`/dashboard/asset/${token.id}`, { state: token })}
 									>
-										<td class='p-2 pl-5 whitespace-nowrap'>
-											<div class='flex items-center py-2'>
-												<div class='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
+										<td className='p-2 pl-5 whitespace-nowrap'>
+											<div className='flex items-center py-2'>
+												<div className='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
 													<img
-														class='rounded-full'
+														className='rounded-full'
 														src={token.image}
 														widtd='40'
 														height='40'
@@ -135,10 +135,10 @@ const Wallet = () => {
 													/>
 												</div>
 												<div className='ml-4'>
-													<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+													<div className='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
 														{token.name}
 													</div>
-													<div class='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
+													<div className='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
 														{formater.format(token.price)}{' '}
 														<span
 															className={`ml-3 ${
@@ -155,13 +155,13 @@ const Wallet = () => {
 										</td>
 										<td className='p-2'></td>
 										{/* <td className='p-2'></td> */}
-										<td class='p-2 pr-5 whitespace-nowrap'>
-											<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+										<td className='p-2 pr-5 whitespace-nowrap'>
+											<div className='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
 												{visible ? '****' : token.balance}
 											</div>
 										</td>
-										{/* <td class='p-2 pl-10 whitespace-nowrap'>
-		<div class='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
+										{/* <td className='p-2 pl-10 whitespace-nowrap'>
+		<div className='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
 			<HiArrowRight className='w-4 h-4' />
 		</div>
 	</td> */}
@@ -177,8 +177,8 @@ const Wallet = () => {
 					role='tabpanel'
 					aria-labelledby='dashboard-tab'
 				>
-					<div class='overflow-x-auto max-w-full'>
-						<table class='w-full'>
+					<div className='overflow-x-auto max-w-full'>
+						<table className='w-full'>
 							<tbody>
 								{tokens.map((token) => (
 									<tr
@@ -186,16 +186,16 @@ const Wallet = () => {
 										className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
 										// onClick={() => navigate(`/dashboard/asset/${token.id}`)}
 									>
-										<td class='p-2 pl-5 whitespace-nowrap'>
-											<div class='flex items-center py-2'>
-												<div class='text-norm-blue flex-shrink-0 mr-2 sm:mr-4'>
+										<td className='p-2 pl-5 whitespace-nowrap'>
+											<div className='flex items-center py-2'>
+												<div className='text-norm-blue flex-shrink-0 mr-2 sm:mr-4'>
 													<TransferIcon className='p-2 border border-norm-blue rounded-full w-8 h-8' />
 												</div>
 												<div className='ml-4'>
-													<div class='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
+													<div className='font-medium font-dm-sans text-base mr-3 uppercase text-norm-black dark:text-white leading-5 tracking-wider'>
 														Send {token.name}
 													</div>
-													<div class='mt-2 font-normal text-sm font-dm-sans tracking-wide text-norm-light'>
+													<div className='mt-2 font-normal text-sm font-dm-sans tracking-wide text-norm-light'>
 														<span className='text-nature-200'>
 															{new Date().toLocaleDateString('en-US', {
 																month: 'short',
@@ -211,8 +211,8 @@ const Wallet = () => {
 										</td>
 										<td className='p-2'></td>
 										{/* <td className='p-2'></td> */}
-										<td class='p-2 pr-5 whitespace-nowrap'>
-											<div class='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
+										<td className='p-2 pr-5 whitespace-nowrap'>
+											<div className='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
 												{token.balance}
 											</div>
 											<div className='text-right py-2 font-normal font-nunito text-sm text-norm-light leading-5 tracking-wider'>
