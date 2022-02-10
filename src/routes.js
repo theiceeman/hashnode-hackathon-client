@@ -13,7 +13,7 @@ export default function Routes({ account}) {
 			path: '/dashboard',
 			element: <DashboardLayout account={account} />,
 			children: [
-				{ path: '', element: <WalletPage /> },
+				{ path: '', element: <WalletPage  account={account} /> },
 				{ path: 'asset/:slug', element: <TransactionPage /> },
 				{ path: 'stake', element: <StakePage /> },
 			],

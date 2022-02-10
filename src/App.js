@@ -5,7 +5,7 @@ import { useEthers } from "@usedapp/core";
 import { useEffect } from "react";
 
 function App() {
-  const { account, activateBrowserWallet, error, deactivate } = useEthers();
+  const { account, activateBrowserWallet } = useEthers();
 
   useEffect(() => {
     activateBrowserWallet();
