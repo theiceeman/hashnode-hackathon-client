@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import TransferModal from "components/TransferModal";
 import WithdrawModal from "components/WithdrawModal";
 import { useGetUserTokenBalance } from "../hooks/index";
+import { DAI } from "../secrets.json";
 require("dotenv").config();
 
 const Wallet = ({ account }) => {
@@ -18,18 +19,14 @@ const Wallet = ({ account }) => {
   const [showWithdrawModal, setshowWithdrawModal] = useState(false);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
-  const tokenAddress = process.env.DAI;
+  const tokenAddress = DAI;
+  // console.log(account, tokenAddress);
 
-  const { getUserTokenBalance, getUserTokenBalanceState } =
-    useGetUserTokenBalance();
-
-
+  // const { send, state } = useGetUserTokenBalance(account, tokenAddress);
 
   useEffect(() => {
-    console.log("mam");
-    let bal = getUserTokenBalance(account, tokenAddress);
-    console.log(bal);
-  }, []);
+    // send(account, tokenAddress);
+  });
 
   return (
     <>
