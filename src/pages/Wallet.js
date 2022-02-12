@@ -21,8 +21,10 @@ const Wallet = ({ account }) => {
   const navigate = useNavigate();
   const tokenAddress = DAI;
   // console.log(account, tokenAddress);
+  
 
   // const { send, state } = useGetUserTokenBalance(account, tokenAddress);
+  useGetUserTokenBalance(account, tokenAddress);
 
   useEffect(() => {
     // send(account, tokenAddress);

@@ -4,29 +4,26 @@ import { useContractCall } from "@usedapp/core";
 import { ethers } from "@usedapp/core/node_modules/ethers";
 require("dotenv").config();
 
-export const useGetUserTokenBalance = (userAddress, tokenAddress) => {
+export function useGetUserTokenBalance(userAddress, tokenAddress) {
   const { abi } = VAULT_ABI;
   const vaultAddress = process.env.REACT_APP_VAULT_ADDRESS;
-  const vaultInterface = new utils.Interface(abi);
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const vaultInterface = new ethers.utils.Interface(abi);
 
-  const signer = provider.getSigner();
-  const vaultContract = new Contract(vaultAddress, vaultInterface, signer);
-  console.log({ userAddress, tokenAddress, vaultContract });
 
-  /*   
-    abi: Interface
-    address: string
-    method: string
-    args: any[] 
-  */
-  const { send, state } = useContractCall({
-    abi: abi,
-    address: vaultAddress,
-    method: "getUserTokenBalance",
-    args: [userAddress, tokenAddress],
-  });
-  return { send, state };
+  console.log({ vaultAddress, userAddress, tokenAddress, abi });
+  const result =
+    useContractCall(
+      userAddress &&
+        tokenAddress && {
+          abi: vaultInterface,
+          address: vaultAddress,
+          method: 'getUserTokenBalance',
+          args: [userAddress, tokenAddress],
+        }
+    ) ?? [];
+    console.log(result);
+
+  // return { send, state };
 
   /* const { value: getUserTokenBalance, error: getUserTokenBalanceState } =
   
@@ -41,4 +38,4 @@ export const useGetUserTokenBalance = (userAddress, tokenAddress) => {
   console.log({ getUserTokenBalance, getUserTokenBalanceState });
 
   return { getUserTokenBalance, getUserTokenBalanceState }; */
-};
+}

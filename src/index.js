@@ -8,19 +8,23 @@ import "./css/tailwind.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { DAppProvider, ChainId } from "@usedapp/core";
+require("dotenv").config();
+
+console.log(ChainId)
 
 const config = {
   autoConnect: false,
-  readOnlyChainId: ChainId.Hardhat,
+  readOnlyChainId: ChainId.Kovan,
   readOnlyUrls: {
-    [ChainId.Hardhat]: "http://localhost:8545",
+    [ChainId.Kovan]: process.env.REACT_APP_KOVAN_NODE,
   },
-  supportedChains: [ChainId.Hardhat, ChainId.Localhost, ChainId.Mainnet],
+  networks: [ChainId.Kovan, ChainId.Localhost, ChainId.Mainnet],
   multicallAddresses: {
-    [ChainId.Hardhat]: "0xeefba1e63905ef1d7acba5a8513c70307c1ce441",
+    [ChainId.Kovan]: "0x2cc8688c5f75e365aaeeb4ea8d6a480405a48d2a",
     [ChainId.Mainnet]: "0xeefba1e63905ef1d7acba5a8513c70307c1ce441",
   },
 };
+console.log(config)
 
 ReactDOM.render(
   <React.StrictMode>
