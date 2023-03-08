@@ -1,33 +1,43 @@
-// import { ConnectWallet } from '@3rdweb/react';
 import Logo from "components/Logo";
 import { Link } from "react-router-dom";
 import { HiSun as SunIcon, HiMoon as MoonIcon } from "react-icons/hi";
 import Darkmode from "components/Darkmode";
-import { shortenIfAddress, useEthers } from "@usedapp/core";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setThemeMode } from "providers/redux/_actions/user-actions";
 import { getLocalStorage } from "lib/general/helper-functions";
-// import CustomConnect from 'components/Connectwallet';
+import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/general/script";
+import { setUserAddress } from "providers/redux-toolkit/reducers/user-address";
+import { setThemeMode } from "providers/redux-toolkit/reducers/theme";
 
 const Navbar = ({ account }) => {
   const dispatch = useDispatch();
   const [theme, setTheme] = Darkmode();
-  const { activateBrowserWallet } = useEthers();
   const { themeMode: themeModeReducer } = useSelector(
     (state) => state.themeMode
   );
   const themeMode = getLocalStorage("user_theme");
-  let isConnected = account !== undefined ? true : false;
 
+  const userAddress = useSelector(
+    (state) => state.userAddress.userAddress
+  )
 
+  const connectWallet = async () => {
+    let userAddress = await connectToBrowserProvider()
+    if (userAddress) setUserAddress(userAddress)
+  }
 
-  useEffect(() => {
-    themeModeReducer && setTheme(themeModeReducer.data);
-  }, [themeModeReducer, setTheme]);
+  const shortenAddress = (str) => {
+    return str.substring(0, 8) + '...' + str.substring(str.length - 6)
+  }
+  const setUser = async () => {
+    let result = await checkIfWalletIsConnected()
+    if (result.ok)
+      dispatch(setUserAddress(result.message))
+  }
 
-  useEffect(() => {
-    themeMode && setTheme(themeMode);
+  useEffect(async () => {
+    setTheme(themeMode);
+    await setUser()
   });
 
   return (
@@ -36,7 +46,7 @@ const Navbar = ({ account }) => {
         <div className="relative flex items-center justify-between mx-auto">
           <div className="flex items-center">
             <Link to="/" className="flex">
-              <Logo />
+              <Logo theme={theme} />
             </Link>
           </div>
           <div className="flex items-center space-x-2 lg:space-x-8 lg:flex">
@@ -58,16 +68,16 @@ const Navbar = ({ account }) => {
 							borderRadius={'3xl'}
 							className='dark:text-white '
 						/> */}
-            {!isConnected ? (
+            {!userAddress ? (
               <button
-                onClick={() => activateBrowserWallet()}
+                onClick={() => connectWallet()}
                 className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium"
               >
                 Connect Wallet
               </button>
             ) : (
               <button className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium">
-                {shortenIfAddress(account)}
+                {shortenAddress(userAddress)}
               </button>
             )}
           </div>

@@ -105,11 +105,10 @@ const Stake = () => {
 												<div className='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
 													{formater.format(token.price)}{' '}
 													<span
-														className={`ml-3 ${
-															token.profit.startsWith('-')
+														className={`ml-3 ${token.profit.startsWith('-')
 																? ' text-nature-300'
 																: 'text-nature-200'
-														}`}
+															}`}
 													>
 														{token.profit}%
 													</span>

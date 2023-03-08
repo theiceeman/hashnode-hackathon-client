@@ -1,31 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { shortenIfAddress, useEthers } from "@usedapp/core";
+// import { shortenIfAddress, useEthers } from "@usedapp/core";
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
-import { authenticateUser } from "providers/redux/_actions/user-actions";
+// import { authenticateUser, setThemeMode } from "providers/redux/_actions/user-actions";
 import Darkmode from "./Darkmode";
 import { getLocalStorage } from "lib/general/helper-functions";
+import { setUserAddress } from "providers/redux-toolkit/reducers/user-address";
+import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/general/script";
 
-function Nav({User, account}) {
+const Nav = ({ User }) => {
+  const dispatch = useDispatch()
   const [show, setShow] = useState(false);
-  
   const [theme, setTheme] = Darkmode();
-  const { activateBrowserWallet } = useEthers();
-  const { themeMode: themeModeReducer } = useSelector(
-    (state) => state.themeMode
-  );
+
   const themeMode = getLocalStorage("user_theme");
-  let isConnected = account !== undefined ? true : false;
+  const userAddress = useSelector(
+    (state) => state.userAddress.userAddress
+  )
 
 
 
-  useEffect(() => {
-    themeModeReducer && setTheme(themeModeReducer.data);
-  }, [themeModeReducer, setTheme]);
+  const connectWallet = async () => {
+    let userAddress = await connectToBrowserProvider()
+    if (userAddress)
+      dispatch(setUserAddress(userAddress))
+  }
 
-  useEffect(() => {
-    themeMode && setTheme(themeMode);
+  const shortenAddress = (str) => {
+    return str.substring(0, 8) + '...' + str.substring(str.length - 6)
+  }
+
+  const setUser = async () => {
+    let result = await checkIfWalletIsConnected()
+    if (result.ok)
+      dispatch(setUserAddress(result.message))
+  }
+
+
+  useEffect(async () => {
+    setTheme(themeMode);
+    await setUser()
   });
 
   return (
@@ -36,7 +51,7 @@ function Nav({User, account}) {
             <div className="flex items-center">
               <div className="col-span-1  flex py-1">
                 {/* <img className='w-full' src='/images/logo-light.svg' alt='logo' /> */}
-                <Logo />
+                <Logo theme={theme} />
               </div>
             </div>
 
@@ -60,11 +75,10 @@ function Nav({User, account}) {
           {/* <!-- Mobile Menu open: "block", Menu closed: "hidden" --> */}
           <div className="items-center justify-self-center md:flex">
             <div
-              className={`${
-                show ? "flex" : "hidden"
-              }   md:flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1`}
+              className={`${show ? "flex" : "hidden"
+                }   md:flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1`}
             >
-              {isConnected && (
+              {userAddress && (
                 <Link
                   to="/dashboard"
                   className="li font-semibold font-dm-sans dark:text-norm-text"
@@ -74,20 +88,19 @@ function Nav({User, account}) {
               )}
             </div>
             <div
-              className={`${
-                show ? "flex" : "hidden"
-              } md:flex items-center py-2 -mx-1 md:mx-0`}
+              className={`${show ? "flex" : "hidden"
+                } md:flex items-center py-2 -mx-1 md:mx-0`}
             >
-              {!isConnected ? (
+              {!userAddress ? (
                 <button
-                  onClick={() => activateBrowserWallet()}
+                  onClick={() => connectWallet()}
                   className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium"
                 >
                   Connect Wallet
                 </button>
               ) : (
                 <button className="bg-norm-blue hover:bg-norm-dblue border-none px-4 py-2 shadow-2xl rounded-3xl text-base leading-6 text-white font-dm-sans font-medium">
-                  {shortenIfAddress(account)}
+                  {shortenAddress(userAddress)}
                 </button>
               )}
             </div>

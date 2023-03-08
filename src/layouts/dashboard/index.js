@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import TopBar from "./TopBar";
 import { HiExclamation } from "react-icons/hi";
-import { useEthers, useContractFunction } from "@usedapp/core";
+// import { useEthers, useContractFunction } from "@usedapp/core";
 import { Contract } from "ethers";
 import { useEffect } from "react";
 import dotenv from "dotenv";

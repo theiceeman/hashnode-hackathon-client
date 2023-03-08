@@ -7,11 +7,11 @@ import DashboardLayout from 'layouts/dashboard';
 // pages
 import { Error404Page, HomePage, StakePage, TransactionPage, WalletPage } from 'pages';
 
-export default function Routes({ account}) {
+export default function Routes({ userAddress}) {
 	return useRoutes([
 		{
 			path: '/dashboard',
-			element: <DashboardLayout account={account} />,
+			element: <DashboardLayout userAddress={userAddress} />,
 			children: [
 				{ path: '', element: <WalletPage /> },
 				{ path: 'asset/:slug', element: <TransactionPage /> },
@@ -20,7 +20,7 @@ export default function Routes({ account}) {
 		},
 		{
 			path: '/',
-			element: <MainLayout account={account} />,
+			element: <MainLayout userAddress={userAddress} />,
 			children: [{ path: '/', element: <HomePage /> }],
 		},
 		{ path: '*', element: <Error404Page /> },

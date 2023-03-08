@@ -1,9 +1,15 @@
-const Logo = ({ className }) => {
-	const theme = localStorage.getItem('theme-mode');
+import { useEffect } from "react";
+
+const Logo = ({ theme }) => {
+	console.log(theme)
+	// let theme = '';
+	// useEffect(() => {
+	// 	theme = localStorage.getItem('theme-mode');
+	// });
 	return (
 		<>
 			<img
-				className={className ?? 'w-full'}
+				className={'w-full'}
 				src={theme === 'light' ? '/images/logo-light.svg' : '/images/logo-dark.svg'}
 				alt='logo'
 			/>

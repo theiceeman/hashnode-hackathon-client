@@ -1,19 +1,18 @@
 import Routes from "routes";
-import { Provider } from "react-redux";
-import store from "./providers/redux/store";
-import { useEthers } from "@usedapp/core";
-import { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+// import store from "./providers/redux/store";
+import { store } from "./providers/redux-toolkit/store";
+import { useEffect, useState } from "react";
+import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/general/script";
+import { setUserAddress } from "providers/redux-toolkit/reducers/user-address";
 
 function App() {
-  const { account, activateBrowserWallet, error, deactivate } = useEthers();
+  // const [userAddress, setuserAddress] = useState('')
 
-  useEffect(() => {
-    activateBrowserWallet();
-  }, [account, activateBrowserWallet]);
   return (
     <Provider store={store}>
       <div>
-        <Routes account={account} />
+        <Routes />
       </div>
     </Provider>
   );

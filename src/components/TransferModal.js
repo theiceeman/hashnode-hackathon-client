@@ -59,16 +59,16 @@ function TransferModal({ show, setShow }) {
 									selectedValue={tokens.find((option) => option.id === coin)}
 								/>
 							</div>
-							<div className='mb-6 w-full'>
+							{/* <div className='mb-6 w-full'>
 								<span className='text-gray-500 text-sm font-semibold'>Recipient Address</span>
 								<input
 									type='text'
 									className='border-2 mt-1 w-full mb-1  focus:border-gray-600 focus:outline-none border-gray-200 rounded-lg'
 									placeholder='**********'
 								/>
-							</div>
+							</div> */}
 							<div className='md:mb-10 mb-6 w-full'>
-								<span className='text-gray-500 text-sm font-semibold'>Amount to transfer</span>
+								<span className='text-gray-500 text-sm font-semibold'>Amount</span>
 								<input
 									type='text'
 									className='border-2 mt-1 w-full mb-1 focus:border-gray-600 focus:outline-none border-gray-200 rounded-lg'

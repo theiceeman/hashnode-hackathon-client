@@ -30,7 +30,7 @@ const TopBar = () => {
 								: 'text-nature-700 bg-white dark:bg-nature-800 hover:text-norm-black dark:hover:text-nature-700 hover:bg-glitz-100 dark:hover:bg-norm-black'
 						}`}
 					>
-						Stake
+						Savings
 					</Link>
 				</li>
 			</ul>

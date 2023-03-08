@@ -56,11 +56,19 @@ const Wallet = () => {
 					</div>
 
 					<div className='flex items-center justify-center w-full mt-10'>
-						<button
+						{/* <button
 							type='button'
 							className='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
 						>
 							<DepositIcon className='mr-1 -ml-1 w-4 h-4' />
+							Deposit
+						</button> */}
+						<button
+							type='button'
+							className='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
+							onClick={() => setShow(true)}
+						>
+							<TransferIcon className='mr-1 -ml-1 w-4 h-4' />
 							Deposit
 						</button>
 						<button
@@ -70,14 +78,6 @@ const Wallet = () => {
 						>
 							<WithdrawalIcon className='mr-1 -ml-1 w-4 h-4' />
 							Withdraw
-						</button>
-						<button
-							type='button'
-							className='py-2 px-4 mr-2 mb-2 text-sm font-dm-sans font-medium tracking-wide text-white rounded-full bg-norm-blue hover:bg-norm-dblue hover:text-norm-text text-center inline-flex items-center'
-							onClick={() => setShow(true)}
-						>
-							<TransferIcon className='mr-1 -ml-1 w-4 h-4' />
-							Send
 						</button>
 					</div>
 				</div>
