@@ -2,8 +2,8 @@ import {
     createSlice,
     configureStore
 } from "@reduxjs/toolkit";
-import { themeModeSlice } from "./reducers/theme";
-import { userAddressSlice } from "./reducers/user-address";
+import { themeModeSlice } from "./reducers/theme-reducer";
+import { userAddressSlice, userProviderSlice, userTotalBalanceSlice } from "./reducers/user.reducer";
 
 
 // REDUCER
@@ -32,8 +32,11 @@ export const selectSearch = (state) => state.search.search
 export const store = configureStore({
     reducer: {
         search: searchSlice.reducer,
+        themeMode: themeModeSlice.reducer,
+
         userAddress: userAddressSlice.reducer,
-        themeMode: themeModeSlice.reducer
+        // userProvider: userProviderSlice.reducer,
+        userTotalBalance: userTotalBalanceSlice.reducer,
     }
 })
 

@@ -5,18 +5,18 @@ import Darkmode from "components/Darkmode";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocalStorage } from "lib/general/helper-functions";
-import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/general/script";
-import { setUserAddress } from "providers/redux-toolkit/reducers/user-address";
-import { setThemeMode } from "providers/redux-toolkit/reducers/theme";
+import { checkIfWalletIsConnected, connectToBrowserProvider, loadProvider } from "lib/web3/script";
+import { setUserAddress, setUserProvider, setUserTotalBalance } from "providers/redux-toolkit/reducers/user.reducer";
+import { setThemeMode } from "providers/redux-toolkit/reducers/theme-reducer";
+import { getUserTotalBalance } from "providers/redux-toolkit/actions/user-actions";
 
 const Navbar = ({ account }) => {
   const dispatch = useDispatch();
+  const themeMode = getLocalStorage("user_theme");
   const [theme, setTheme] = Darkmode();
   const { themeMode: themeModeReducer } = useSelector(
     (state) => state.themeMode
   );
-  const themeMode = getLocalStorage("user_theme");
-
   const userAddress = useSelector(
     (state) => state.userAddress.userAddress
   )
@@ -29,15 +29,24 @@ const Navbar = ({ account }) => {
   const shortenAddress = (str) => {
     return str.substring(0, 8) + '...' + str.substring(str.length - 6)
   }
-  const setUser = async () => {
+
+  const fetchUser = async () => {
+    // store user account
     let result = await checkIfWalletIsConnected()
-    if (result.ok)
-      dispatch(setUserAddress(result.message))
+    if (!result.ok) {
+      return;
+    }
+    dispatch(setUserAddress(result.message))
+
+    // store user total balance
+    let totalBalance = await getUserTotalBalance()
+    if (totalBalance) dispatch(setUserTotalBalance(totalBalance))
+
   }
 
   useEffect(async () => {
     setTheme(themeMode);
-    await setUser()
+    await fetchUser()
   });
 
   return (

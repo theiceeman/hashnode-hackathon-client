@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { formater } from 'components/atom';
 import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
@@ -6,12 +7,42 @@ import tokens from 'components/_mock_/coin';
 import { useNavigate } from 'react-router-dom';
 import TransferModal from 'components/TransferModal';
 import WithdrawModal from 'components/WithdrawModal';
+import '../css/app.css'
+import { getUserTokenBalance } from 'lib/web3/methods';
+import { loadProvider } from 'lib/web3/script';
 
 const Wallet = () => {
 	const [show, setShow] = useState(false);
 	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
 	const [visible, setVisible] = useState(false);
+	const [walletTokens, setWalletTokens] = useState([]);
 	const navigate = useNavigate();
+
+	const { userTotalBalance } = useSelector((state) => state.userTotalBalance)
+	const { userAddress } = useSelector((state) => state.userAddress)
+
+	const getTokenBalance = async (tokenAddress) => {
+		let provider = await loadProvider();
+		return await getUserTokenBalance(provider, userAddress, tokenAddress);
+	}
+
+	const fetchTokens = () => {
+		let _tokens = tokens;
+		_tokens.forEach(async e => {
+			let tokenBalance = await getTokenBalance(e.address)
+			e.balance = tokenBalance;
+		});
+		console.log({_tokens})
+		setWalletTokens(_tokens)
+		console.log(walletTokens)
+	}
+
+
+
+	useEffect(async () => {
+		tokens && userAddress && await fetchTokens()
+	}, [userTotalBalance])
+
 
 	return (
 		<>
@@ -44,7 +75,7 @@ const Wallet = () => {
 								/>
 							)}
 							<span className='text-[32px] font-normal font-nunito-sans tracking-wide text-norm-black dark:text-white mr-1'>
-								{visible ? '***' : '0.37078'}
+								{visible ? '***' : userTotalBalance}
 							</span>
 							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
 								{visible ? '***' : 'ETH'}
@@ -117,7 +148,7 @@ const Wallet = () => {
 					<div className='overflow-x-auto max-w-full'>
 						<table className='w-full'>
 							<tbody>
-								{tokens.map((token) => (
+								{walletTokens && walletTokens.map((token) => (
 									<tr
 										key={token.name}
 										className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
@@ -127,7 +158,7 @@ const Wallet = () => {
 											<div className='flex items-center py-2'>
 												<div className='w-10 h-10 flex-shrink-0 mr-2 sm:mr-4'>
 													<img
-														className='rounded-full'
+														className='rounded-full app-icon'
 														src={token.image}
 														widtd='40'
 														height='40'
@@ -141,11 +172,10 @@ const Wallet = () => {
 													<div className='mt-2 font-normal text-sm font-nunito tracking-wider text-norm-light'>
 														{formater.format(token.price)}{' '}
 														<span
-															className={`ml-3 ${
-																token.profit.startsWith('-')
-																	? ' text-nature-300'
-																	: 'text-nature-200'
-															}`}
+															className={`ml-3 ${token.profit.startsWith('-')
+																? ' text-nature-300'
+																: 'text-nature-200'
+																}`}
 														>
 															{token.profit}%
 														</span>
@@ -154,17 +184,11 @@ const Wallet = () => {
 											</div>
 										</td>
 										<td className='p-2'></td>
-										{/* <td className='p-2'></td> */}
 										<td className='p-2 pr-5 whitespace-nowrap'>
 											<div className='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
 												{visible ? '****' : token.balance}
 											</div>
 										</td>
-										{/* <td className='p-2 pl-10 whitespace-nowrap'>
-		<div className='text-center py-2 font-medium font-nunito text-base text-norm-black dark:text-white'>
-			<HiArrowRight className='w-4 h-4' />
-		</div>
-	</td> */}
 									</tr>
 								))}
 							</tbody>
@@ -184,7 +208,7 @@ const Wallet = () => {
 									<tr
 										key={token.name}
 										className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
-										// onClick={() => navigate(`/dashboard/asset/${token.id}`)}
+									// onClick={() => navigate(`/dashboard/asset/${token.id}`)}
 									>
 										<td className='p-2 pl-5 whitespace-nowrap'>
 											<div className='flex items-center py-2'>

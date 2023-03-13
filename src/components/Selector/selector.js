@@ -3,7 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { MdArrowDropDown } from 'react-icons/md';
 
 export const TokenSelector = React.forwardRef((props, ref) => {
+	// console.log('yyy',props.selectedValue)
 	const [query, setQuery] = useState('');
+	const [depositToken, setDepositToken] = useState(props.selectedValue.address)
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
@@ -19,6 +21,8 @@ export const TokenSelector = React.forwardRef((props, ref) => {
 		};
 	}, [props, ref]);
 
+
+
 	return (
 		<div ref={ref}>
 			<div className='mt-1 relative w-full'>
@@ -30,6 +34,15 @@ export const TokenSelector = React.forwardRef((props, ref) => {
 					aria-labelledby='listbox-label'
 					onClick={props.onToggle}
 				>
+
+					<input
+						type='search'
+						name='tokenAddress'
+						autoComplete={'off'}
+						className='hidden'
+						value={depositToken}
+						readOnly
+					/>
 					<span className='truncate flex items-center'>
 						<img
 							alt={`${props.selectedValue.value}`}
@@ -94,6 +107,7 @@ export const TokenSelector = React.forwardRef((props, ref) => {
 												onClick={() => {
 													props.onChange(value.id);
 													setQuery('');
+													setDepositToken(value.address)
 													props.onToggle();
 												}}
 											>

@@ -1,4 +1,7 @@
 import { BigNumber } from "ethers";
+import { Request } from "./https";
+import dotenv from 'dotenv'
+dotenv.config()
 
 export function setLocalStorage(key, value) {
   window.localStorage.setItem(key, value);
@@ -45,15 +48,52 @@ export function convertEpochToDate(date_in_secs) {
 }
 
 export function rpcErrors(err) {
-  switch (err.code) {
-    case -32603:
-      let errMessage = err.data.message;
-      let revertError = errMessage.split("reverted with reason string");
-      return { error: true, message: revertError[1] };
-      break;
+  let error = JSON.parse(err.split('.')[1])
+  let data;
 
+  switch (error.code) {
+    case -32603:
+      let msg = error.message;
+      let revertError = msg.split("reverted with reason string");
+      data = revertError[1];
+      break;
     default:
-      return { error: true, message: err.message };
+      data = error.message;
       break;
   }
+  return { status: true, data };
+}
+
+
+export function TryCatchException(error) {
+  let __error;
+  if (error?.messages)
+    __error = error.messages.errors[0].field + ' : ' + error.messages.errors[0].message
+  else
+    __error = error.message;
+
+  // return __error;
+  return { ok: false, data: __error }
+}
+
+export async function convertAmountToUsd(symbol, tokenAmount) {
+  // let url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=' + symbol;
+  let config = {
+    headers: {
+      'X-CMC_PRO_API_KEY': process.env.REACT_APP_COINMARKET_API_KEY
+    }
+  }
+
+  let url = 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion?symbol=WMATIC&convert=USD&amount=1';
+  let response = await Request.get(url, config)
+  if (!response.ok)
+    throw new Error('Amount conversion to USD failed!')
+
+  let data = response.data.data.data;
+  let tokenDetails;
+  if (data.hasOwnProperty(symbol))
+    tokenDetails = data[symbol]
+
+  let usdRate = tokenDetails.quote.USD.price;
+  return tokenAmount * usdRate
 }

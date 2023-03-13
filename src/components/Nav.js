@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { shortenIfAddress, useEthers } from "@usedapp/core";
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
-// import { authenticateUser, setThemeMode } from "providers/redux/_actions/user-actions";
 import Darkmode from "./Darkmode";
 import { getLocalStorage } from "lib/general/helper-functions";
-import { setUserAddress } from "providers/redux-toolkit/reducers/user-address";
-import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/general/script";
+import { setUserAddress } from "providers/redux-toolkit/reducers/user.reducer";
+import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/web3/script";
 
 const Nav = ({ User }) => {
   const dispatch = useDispatch()

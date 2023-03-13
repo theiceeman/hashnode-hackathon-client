@@ -9,7 +9,6 @@ import { HiExclamation } from "react-icons/hi";
 import { Contract } from "ethers";
 import { useEffect } from "react";
 import dotenv from "dotenv";
-import VAULT_ABI from "../../abi/vault/Vault.sol/Vault.json";
 dotenv.config();
 
 const Notification = () => {

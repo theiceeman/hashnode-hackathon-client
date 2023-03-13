@@ -1,59 +1,51 @@
+
+import dotenv from "dotenv";
+dotenv.config();
 const tokens = [
 	{
-		id: 'BTC',
-		image: '/images/token/bitcoin.svg',
-		name: 'Bitcoin',
+		id: 'USDC',
+		image: 'https://compound.finance/compound-components/assets/asset_USDC.svg',
+		name: 'USD Coin',
 		price: '36376.81',
 		profit: '-8.92',
 		balance: '0 BTC',
+		address: process.env.REACT_APP_USDC_ADDRESS
 	},
 	{
-		id: 'ETH',
-		image: '/images/token/ethereum.svg',
-		name: 'Ethereum',
+		id: 'DAI',
+		image: 'https://compound.finance/compound-components/assets/asset_DAI.svg',
+		name: 'Dai',
 		price: '2593.08',
 		profit: '+11.24',
 		balance: '0.3708 ETH',
+		address: process.env.REACT_APP_DAI_ADDRESS
 	},
 	{
-		id: 'BNB',
-		image: '/images/token/bnb.svg',
-		name: 'BNB',
+		id: 'UNI',
+		image: 'https://compound.finance/images/asset_UNI.svg',
+		name: 'Uniswap',
 		price: '386.59',
 		profit: '-9.68',
 		balance: '0 BNB',
+		address: process.env.REACT_APP_UNI_ADDRESS
 	},
 	{
-		id: 'USDT',
-		image: '/images/token/tether.svg',
-		name: 'Tether USD',
+		id: 'WBTC',
+		image: 'https://compound.finance/compound-components/assets/asset_BTC.svg',
+		name: 'Wrapped BTC',
 		price: '1.00',
 		profit: '+10.02',
 		balance: '0 USDT',
+		address: process.env.REACT_APP_WBTC_ADDRESS
 	},
 	{
-		id: 'XRP',
-		image: '/images/token/ripple.svg',
-		name: 'XRP Ripple',
+		id: 'USDT',
+		image: 'https://compound.finance/compound-components/assets/asset_USDT.svg',
+		name: 'Tether',
 		price: '0.64',
 		profit: '-11.49',
 		balance: '0 XRP',
-	},
-	{
-		id: 'TRX',
-		image: '/images/token/tron.svg',
-		name: 'Tron',
-		price: '0.06',
-		profit: '-9.65',
-		balance: '0 TRX',
-	},
-	{
-		id: 'LINK',
-		image: '/images/token/chainlink.svg',
-		name: 'LINK',
-		price: '17.53',
-		profit: '-11.91',
-		balance: '0 LINK',
+		address: process.env.REACT_APP_USDT_ADDRESS
 	},
 ];
 
