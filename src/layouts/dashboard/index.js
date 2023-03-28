@@ -25,17 +25,6 @@ const Notification = () => {
 };
 
 const DashboardLayout = ({ account }) => {
-  /* const VAULT_ADDRESS = process.env.REACT_APP_VAULT_ADDRESS;
-  // const contract = new Contract(VAULT_ADDRESS, VAULT_ABI.abi);
-
-  // const { send } = useContractFunction(contract, "getUserTokenBalance");
-
-  useEffect(() => {
-    async function sendTransaction() {
-      // return await send(account, process.env.REACT_APP_VAULT_ADDRESS);
-    }
-    // console.log(sendTransaction());
-  }); */
   return (
     <>
       <div className="bg-nature-100 dark:bg-nature-900">

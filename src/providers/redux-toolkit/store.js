@@ -3,7 +3,7 @@ import {
     configureStore
 } from "@reduxjs/toolkit";
 import { themeModeSlice } from "./reducers/theme-reducer";
-import { userAddressSlice, userProviderSlice, userTotalBalanceSlice } from "./reducers/user.reducer";
+import { userAddressSlice, userProviderSlice, userTotalBalanceSlice, walletTokensSlice } from "./reducers/user.reducer";
 
 
 // REDUCER
@@ -37,6 +37,7 @@ export const store = configureStore({
         userAddress: userAddressSlice.reducer,
         // userProvider: userProviderSlice.reducer,
         userTotalBalance: userTotalBalanceSlice.reducer,
+        walletTokens: walletTokensSlice.reducer,
     }
 })
 

@@ -30,23 +30,9 @@ const Navbar = ({ account }) => {
     return str.substring(0, 8) + '...' + str.substring(str.length - 6)
   }
 
-  const fetchUser = async () => {
-    // store user account
-    let result = await checkIfWalletIsConnected()
-    if (!result.ok) {
-      return;
-    }
-    dispatch(setUserAddress(result.message))
-
-    // store user total balance
-    let totalBalance = await getUserTotalBalance()
-    if (totalBalance) dispatch(setUserTotalBalance(totalBalance))
-
-  }
 
   useEffect(async () => {
     setTheme(themeMode);
-    await fetchUser()
   });
 
   return (

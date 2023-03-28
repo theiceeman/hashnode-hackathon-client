@@ -9,14 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { rpcErrors } from 'lib/general/helper-functions';
 import { SimpleToastError, SimpleToastSuccess } from 'lib/validation/error-handlers';
 import { setUserTotalBalance } from 'providers/redux-toolkit/reducers/user.reducer';
-import { getUserTotalBalance } from 'providers/redux-toolkit/actions/user-actions';
+import { getUserTotalBalance, getUserTotalBalanceinUsd } from 'providers/redux-toolkit/actions/user-actions';
 
-const TransferModal = ({ show, setShow }) => {
+const TransferModal = ({ show, setShow, setTotalBalanceInUsd }) => {
 	const dispatch = useDispatch();
-	const [completed, setCompleted] = useState(false);
+
 	const myRef = React.createRef();
-	const [isOpen, setIsOpen] = useState(false);
 	const [coin, setCoin] = useState('DAI');
+	const [isOpen, setIsOpen] = useState(false);
+	const [completed, setCompleted] = useState(false);
 
 	const { userAddress } = useSelector((state) => state.userAddress)
 	const [provider, setProvider] = useState(null)
@@ -29,26 +30,19 @@ const TransferModal = ({ show, setShow }) => {
 		const values = Object.fromEntries(data.entries());
 		const { tokenAddress, amount } = values;
 
-		let _approve = await approve(provider, userAddress, tokenAddress, amount)
-		// console.log({ _approve })
-		if (!_approve.ok) {
-			let error = await rpcErrors(_approve.data);
-			SimpleToastError(error.data)
+		let res = await approve(provider, userAddress, tokenAddress, amount)
+		if (!res.ok) {
+			SimpleToastError((await rpcErrors(res.data)).data); return;
 		}
 
-		let _deposit = await deposit(provider, userAddress, tokenAddress, amount);
-		// console.log({ _deposit });
-
-		if (_deposit.ok) {
-			SimpleToastSuccess('Deposit successfull!')
-			// window.location.reload();
-			// store user total balance
-			let totalBalance = await getUserTotalBalance()
-			if (totalBalance) dispatch(setUserTotalBalance(totalBalance))
-		} else {
-			let error = await rpcErrors(_deposit.data);
-			SimpleToastError(error.data)
+		let action = await deposit(provider, userAddress, tokenAddress, amount);
+		if (!action.ok) {
+			let error = await rpcErrors(action.data);
+			SimpleToastError(error.data); return;
 		}
+		SimpleToastSuccess('Deposit successfull!')
+		let totalBalanceInUsd = await getUserTotalBalanceinUsd()
+		if (totalBalanceInUsd) setTotalBalanceInUsd(totalBalanceInUsd)
 	}
 
 

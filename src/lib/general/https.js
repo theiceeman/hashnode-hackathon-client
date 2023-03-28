@@ -22,7 +22,7 @@ export const Request = {
 
   get: async (url, config) => {
     const headers = config?.headers;
-    console.log({headers});
+    // console.log({headers});
     return await axios.get(url, {
       ...config,
       headers: {

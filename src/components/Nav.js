@@ -3,20 +3,17 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
 import Darkmode from "./Darkmode";
-import { getLocalStorage } from "lib/general/helper-functions";
+import { getLocalStorage, shortenAddress } from "lib/general/helper-functions";
 import { setUserAddress } from "providers/redux-toolkit/reducers/user.reducer";
 import { checkIfWalletIsConnected, connectToBrowserProvider } from "lib/web3/script";
 
-const Nav = ({ User }) => {
+const Nav = () => {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false);
   const [theme, setTheme] = Darkmode();
-
   const themeMode = getLocalStorage("user_theme");
-  const userAddress = useSelector(
-    (state) => state.userAddress.userAddress
-  )
 
+  const { userAddress } = useSelector((state) => state.userAddress)
 
 
   const connectWallet = async () => {
@@ -25,20 +22,11 @@ const Nav = ({ User }) => {
       dispatch(setUserAddress(userAddress))
   }
 
-  const shortenAddress = (str) => {
-    return str.substring(0, 8) + '...' + str.substring(str.length - 6)
-  }
 
-  const setUser = async () => {
-    let result = await checkIfWalletIsConnected()
-    if (result.ok)
-      dispatch(setUserAddress(result.message))
-  }
 
 
   useEffect(async () => {
     setTheme(themeMode);
-    await setUser()
   });
 
   return (

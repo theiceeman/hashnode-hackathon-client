@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { formater } from 'components/atom';
 import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
@@ -8,17 +8,23 @@ import { useNavigate } from 'react-router-dom';
 import TransferModal from 'components/TransferModal';
 import WithdrawModal from 'components/WithdrawModal';
 import '../css/app.css'
-import { getUserTokenBalance } from 'lib/web3/methods';
+import { decimal, getUserTokenBalance } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
+import { setWalletTokens } from 'providers/redux-toolkit/reducers/user.reducer';
+import { getUserTotalBalanceinUsd, getWalletTokens } from 'providers/redux-toolkit/actions/user-actions';
 
 const Wallet = () => {
-	const [show, setShow] = useState(false);
-	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
-	const [visible, setVisible] = useState(false);
-	const [walletTokens, setWalletTokens] = useState([]);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { userTotalBalance } = useSelector((state) => state.userTotalBalance)
+	const [show, setShow] = useState(false);
+	const [visible, setVisible] = useState(false);
+	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
+
+	const [totalBalance, setTotalBalance] = useState(0);
+	const [totalBalanceInUsd, setTotalBalanceInUsd] = useState(0);
+	const [walletTokens, setWalletTokens] = useState([]);
+
 	const { userAddress } = useSelector((state) => state.userAddress)
 
 	const getTokenBalance = async (tokenAddress) => {
@@ -26,22 +32,28 @@ const Wallet = () => {
 		return await getUserTokenBalance(provider, userAddress, tokenAddress);
 	}
 
-	const fetchTokens = () => {
-		let _tokens = tokens;
-		_tokens.forEach(async e => {
-			let tokenBalance = await getTokenBalance(e.address)
-			e.balance = tokenBalance;
-		});
-		console.log({_tokens})
-		setWalletTokens(_tokens)
-		console.log(walletTokens)
+	const fetchWalletTokens = async () => {
+		let provider = await loadProvider();
+		let userTokens = [...tokens]
+
+		let _userTokens = await Promise.all(
+			userTokens.map(async (e) => {
+				let tokenBalance = await getTokenBalance(e.address)
+				let tokenDecimal = await decimal(provider, e.address)
+				let balance = Number(tokenBalance) / 10 ** Number(tokenDecimal);
+				return { ...e, balance: balance };
+			})
+		)
+		setWalletTokens(_userTokens)
 	}
 
 
 
 	useEffect(async () => {
-		tokens && userAddress && await fetchTokens()
-	}, [userTotalBalance])
+		userAddress && fetchWalletTokens(userAddress)
+
+		setTotalBalanceInUsd(await getUserTotalBalanceinUsd())
+	}, [userAddress])
 
 
 	return (
@@ -75,14 +87,14 @@ const Wallet = () => {
 								/>
 							)}
 							<span className='text-[32px] font-normal font-nunito-sans tracking-wide text-norm-black dark:text-white mr-1'>
-								{visible ? '***' : userTotalBalance}
+								{visible ? '***' : totalBalance}
 							</span>
 							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
 								{visible ? '***' : 'ETH'}
 							</span>
 						</div>
 						<span className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>
-							= {visible ? '****' : formater.format(0)}
+							= {visible ? '****' : formater.format(totalBalanceInUsd)}
 						</span>
 					</div>
 
@@ -148,11 +160,11 @@ const Wallet = () => {
 					<div className='overflow-x-auto max-w-full'>
 						<table className='w-full'>
 							<tbody>
-								{walletTokens && walletTokens.map((token) => (
+								{walletTokens.length > 0 && walletTokens.map((token) => (
 									<tr
 										key={token.name}
 										className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
-										onClick={() => navigate(`/dashboard/asset/${token.id}`, { state: token })}
+									// onClick={() => navigate(`/dashboard/asset/${token.id}`, { state: token })}
 									>
 										<td className='p-2 pl-5 whitespace-nowrap'>
 											<div className='flex items-center py-2'>
@@ -186,7 +198,7 @@ const Wallet = () => {
 										<td className='p-2'></td>
 										<td className='p-2 pr-5 whitespace-nowrap'>
 											<div className='text-right py-2 font-medium uppercase font-nunito text-base text-norm-black dark:text-white leading-5 tracking-wider'>
-												{visible ? '****' : token.balance}
+												{visible ? '****' : token.balance + ' ' + token.id}
 											</div>
 										</td>
 									</tr>
@@ -250,7 +262,11 @@ const Wallet = () => {
 					</div>
 				</div>
 			</div>
-			<TransferModal show={show} setShow={setShow} />
+			<TransferModal
+				show={show}
+				setShow={setShow}
+				totalBalanceInUsd={totalBalanceInUsd}
+				setTotalBalanceInUsd={setTotalBalanceInUsd} />
 			<WithdrawModal show={showWithdrawModal} setShow={setshowWithdrawModal} />
 		</>
 	);

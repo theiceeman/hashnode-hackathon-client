@@ -11,6 +11,10 @@ export function getLocalStorage(key) {
   return window.localStorage.getItem(key);
 }
 
+export const shortenAddress = (str) => {
+  return str.substring(0, 8) + '...' + str.substring(str.length - 6)
+}
+
 export function capitalize(str) {
   const lower = str.toLowerCase();
   return str.charAt(0).toUpperCase() + lower.slice(1);
@@ -77,23 +81,14 @@ export function TryCatchException(error) {
 }
 
 export async function convertAmountToUsd(symbol, tokenAmount) {
-  // let url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=' + symbol;
-  let config = {
-    headers: {
-      'X-CMC_PRO_API_KEY': process.env.REACT_APP_COINMARKET_API_KEY
-    }
-  }
-
-  let url = 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion?symbol=WMATIC&convert=USD&amount=1';
-  let response = await Request.get(url, config)
+  let api_key = '9f84f53a067dd8d02d95feb9fef27ba64208ef313e0c7367a8e7f2d49f5866e7'
+  let url = 'https://min-api.cryptocompare.com/data/price?fsym=' + symbol + '&tsyms=USD&api_key=' + api_key;
+  let response = await Request.get(url)
   if (!response.ok)
     throw new Error('Amount conversion to USD failed!')
 
-  let data = response.data.data.data;
-  let tokenDetails;
-  if (data.hasOwnProperty(symbol))
-    tokenDetails = data[symbol]
-
-  let usdRate = tokenDetails.quote.USD.price;
-  return tokenAmount * usdRate
+  let data = response.data.data;
+  let usdRate = data.USD
+  let tokenUsdAmount = tokenAmount * usdRate;
+  return tokenUsdAmount;
 }

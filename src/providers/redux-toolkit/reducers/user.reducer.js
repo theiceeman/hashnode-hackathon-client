@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import tokens from "components/_mock_/coin";
+
+
 // USER_ADDRESS
 export const userAddressSlice = createSlice({
     name: "userAddress",
     initialState: {
-        userAddress: ""
+        userAddress: null
     },
     reducers: {
         setUserAddress: (state, action) => {
@@ -50,6 +53,25 @@ export const userTotalBalanceSlice = createSlice({
 // SELECTOR
 // allows app to update slice
 export const { setUserTotalBalance } = userTotalBalanceSlice.actions;
+
+
+
+// WALLET_TOKENS
+export const walletTokensSlice = createSlice({
+    name: "walletTokens",
+    initialState: {
+        walletTokens: tokens
+    },
+    reducers: {
+        setWalletTokens: (state, action) => {
+            state.walletTokens = action.payload;
+        }
+    }
+})
+// SELECTOR
+// allows app to update slice
+export const { setWalletTokens } = walletTokensSlice.actions;
+
 
 
 

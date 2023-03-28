@@ -17,7 +17,7 @@ const COMPOUND_CONTROLLER_ADDRESS = process.env.REACT_APP_COMPOUND_CONTROLLER_AD
 const USER_WALLET_ADDRESS = process.env.REACT_APP_USER_WALLET_ADDRESS;
 
 
-async function decimal(client, tokenAddress) {
+export async function decimal(client, tokenAddress) {
     const contract = new client.eth.Contract(erc20Abi, tokenAddress.trim())
     const decimal = await contract.methods.decimals().call();
     // console.log({ decimal })
@@ -84,6 +84,31 @@ export async function deposit(client, from, tokenAddress, amount) {
             gasPrice: 500000000000  //  wei
         })
         console.log({ txn })
+
+        return { ok: true, data: txn }
+    } catch (error) {
+        return TryCatchException(error)
+    }
+}
+export async function withdrawFromVault(client, from, recipient, tokenAddress, amount) {
+    try {
+        const contract = new client.eth.Contract(userWalletAbi, USER_WALLET_ADDRESS.trim())
+        let tokenDecimal = await decimal(client, tokenAddress);
+        let withdrawAmount = BigNumber.from((amount * 10 ** tokenDecimal)
+            .toLocaleString('fullwide', { useGrouping: false }));
+
+        let action = await contract.methods.withdrawFromVault(recipient, tokenAddress, withdrawAmount)
+        // console.log({ 'yyy': action });return;
+
+        let txn = await client.eth.sendTransaction({
+            from,
+            to: USER_WALLET_ADDRESS,
+            data: action.encodeABI(),
+            gas: await action.estimateGas({ from }),
+            // gas: 300000,   //   300000 GAS
+            gasPrice: 500000000000  //  wei
+        })
+        // console.log({ txn });return;
 
         return { ok: true, data: txn }
     } catch (error) {

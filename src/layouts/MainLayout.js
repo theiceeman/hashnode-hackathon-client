@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { HiExclamation } from "react-icons/hi";
 
-const MainLayout = ({User, userAddress}) => {
+const MainLayout = () => {
 
   const Notification = () => {
     return (
@@ -21,7 +21,7 @@ const MainLayout = ({User, userAddress}) => {
   return (
     <div>
       {window && !window.ethereum && <Notification />}
-      <Nav User={User}/>
+      <Nav/>
       <main className="mx-auto">
         <Outlet />
       </main>

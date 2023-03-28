@@ -4,7 +4,6 @@ import { store } from "./providers/redux-toolkit/store";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  // const [userAddress, setuserAddress] = useState('')
 
   return (
     <Provider store={store}>
