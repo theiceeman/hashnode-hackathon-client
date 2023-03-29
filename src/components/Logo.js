@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 const Logo = ({ theme }) => {
-	console.log(theme)
+	// console.log(theme)
 	// let theme = '';
 	// useEffect(() => {
 	// 	theme = localStorage.getItem('theme-mode');

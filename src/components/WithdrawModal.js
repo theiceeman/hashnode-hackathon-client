@@ -2,22 +2,19 @@ import { rpcErrors } from 'lib/general/helper-functions';
 import { SimpleToastError, SimpleToastSuccess } from 'lib/validation/error-handlers';
 import { approve, withdrawFromVault } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
-import { getUserTotalBalance, getUserTotalBalanceinUsd } from 'providers/redux-toolkit/actions/user-actions';
-import { setUserTotalBalance } from 'providers/redux-toolkit/reducers/user.reducer';
+import { getUserTotalBalanceinUsd } from 'providers/redux-toolkit/actions/user-actions';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import MyListbox from './List';
 import Modal from './Modal';
 import { TokenSelector } from './Selector/selector';
 import tokens from './_mock_/coin';
 
-function WithdrawModal({ show, setShow }) {
-	const dispatch = useDispatch();
-	const [completed, setCompleted] = useState(false);
+function WithdrawModal({ show, setShow, setTotalBalanceInUsd }) {
 	const myRef = React.createRef();
-	const [isOpen, setIsOpen] = useState(false);
 	const [coin, setCoin] = useState('DAI');
-
+	const [isOpen, setIsOpen] = useState(false);
+	const [completed, setCompleted] = useState(false);
 
 	const { userAddress } = useSelector((state) => state.userAddress)
 	const [provider, setProvider] = useState(null)
@@ -29,20 +26,14 @@ function WithdrawModal({ show, setShow }) {
 		const values = Object.fromEntries(data.entries());
 		const { recipient, tokenAddress, amount } = values;
 
-		// console.log({ values }); return;
-
 		let result = await withdrawFromVault(provider, userAddress, recipient, tokenAddress, amount);
-
-		if (result.ok) {
-			SimpleToastSuccess('Deposit successfull!')
-			// window.location.reload();
-			// store user total balance
-			let totalBalance = await getUserTotalBalanceinUsd()
-			if (totalBalance) dispatch(setUserTotalBalance(totalBalance))
-		} else {
+		if (!result.ok) {
 			let error = await rpcErrors(result.data);
-			SimpleToastError(error.data)
+			SimpleToastError(error.data); return;
 		}
+		SimpleToastSuccess('Deposit successfull!')
+		let totalBalanceInUsd = await getUserTotalBalanceinUsd()
+		if (totalBalanceInUsd) setTotalBalanceInUsd(totalBalanceInUsd)
 	}
 
 	const Action = (e) => {
@@ -53,7 +44,7 @@ function WithdrawModal({ show, setShow }) {
 
 	useEffect(async () => {
 		setProvider(await loadProvider())
-	}, [])
+	},[])
 	return (
 		<div>
 			{show && (

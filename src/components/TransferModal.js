@@ -5,15 +5,12 @@ import tokens from './_mock_/coin';
 import { TokenSelector } from './Selector/selector';
 import { approve, deposit } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { rpcErrors } from 'lib/general/helper-functions';
 import { SimpleToastError, SimpleToastSuccess } from 'lib/validation/error-handlers';
-import { setUserTotalBalance } from 'providers/redux-toolkit/reducers/user.reducer';
-import { getUserTotalBalance, getUserTotalBalanceinUsd } from 'providers/redux-toolkit/actions/user-actions';
+import { getUserTotalBalanceinUsd } from 'providers/redux-toolkit/actions/user-actions';
 
 const TransferModal = ({ show, setShow, setTotalBalanceInUsd }) => {
-	const dispatch = useDispatch();
-
 	const myRef = React.createRef();
 	const [coin, setCoin] = useState('DAI');
 	const [isOpen, setIsOpen] = useState(false);

@@ -5,11 +5,6 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import TopBar from "./TopBar";
 import { HiExclamation } from "react-icons/hi";
-// import { useEthers, useContractFunction } from "@usedapp/core";
-import { Contract } from "ethers";
-import { useEffect } from "react";
-import dotenv from "dotenv";
-dotenv.config();
 
 const Notification = () => {
   return (
@@ -24,14 +19,14 @@ const Notification = () => {
   );
 };
 
-const DashboardLayout = ({ account }) => {
+const DashboardLayout = () => {
   return (
     <>
       <div className="bg-nature-100 dark:bg-nature-900">
         <div className="w-full">
           {/* Navigation starts */}
           {window && !window.ethereum && <Notification />}
-          <Navbar account={account} />
+          <Navbar />
           <TopBar />
           {/* Navigation ends */}
           <main className="lg:container lg:mx-auto py-12 w-full lg:px-8">

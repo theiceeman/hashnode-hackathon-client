@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { formater } from 'components/atom';
 import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
 import tokens from 'components/_mock_/coin';
-import { useNavigate } from 'react-router-dom';
 import TransferModal from 'components/TransferModal';
 import WithdrawModal from 'components/WithdrawModal';
-import '../css/app.css'
 import { decimal, getUserTokenBalance } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
-import { setWalletTokens } from 'providers/redux-toolkit/reducers/user.reducer';
 import { getUserTotalBalanceinUsd, getWalletTokens } from 'providers/redux-toolkit/actions/user-actions';
+import '../css/app.css'
 
 const Wallet = () => {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	const [show, setShow] = useState(false);
 	const [visible, setVisible] = useState(false);
@@ -265,9 +261,11 @@ const Wallet = () => {
 			<TransferModal
 				show={show}
 				setShow={setShow}
-				totalBalanceInUsd={totalBalanceInUsd}
 				setTotalBalanceInUsd={setTotalBalanceInUsd} />
-			<WithdrawModal show={showWithdrawModal} setShow={setshowWithdrawModal} />
+			<WithdrawModal
+				show={showWithdrawModal}
+				setShow={setshowWithdrawModal}
+				setTotalBalanceInUsd={setTotalBalanceInUsd} />
 		</>
 	);
 };

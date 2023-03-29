@@ -36,7 +36,6 @@ export async function getUserVault(client, userAddress, tokenAddress) {
 export async function getUserTokenBalance(client, userAddress, tokenAddress) {
     const contract = new client.eth.Contract(vaultAbi, VAULT_ADDRESS.trim())
     const result = await contract.methods.getUserTokenBalance(userAddress, tokenAddress).call();
-    // console.log({ result })
     return result;
 }
 
@@ -72,7 +71,6 @@ export async function deposit(client, from, tokenAddress, amount) {
         let depositAmount = BigNumber.from((amount * 10 ** tokenDecimal)
             .toLocaleString('fullwide', { useGrouping: false }));
 
-        // deposit(address,uint256)
         let action = await contract.methods['0x47e7ef24'](tokenAddress, depositAmount)
 
         let txn = await client.eth.sendTransaction({
@@ -98,7 +96,6 @@ export async function withdrawFromVault(client, from, recipient, tokenAddress, a
             .toLocaleString('fullwide', { useGrouping: false }));
 
         let action = await contract.methods.withdrawFromVault(recipient, tokenAddress, withdrawAmount)
-        // console.log({ 'yyy': action });return;
 
         let txn = await client.eth.sendTransaction({
             from,
@@ -113,5 +110,55 @@ export async function withdrawFromVault(client, from, recipient, tokenAddress, a
         return { ok: true, data: txn }
     } catch (error) {
         return TryCatchException(error)
+    }
+}
+
+export async function investInCompound(client,from, tokenAddress, amount) {
+    try {
+        const contract = new client.eth.Contract(userWalletAbi, USER_WALLET_ADDRESS.trim())
+        let tokenUnderlying = getTokenUnderlyingAddress(tokenAddress)
+        let tokenDecimal = await decimal(client, tokenAddress);
+        let investAmount = BigNumber.from((amount * 10 ** tokenDecimal)
+            .toLocaleString('fullwide', { useGrouping: false }));
+
+        let action = await contract.methods.investInCompound(tokenAddress, tokenUnderlying, investAmount)
+
+        let txn = await client.eth.sendTransaction({
+            from,
+            to: USER_WALLET_ADDRESS,
+            data: action.encodeABI(),
+            gas: await action.estimateGas({ from }),
+            gasPrice: 500000000000  //  wei
+        })
+        // console.log({ txn });return;
+
+        return { ok: true, data: txn }
+    } catch (error) {
+        return TryCatchException(error)
+    }
+}
+
+
+
+const getTokenUnderlyingAddress = (tokenAddress) => {
+    switch (tokenAddress) {
+        case process.env.REACT_APP_USDC_ADDRESS:
+            return process.env.REACT_APP_CUSDC_ADDRESS
+            break;
+        case process.env.REACT_APP_DAI_ADDRESS:
+            return process.env.REACT_APP_CDAI_ADDRESS
+            break;
+        case process.env.REACT_APP_UNI_ADDRESS:
+            return process.env.REACT_APP_CUNI_ADDRESS
+            break;
+        case process.env.REACT_APP_WBTC_ADDRESS:
+            return process.env.REACT_APP_CWBTC_ADDRESS
+            break;
+        case process.env.REACT_APP_USDT_ADDRESS:
+            return process.env.REACT_APP_CUSDT_ADDRESS
+            break;
+        default:
+            return null
+            break;
     }
 }

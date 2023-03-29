@@ -4,7 +4,7 @@ import { HiSun as SunIcon, HiMoon as MoonIcon } from "react-icons/hi";
 import Darkmode from "components/Darkmode";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getLocalStorage } from "lib/general/helper-functions";
+import { getLocalStorage, shortenAddress } from "lib/general/helper-functions";
 import { checkIfWalletIsConnected, connectToBrowserProvider, loadProvider } from "lib/web3/script";
 import { setUserAddress, setUserProvider, setUserTotalBalance } from "providers/redux-toolkit/reducers/user.reducer";
 import { setThemeMode } from "providers/redux-toolkit/reducers/theme-reducer";
@@ -12,8 +12,9 @@ import { getUserTotalBalance } from "providers/redux-toolkit/actions/user-action
 
 const Navbar = ({ account }) => {
   const dispatch = useDispatch();
-  const themeMode = getLocalStorage("user_theme");
+
   const [theme, setTheme] = Darkmode();
+  const themeMode = getLocalStorage("user_theme");
   const { themeMode: themeModeReducer } = useSelector(
     (state) => state.themeMode
   );
@@ -23,12 +24,10 @@ const Navbar = ({ account }) => {
 
   const connectWallet = async () => {
     let userAddress = await connectToBrowserProvider()
-    if (userAddress) setUserAddress(userAddress)
+    if (userAddress) dispatch(setUserAddress(userAddress))
   }
 
-  const shortenAddress = (str) => {
-    return str.substring(0, 8) + '...' + str.substring(str.length - 6)
-  }
+  // const sh
 
 
   useEffect(async () => {

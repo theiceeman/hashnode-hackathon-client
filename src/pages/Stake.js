@@ -4,13 +4,48 @@ import { formater } from 'components/atom';
 import tokens from 'components/_mock_/coin';
 import { useNavigate } from 'react-router-dom';
 import { TokenSelector } from 'components/Selector/selector';
+import { investInCompound } from 'lib/web3/methods';
+import { loadProvider } from 'lib/web3/script';
+import { useSelector } from 'react-redux';
+import { SimpleToastError } from 'lib/validation/error-handlers';
+import { rpcErrors } from 'lib/general/helper-functions';
 
 const Stake = () => {
 	const myRef = React.createRef();
 	const [isOpen, setIsOpen] = useState(false);
 	// Default this to a country's code to preselect it
-	const [coin, setCoin] = useState('ETH');
+	const [coin, setCoin] = useState('DAI');
 	const navigate = useNavigate();
+
+	const { userAddress } = useSelector((state) => state.userAddress)
+
+
+
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const provider = await loadProvider();
+		const data = new FormData(e.target);
+		const values = Object.fromEntries(data.entries());
+		const { tokenAddress, amount } = values;
+		// console.log({ values }); return;
+
+		let res = await investInCompound(provider, userAddress, tokenAddress, amount)
+		if (!res.ok) {
+			SimpleToastError((await rpcErrors(res.data)).data); return;
+		}
+
+		/* SimpleToastSuccess('Deposit successfull!')
+		let totalBalanceInUsd = await getUserTotalBalanceinUsd()
+		if (totalBalanceInUsd) setTotalBalanceInUsd(totalBalanceInUsd) */
+	}
+
+
+	const Action = (e) => {
+		handleSubmit(e)
+		// setCompleted(true);
+	};
+
 	return (
 		<>
 			<div className='bg-white pb-7 rounded-t-lg dark:bg-nature-800'>
@@ -35,45 +70,48 @@ const Stake = () => {
 					</div>
 				</div>
 				<div className='justify-self-center w-full px-20'>
-					<div className='px-8 py-8 flex flex-col'>
-						<div className='mb-6 w-full'>
-							{/* <div className='flex items-center'> */}
-							<span className='text-gray-500 text-sm font-semibold'>Coin</span>
-							<TokenSelector
-								id={'countries'}
-								ref={myRef}
-								open={isOpen}
-								onToggle={() => setIsOpen(!isOpen)}
-								tokens={tokens}
-								onChange={(val) => setCoin(val)}
-								selectedValue={tokens.find((option) => option.id === coin)}
-							/>
-							{/* <input
+					<form onSubmit={Action}>
+						<div className='px-8 py-8 flex flex-col'>
+							<div className='mb-6 w-full'>
+								{/* <div className='flex items-center'> */}
+								<span className='text-gray-500 text-sm font-semibold'>Coin</span>
+								<TokenSelector
+									id={'countries'}
+									ref={myRef}
+									open={isOpen}
+									onToggle={() => setIsOpen(!isOpen)}
+									tokens={tokens}
+									onChange={(val) => setCoin(val)}
+									selectedValue={tokens.find((option) => option.id === coin)}
+								/>
+								{/* <input
 									type='number'
 									id='base-input'
 									placeholder='0.0'
 									className=' mt-7 border-1 w-full py-4 text-gray-600 font-medium focus:outline-none hover:cursor-pointer border-norm-black rounded'
 								/> */}
-							{/* </div> */}
+								{/* </div> */}
+							</div>
+							<div className='mb-6 w-full'>
+								<span className='text-gray-500 text-sm font-semibold'>Amount</span>
+								<input
+									type='text'
+									id='base-input'
+									name="amount"
+									placeholder='0.0'
+									className='mt-2 border w-full py-2 text-norm-light text-[28px] font-nunito  font-medium focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
+								/>
+							</div>
+							<div className='flex items-center justify-center w-full'>
+								<button className='w-full text-center rounded-3xl  hover:cursor-pointer bg-norm-blue hover:bg-norm-dblue text-white hover:text-white font-dm-sans font-semibold text-lg px-8 py-2'>
+									Save
+								</button>
+								<button className='ml-4 lg:mt-0 w-full text-center rounded-3xl border border-norm-blue text-norm-light dark:text-norm-text hover:text-white hover:border-norm-dblue hover:bg-norm-dblue font-dm-sans font-medium text-lg px-8 py-2'>
+									Withdraw
+								</button>
+							</div>
 						</div>
-						<div className='mb-6 w-full'>
-							<span className='text-gray-500 text-sm font-semibold'>Amount</span>
-							<input
-								type='text'
-								id='base-input'
-								placeholder='0.0'
-								className='mt-2 border w-full py-2 text-norm-light text-[28px] font-nunito  font-medium focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
-							/>
-						</div>
-						<div className='flex items-center justify-center w-full'>
-							<button className='w-full text-center rounded-3xl  hover:cursor-pointer bg-norm-blue hover:bg-norm-dblue text-white hover:text-white font-dm-sans font-semibold text-lg px-8 py-2'>
-								Save
-							</button>
-							<button className='ml-4 lg:mt-0 w-full text-center rounded-3xl border border-norm-blue text-norm-light dark:text-norm-text hover:text-white hover:border-norm-dblue hover:bg-norm-dblue font-dm-sans font-medium text-lg px-8 py-2'>
-								Withdraw
-							</button>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -106,8 +144,8 @@ const Stake = () => {
 													{formater.format(token.price)}{' '}
 													<span
 														className={`ml-3 ${token.profit.startsWith('-')
-																? ' text-nature-300'
-																: 'text-nature-200'
+															? ' text-nature-300'
+															: 'text-nature-200'
 															}`}
 													>
 														{token.profit}%
