@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-// import MyListbox from 'components/List';
+import React, { useEffect, useState } from 'react';
 import { formater } from 'components/atom';
 import tokens from 'components/_mock_/coin';
 import { useNavigate } from 'react-router-dom';
 import { TokenSelector } from 'components/Selector/selector';
-import { investInCompound } from 'lib/web3/methods';
+import { getUserTokenInvestmentBalance, investInCompound } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
 import { useSelector } from 'react-redux';
-import { SimpleToastError } from 'lib/validation/error-handlers';
-import { rpcErrors } from 'lib/general/helper-functions';
+import { SimpleToastError, SimpleToastSuccess } from 'lib/validation/error-handlers';
+import { convertAmountToUsd, rpcErrors } from 'lib/general/helper-functions';
 
 const Stake = () => {
-	const myRef = React.createRef();
-	const [isOpen, setIsOpen] = useState(false);
-	// Default this to a country's code to preselect it
-	const [coin, setCoin] = useState('DAI');
 	const navigate = useNavigate();
+	const myRef = React.createRef();
+	const [coin, setCoin] = useState('DAI');
+	const [isOpen, setIsOpen] = useState(false);
+	const [tokenbalance, setTokenbalance] = useState(0);
+	const [tokenbalanceInUsd, setTokenbalanceInUsd] = useState(0.00);
 
 	const { userAddress } = useSelector((state) => state.userAddress)
 
@@ -32,12 +32,15 @@ const Stake = () => {
 
 		let res = await investInCompound(provider, userAddress, tokenAddress, amount)
 		if (!res.ok) {
-			SimpleToastError((await rpcErrors(res.data)).data); return;
+			SimpleToastError((await rpcErrors(res.data)).data); 
+			return;
 		}
 
-		/* SimpleToastSuccess('Deposit successfull!')
-		let totalBalanceInUsd = await getUserTotalBalanceinUsd()
-		if (totalBalanceInUsd) setTotalBalanceInUsd(totalBalanceInUsd) */
+		SimpleToastSuccess('Investment successfull!')
+		let balance = await getUserTokenInvestmentBalance(provider, userAddress, tokenAddress)
+		if (balance) setTokenbalance(balance)
+		let balanceInUsd = await convertAmountToUsd(coin, balance)
+		setTokenbalanceInUsd(balanceInUsd)
 	}
 
 
@@ -46,26 +49,41 @@ const Stake = () => {
 		// setCompleted(true);
 	};
 
+	useEffect(async () => {
+		const provider = await loadProvider();
+		let token = tokens.find((option) => option.id === coin)
+		if (userAddress) {
+			let balance = await getUserTokenInvestmentBalance(provider, userAddress, token.address)
+			let balanceInUsd = await convertAmountToUsd(token.id, tokenbalance)
+			setTokenbalance(balance)
+			setTokenbalanceInUsd(balanceInUsd)
+		}
+	}, [coin, userAddress, tokenbalance])
+
+
+
+
+
 	return (
 		<>
 			<div className='bg-white pb-7 rounded-t-lg dark:bg-nature-800'>
 				<div className='flex items-center justify-between px-6 py-3 mx-auto border-b border-grey-50  dark:border-norm-light'>
 					<h1 className='w-full text-center tracking-wider text-2xl font-medium leading-5 font-dm-sans text-norm-light dark:text-norm-text'>
-						Stake
+						Investments
 					</h1>
 				</div>
 				<div className='container px-6 py-4 mx-auto'>
 					<div className='flex flex-col items-center justify-between w-full mt-4'>
 						<div className='flex items-center'>
 							<span className='text-[32px] font-normal font-nunito-sans tracking-wide text-norm-black dark:text-white mr-1'>
-								0
+								{tokenbalance}
 							</span>
 							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
 								{coin}
 							</span>
 						</div>
 						<span className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>
-							= {formater.format(0.0)}
+							= {formater.format(tokenbalanceInUsd)}
 						</span>
 					</div>
 				</div>
@@ -98,16 +116,16 @@ const Stake = () => {
 									type='text'
 									id='base-input'
 									name="amount"
-									placeholder='0.0'
+									placeholder='0'
 									className='mt-2 border w-full py-2 text-norm-light text-[28px] font-nunito  font-medium focus:outline-none hover:cursor-pointer border-norm-light dark:bg-nature-800 rounded-lg'
 								/>
 							</div>
 							<div className='flex items-center justify-center w-full'>
 								<button className='w-full text-center rounded-3xl  hover:cursor-pointer bg-norm-blue hover:bg-norm-dblue text-white hover:text-white font-dm-sans font-semibold text-lg px-8 py-2'>
-									Save
+									Invest Asset
 								</button>
 								<button className='ml-4 lg:mt-0 w-full text-center rounded-3xl border border-norm-blue text-norm-light dark:text-norm-text hover:text-white hover:border-norm-dblue hover:bg-norm-dblue font-dm-sans font-medium text-lg px-8 py-2'>
-									Withdraw
+									Withdraw Investment
 								</button>
 							</div>
 						</div>
@@ -123,7 +141,7 @@ const Stake = () => {
 								<tr
 									key={token.name}
 									className='hover:bg-gray-50 dark:hover:bg-norm-ldark hover:cursor-pointer'
-									onClick={() => navigate('/')}
+									onClick={() => navigate(`/dashboard/asset/${token.id}`)}
 								>
 									<td className='p-2 pl-5 whitespace-nowrap'>
 										<div className='flex items-center py-2'>

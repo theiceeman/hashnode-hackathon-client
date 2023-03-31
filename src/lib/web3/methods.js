@@ -17,10 +17,40 @@ const COMPOUND_CONTROLLER_ADDRESS = process.env.REACT_APP_COMPOUND_CONTROLLER_AD
 const USER_WALLET_ADDRESS = process.env.REACT_APP_USER_WALLET_ADDRESS;
 
 
+const getTokenUnderlyingAddress = (tokenAddress) => {
+    switch (tokenAddress) {
+        case process.env.REACT_APP_USDC_ADDRESS:
+            return process.env.REACT_APP_CUSDC_ADDRESS
+            break;
+        case process.env.REACT_APP_DAI_ADDRESS:
+            return process.env.REACT_APP_CDAI_ADDRESS
+            break;
+        case process.env.REACT_APP_UNI_ADDRESS:
+            return process.env.REACT_APP_CUNI_ADDRESS
+            break;
+        case process.env.REACT_APP_WBTC_ADDRESS:
+            return process.env.REACT_APP_CWBTC_ADDRESS
+            break;
+        case process.env.REACT_APP_USDT_ADDRESS:
+            return process.env.REACT_APP_CUSDT_ADDRESS
+            break;
+        default:
+            return null
+            break;
+    }
+}
+
+const getActualTokenAmount = async (client, tokenAddress, amount) => {
+    let tokenDecimal = tokenAddress === "0x0000000000000000000000000000000000000000"
+        ? 18
+        : await decimal(client, tokenAddress);
+    return (amount / 10 ** tokenDecimal)
+}
+
+
 export async function decimal(client, tokenAddress) {
     const contract = new client.eth.Contract(erc20Abi, tokenAddress.trim())
     const decimal = await contract.methods.decimals().call();
-    // console.log({ decimal })
     return decimal;
 }
 
@@ -113,7 +143,7 @@ export async function withdrawFromVault(client, from, recipient, tokenAddress, a
     }
 }
 
-export async function investInCompound(client,from, tokenAddress, amount) {
+export async function investInCompound(client, from, tokenAddress, amount) {
     try {
         const contract = new client.eth.Contract(userWalletAbi, USER_WALLET_ADDRESS.trim())
         let tokenUnderlying = getTokenUnderlyingAddress(tokenAddress)
@@ -130,7 +160,7 @@ export async function investInCompound(client,from, tokenAddress, amount) {
             gas: await action.estimateGas({ from }),
             gasPrice: 500000000000  //  wei
         })
-        // console.log({ txn });return;
+        // console.log({ txn }); return;
 
         return { ok: true, data: txn }
     } catch (error) {
@@ -138,27 +168,89 @@ export async function investInCompound(client,from, tokenAddress, amount) {
     }
 }
 
+/* 
+    function withdrawFromCompound(
+        address _erc20,
+        address _cErc20,
+        uint256 tokenAmount,
+        uint256 investmentId
+    )
+ */
+export async function withdrawFromCompound(client, from, tokenAddress, amount) {
+    try {
+        const contract = new client.eth.Contract(userWalletAbi, USER_WALLET_ADDRESS.trim())
+        let tokenUnderlying = getTokenUnderlyingAddress(tokenAddress)
+        let tokenDecimal = await decimal(client, tokenAddress);
+        let investAmount = BigNumber.from((amount * 10 ** tokenDecimal)
+            .toLocaleString('fullwide', { useGrouping: false }));
 
+        let action = await contract.methods.withdrawFromCompound(tokenAddress, tokenUnderlying, investAmount)
 
-const getTokenUnderlyingAddress = (tokenAddress) => {
-    switch (tokenAddress) {
-        case process.env.REACT_APP_USDC_ADDRESS:
-            return process.env.REACT_APP_CUSDC_ADDRESS
-            break;
-        case process.env.REACT_APP_DAI_ADDRESS:
-            return process.env.REACT_APP_CDAI_ADDRESS
-            break;
-        case process.env.REACT_APP_UNI_ADDRESS:
-            return process.env.REACT_APP_CUNI_ADDRESS
-            break;
-        case process.env.REACT_APP_WBTC_ADDRESS:
-            return process.env.REACT_APP_CWBTC_ADDRESS
-            break;
-        case process.env.REACT_APP_USDT_ADDRESS:
-            return process.env.REACT_APP_CUSDT_ADDRESS
-            break;
-        default:
-            return null
-            break;
+        let txn = await client.eth.sendTransaction({
+            from,
+            to: USER_WALLET_ADDRESS,
+            data: action.encodeABI(),
+            gas: await action.estimateGas({ from }),
+            gasPrice: 500000000000  //  wei
+        })
+        // console.log({ txn }); return;
+
+        return { ok: true, data: txn }
+    } catch (error) {
+        return TryCatchException(error)
     }
+}
+
+export async function getUserTokenInvestments(client, userAddress, tokenAddress) {
+    const contract = new client.eth.Contract(compoundControllerAbi, COMPOUND_CONTROLLER_ADDRESS.trim())
+    let investments = [];
+
+    for (let i = 1; true; i++) {
+        const result = await contract.methods.UserInvestments(userAddress, i).call();
+        if (result.isExists === false) {
+            break;
+        }
+        if (tokenAddress === result.tokenAddress) {
+            investments.push(result)
+        }
+    }
+    // console.log({investments})
+    return investments
+}
+
+
+/* export async function getUserTotalInvestmentBalance(client, userAddress) {
+    const contract = new client.eth.Contract(compoundControllerAbi, COMPOUND_CONTROLLER_ADDRESS.trim())
+    let total = 0;
+    let status = false;
+
+    for (let i = 1; status === false; i++) {
+        const result = await contract.methods.UserInvestments(userAddress, i).call();
+        // console.log({ xxx: result })
+        if (result.isExists === false) {
+            status = true
+        } else {
+            const tokenAmount = await getActualTokenAmount(client, result.tokenAddress, result.tokenAmount)
+            total += tokenAmount
+        }
+    }
+    // console.log({ total })
+    return total
+} */
+
+export async function getUserTokenInvestmentBalance(client, userAddress, tokenAddress) {
+    const contract = new client.eth.Contract(compoundControllerAbi, COMPOUND_CONTROLLER_ADDRESS.trim())
+    let balance = 0;
+
+    for (let i = 1; true; i++) {
+        const result = await contract.methods.UserInvestments(userAddress, i).call();
+        if (result.isExists === false) {
+            break;
+        }
+        if (tokenAddress === result.tokenAddress) {
+            const tokenAmount = await getActualTokenAmount(client, tokenAddress, result.tokenAmount)
+            balance += tokenAmount
+        }
+    }
+    return balance
 }

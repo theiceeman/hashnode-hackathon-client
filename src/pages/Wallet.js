@@ -10,6 +10,7 @@ import { decimal, getUserTokenBalance } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
 import { getUserTotalBalanceinUsd, getWalletTokens } from 'providers/redux-toolkit/actions/user-actions';
 import '../css/app.css'
+import { convertAmountToUsd } from 'lib/general/helper-functions';
 
 const Wallet = () => {
 
@@ -37,7 +38,8 @@ const Wallet = () => {
 				let tokenBalance = await getTokenBalance(e.address)
 				let tokenDecimal = await decimal(provider, e.address)
 				let balance = Number(tokenBalance) / 10 ** Number(tokenDecimal);
-				return { ...e, balance: balance };
+				let balanceInUsd = await convertAmountToUsd(e.id, balance)
+				return { ...e, balance: balance, price: balanceInUsd };
 			})
 		)
 		setWalletTokens(_userTokens)
@@ -47,9 +49,8 @@ const Wallet = () => {
 
 	useEffect(async () => {
 		userAddress && fetchWalletTokens(userAddress)
-
 		setTotalBalanceInUsd(await getUserTotalBalanceinUsd())
-	}, [userAddress])
+	}, [userAddress, totalBalanceInUsd])
 
 
 	return (
@@ -57,7 +58,7 @@ const Wallet = () => {
 			<div className='bg-white pb-7 rounded-t-lg dark:bg-nature-800'>
 				<div className='flex items-center justify-between px-6 py-3 mx-auto border-b border-grey-50  dark:border-norm-light'>
 					<h1 className='w-full text-center tracking-wider text-lg font-medium leading-5 font-dm-sans text-norm-light dark:text-norm-text'>
-						Total Balance
+						Portfolio Value
 					</h1>
 					<button
 						type='button'
