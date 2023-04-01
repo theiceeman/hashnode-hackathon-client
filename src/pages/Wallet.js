@@ -42,14 +42,25 @@ const Wallet = () => {
 				return { ...e, balance: balance, price: balanceInUsd };
 			})
 		)
-		setWalletTokens(_userTokens)
+		return _userTokens;
 	}
 
+	const fetchUserData = async () => {
+	};
 
 
 	useEffect(async () => {
-		userAddress && fetchWalletTokens(userAddress)
-		setTotalBalanceInUsd(await getUserTotalBalanceinUsd())
+		let mountState = true;
+		if (userAddress) {
+			let userTokens = await fetchWalletTokens(userAddress);
+			let balanceinUsd = await getUserTotalBalanceinUsd()
+			mountState && setTotalBalanceInUsd(balanceinUsd);
+			mountState && setWalletTokens(userTokens)
+		}
+
+		return () => {
+			mountState = false;
+		}
 	}, [userAddress, totalBalanceInUsd])
 
 

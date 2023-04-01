@@ -3,7 +3,7 @@ import { formater } from 'components/atom';
 import tokens from 'components/_mock_/coin';
 import { useNavigate } from 'react-router-dom';
 import { TokenSelector } from 'components/Selector/selector';
-import { getUserTokenInvestmentBalance, investInCompound } from 'lib/web3/methods';
+import { calculateInvestmentInterest, getUserTokenInvestmentBalance, investInCompound } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
 import { useSelector } from 'react-redux';
 import { SimpleToastError, SimpleToastSuccess } from 'lib/validation/error-handlers';
@@ -32,7 +32,7 @@ const Stake = () => {
 
 		let res = await investInCompound(provider, userAddress, tokenAddress, amount)
 		if (!res.ok) {
-			SimpleToastError((await rpcErrors(res.data)).data); 
+			SimpleToastError((await rpcErrors(res.data)).data);
 			return;
 		}
 
@@ -59,6 +59,12 @@ const Stake = () => {
 			setTokenbalanceInUsd(balanceInUsd)
 		}
 	}, [coin, userAddress, tokenbalance])
+
+
+	useEffect(async () => {
+
+	}, [])
+
 
 
 

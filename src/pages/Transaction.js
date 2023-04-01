@@ -1,5 +1,4 @@
 
-import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { formater } from 'components/atom';
@@ -7,9 +6,10 @@ import tokens from 'components/_mock_/coin';
 import { loadProvider } from 'lib/web3/script';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { getUserTokenInvestmentBalance } from 'lib/web3/methods';
+import WithdrawInvestModal from 'components/WithdrawInvestModal';
 import { convertAmountToUsd } from 'lib/general/helper-functions';
 import { MdVisibility, MdVisibilityOff, MdArrowBackIosNew } from 'react-icons/md';
-import WithdrawInvestModal from 'components/WithdrawInvestModal';
+import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
 
 const Transaction = () => {
 	const [show, setShow] = useState(false);
@@ -159,7 +159,8 @@ const Transaction = () => {
 				show={show}
 				setShow={setShow}
 				token={token}
-				setTokenBalanceInUsd={setTokenbalanceInUsd} />
+				setTokenbalance={setTokenbalance}
+				setTokenbalanceInUsd={setTokenbalanceInUsd} />
 		</>
 	);
 };
