@@ -10,7 +10,7 @@ import { decimal, getUserTokenBalance } from 'lib/web3/methods';
 import { loadProvider } from 'lib/web3/script';
 import { getUserTotalBalanceinUsd, getWalletTokens } from 'providers/redux-toolkit/actions/user-actions';
 import '../css/app.css'
-import { convertAmountToUsd } from 'lib/general/helper-functions';
+import { convertAmountToUsd, convertUsdToAmount } from 'lib/general/helper-functions';
 
 const Wallet = () => {
 
@@ -18,7 +18,7 @@ const Wallet = () => {
 	const [visible, setVisible] = useState(false);
 	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
 
-	const [totalBalance, setTotalBalance] = useState(0);
+	const [totalBalanceInNativeCoin, setTotalBalanceInNativeCoin] = useState(0);
 	const [totalBalanceInUsd, setTotalBalanceInUsd] = useState(0);
 	const [walletTokens, setWalletTokens] = useState([]);
 
@@ -45,23 +45,23 @@ const Wallet = () => {
 		return _userTokens;
 	}
 
-	const fetchUserData = async () => {
-	};
 
 
 	useEffect(async () => {
 		let mountState = true;
 		if (userAddress) {
 			let userTokens = await fetchWalletTokens(userAddress);
-			let balanceinUsd = await getUserTotalBalanceinUsd()
-			mountState && setTotalBalanceInUsd(balanceinUsd);
+			let balanceInUsd = await getUserTotalBalanceinUsd()
+			let balanceInNative = await convertUsdToAmount('MATIC',balanceInUsd)
+			mountState && setTotalBalanceInUsd(balanceInUsd);
 			mountState && setWalletTokens(userTokens)
+			mountState && setTotalBalanceInNativeCoin(balanceInNative)
 		}
 
 		return () => {
 			mountState = false;
 		}
-	}, [userAddress, totalBalanceInUsd])
+	}, [userAddress, totalBalanceInUsd,totalBalanceInNativeCoin])
 
 
 	return (
@@ -89,16 +89,16 @@ const Wallet = () => {
 							) : (
 								<img
 									className='w-10 h-10 mr-2 px-1 py-1  rounded-full'
-									src='/images/eth_logo.svg'
+									src='https://token.metaswap.codefi.network/assets/nativeCurrencyLogos/matic.svg'
 									alt='Eth-logo'
 									loading='lazy'
 								/>
 							)}
 							<span className='text-[32px] font-normal font-nunito-sans tracking-wide text-norm-black dark:text-white mr-1'>
-								{visible ? '***' : totalBalance}
+								{visible ? '***' :  totalBalanceInNativeCoin.toFixed(3)}
 							</span>
 							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
-								{visible ? '***' : 'ETH'}
+								{visible ? '***' : 'MATIC'}
 							</span>
 						</div>
 						<span className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>

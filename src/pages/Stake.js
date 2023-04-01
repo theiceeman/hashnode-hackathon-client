@@ -130,9 +130,9 @@ const Stake = () => {
 								<button className='w-full text-center rounded-3xl  hover:cursor-pointer bg-norm-blue hover:bg-norm-dblue text-white hover:text-white font-dm-sans font-semibold text-lg px-8 py-2'>
 									Invest Asset
 								</button>
-								<button className='ml-4 lg:mt-0 w-full text-center rounded-3xl border border-norm-blue text-norm-light dark:text-norm-text hover:text-white hover:border-norm-dblue hover:bg-norm-dblue font-dm-sans font-medium text-lg px-8 py-2'>
+								{/* <button className='ml-4 lg:mt-0 w-full text-center rounded-3xl border border-norm-blue text-norm-light dark:text-norm-text hover:text-white hover:border-norm-dblue hover:bg-norm-dblue font-dm-sans font-medium text-lg px-8 py-2'>
 									Withdraw Investment
-								</button>
+								</button> */}
 							</div>
 						</div>
 					</form>

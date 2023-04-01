@@ -92,3 +92,18 @@ export async function convertAmountToUsd(symbol, tokenAmount) {
   let tokenUsdAmount = tokenAmount * usdRate;
   return tokenUsdAmount;
 }
+export async function convertUsdToAmount(symbol, tokenAmount) {
+  let api_key = '9f84f53a067dd8d02d95feb9fef27ba64208ef313e0c7367a8e7f2d49f5866e7'
+  let url = 'https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=' + symbol + '&api_key=' + api_key;
+  let response = await Request.get(url)
+  // console.log({response})
+  if (!response.ok)
+    throw new Error('Amount conversion from USD failed!')
+
+  let data = response.data.data;
+  let usdRate = data.MATIC
+  let tokenUsdAmount = tokenAmount * usdRate;
+  return tokenUsdAmount;
+}
+
+// https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=USD&api_key=eb5f751d-b6a5-41d2-b8f3-f09877617e85
