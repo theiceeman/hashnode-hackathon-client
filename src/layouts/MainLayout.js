@@ -1,30 +1,42 @@
 import Footer from "components/Footer";
 import Nav from "components/Nav";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { HiExclamation } from "react-icons/hi";
+import { Notification } from "./dashboard";
+import { confirmUserNetwork } from "lib/web3/script";
 
 const MainLayout = () => {
+  const [wrongNetworkAlert, setWrongNetworkAlert] = useState(null)
 
-  const Notification = () => {
-    return (
-      <div className="w-full text-white bg-norm-blue">
-        <div className="container flex items-center px-3 py-1 mx-auto">
-          <HiExclamation className="w-5 h-5 text-white" />
-          <p className="mx-3 font-semibold font-sans text-sm">
-            Please make sure you have Metamask installed on your broweser.
-          </p>
-        </div>
-      </div>
-    );
-  };
+  useEffect(async () => {
+    let res = await confirmUserNetwork()
+    if (!res.ok)
+      setWrongNetworkAlert(res.data)
+
+  }, [])
+
+
   return (
     <div>
-      {window && !window.ethereum && <Notification />}
-      <Nav/>
+      {window && !window.ethereum &&
+        <Notification>
+          Please make sure you have Metamask installed on your PC.
+        </Notification>
+      }
+
+      {wrongNetworkAlert !== null ?
+          <Notification>
+            {wrongNetworkAlert}
+          </Notification>
+          : null
+      }
+      <Nav />
+
       <main className="mx-auto">
         <Outlet />
       </main>
+
       <Footer />
     </div>
   );

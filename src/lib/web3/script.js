@@ -49,26 +49,25 @@ export async function loadProvider() {
     }
     return window.web3
 }
-async function confirmUserNetwork() {
+
+export async function confirmUserNetwork() {
     const { ethereum } = window;
+    let data;
 
     if (!ethereum) {
-        console.error("Browser is not Web3 enabled. Install MetaMask!");
-        return;
+        data = "Browser is not Web3 enabled. Install MetaMask!"
+        return { ok: false, data };
     }
-    let userChainId = await ethereum.request({ method: "eth_chainId" });
-    console.log("User is connected to chain " + userChainId);
-
-    // String, hex code of the chainId of the  network
-    let ChainId = process.env.REACT_APP_CHAIN_ID || '0x38';
-    let networkName = process.env.REACT_APP_NETWORK_NAME || "BSC";
+    let userChainId = parseInt(await ethereum.request({ method: "eth_chainId" }), 16);
+    let ChainId = Number(process.env.REACT_APP_CHAIN_ID);
 
     if (userChainId !== ChainId) {
-        console.error("You are not connected to the " + networkName + " Network!");
-        return;
-    } else {
-        console.log("Connected to " + networkName + " Network")
+        data = "You are not connected to the " + getNetworkName(ChainId) + " Network!"
+        return { ok: false, data };
     }
+    data = "Connected to " + getNetworkName(ChainId) + " Network";
+    return { ok: true, data }
+
 
 }
 
@@ -112,14 +111,18 @@ const getNetworkName = (chainId) => {
     switch (chainId) {
         case 1:
             return 'Ethereum Mainnet';
+        case 5:
+            return 'Goerli Testnet';
         case 56:
             return 'BSC';
         case 137:
             return 'MATIC';
         case 567:
             return 'Fantom';
+        case 31337:
+            return 'Localhost';
         default:
-            return 'Unknown Network';
+            return 'Unknown';
     }
 }
 

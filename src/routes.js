@@ -12,21 +12,15 @@ import { useDispatch } from 'react-redux';
 export default function Routes() {
 	const dispatch = useDispatch()
 
-
-
 	const fetchUser = async () => {
 		let result = await checkIfWalletIsConnected()
 		if (!result.ok) return;
 		dispatch(setUserAddress(result.message))
 	}
 
-
-
-	useEffect(async () => {
-		await fetchUser()
+	useEffect(() => {
+		fetchUser()
 	}, [])
-
-
 
 	return useRoutes([
 		{

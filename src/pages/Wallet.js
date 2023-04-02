@@ -14,6 +14,7 @@ import { convertAmountToUsd, convertUsdToAmount } from 'lib/general/helper-funct
 
 const Wallet = () => {
 
+	const nativeCoin = process.env.REACT_APP_NATIVE_COIN;
 	const [show, setShow] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
@@ -52,7 +53,8 @@ const Wallet = () => {
 		if (userAddress) {
 			let userTokens = await fetchWalletTokens(userAddress);
 			let balanceInUsd = await getUserTotalBalanceinUsd()
-			let balanceInNative = await convertUsdToAmount('MATIC',balanceInUsd)
+			console.log({balanceInUsd})
+			let balanceInNative = await convertUsdToAmount(nativeCoin, balanceInUsd)
 			mountState && setTotalBalanceInUsd(balanceInUsd);
 			mountState && setWalletTokens(userTokens)
 			mountState && setTotalBalanceInNativeCoin(balanceInNative)
@@ -61,7 +63,7 @@ const Wallet = () => {
 		return () => {
 			mountState = false;
 		}
-	}, [userAddress, totalBalanceInUsd,totalBalanceInNativeCoin])
+	}, [userAddress, totalBalanceInUsd, totalBalanceInNativeCoin])
 
 
 	return (
@@ -89,16 +91,16 @@ const Wallet = () => {
 							) : (
 								<img
 									className='w-10 h-10 mr-2 px-1 py-1  rounded-full'
-									src='https://token.metaswap.codefi.network/assets/nativeCurrencyLogos/matic.svg'
+									src='https://token.metaswap.codefi.network/assets/nativeCurrencyLogos/ethereum.svg'
 									alt='Eth-logo'
 									loading='lazy'
 								/>
 							)}
 							<span className='text-[32px] font-normal font-nunito-sans tracking-wide text-norm-black dark:text-white mr-1'>
-								{visible ? '***' :  totalBalanceInNativeCoin.toFixed(3)}
+								{visible ? '***' : totalBalanceInNativeCoin.toFixed(3)}
 							</span>
 							<span className='text-[32px] font-normal font-nunito-sans text-norm-black dark:text-white'>
-								{visible ? '***' : 'MATIC'}
+								{visible ? '***' : nativeCoin}
 							</span>
 						</div>
 						<span className='text-base leading-8 tracking-wide font-medium font-nunito text-neutral-500 dark:text-norm-text mt-2'>
