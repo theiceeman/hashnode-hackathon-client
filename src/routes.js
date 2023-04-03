@@ -22,6 +22,15 @@ export default function Routes() {
 		fetchUser()
 	}, [])
 
+	// update ui when network changes
+	window.ethereum.on("chainChanged", (chainId) => {
+		setInterval(() => {
+			window.location.reload();
+			window.scrollTo(0, 0);
+		}, 1000);
+
+	});
+
 	return useRoutes([
 		{
 			path: '/dashboard',
