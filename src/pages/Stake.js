@@ -61,9 +61,6 @@ const Stake = () => {
 	}, [coin, userAddress, tokenbalance])
 
 
-	useEffect(async () => {
-
-	}, [])
 
 
 
