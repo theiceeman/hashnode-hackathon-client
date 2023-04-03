@@ -28,7 +28,7 @@ export async function connectToBrowserProvider() {
         await confirmUserNetwork()
 
         let address = await getAddress()
-        console.log({ address })
+        // console.log({ address })
         return address;
 
     } else {
@@ -71,7 +71,7 @@ export async function confirmUserNetwork() {
 
 }
 
-const connectedNetworkChainId = async () => {
+export const connectedNetworkChainId = async () => {
     const { ethereum } = window;
     if (!ethereum) {
         console.error("Browser is not Web3 enabled. Install MetaMask!");

@@ -53,7 +53,7 @@ const Wallet = () => {
 		if (userAddress) {
 			let userTokens = await fetchWalletTokens(userAddress);
 			let balanceInUsd = await getUserTotalBalanceinUsd()
-			console.log({balanceInUsd})
+			// console.log({balanceInUsd})
 			let balanceInNative = await convertUsdToAmount(nativeCoin, balanceInUsd)
 			mountState && setTotalBalanceInUsd(balanceInUsd);
 			mountState && setWalletTokens(userTokens)
