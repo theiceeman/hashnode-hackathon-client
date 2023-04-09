@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { formater } from 'components/atom';
-import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
 import tokens from 'components/_mock_/coin';
+import { loadProvider } from 'lib/web3/script';
 import TransferModal from 'components/TransferModal';
 import WithdrawModal from 'components/WithdrawModal';
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { decimal, getUserTokenBalance } from 'lib/web3/methods';
-import { loadProvider } from 'lib/web3/script';
 import { getUserTotalBalanceinUsd, getWalletTokens } from 'providers/redux-toolkit/actions/user-actions';
+import { HiDownload as WithdrawalIcon, HiUpload as TransferIcon, HiExternalLink as DepositIcon } from 'react-icons/hi';
+import { convertAmountToUsd, convertUsdToAmount, getLocalStorage, setLocalStorage } from 'lib/general/helper-functions';
 import '../css/app.css'
-import { convertAmountToUsd, convertUsdToAmount } from 'lib/general/helper-functions';
 
 const Wallet = () => {
-
 	const nativeCoin = process.env.REACT_APP_NATIVE_COIN;
 	const [show, setShow] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [showWithdrawModal, setshowWithdrawModal] = useState(false);
 
-	const [totalBalanceInNativeCoin, setTotalBalanceInNativeCoin] = useState(0);
-	const [totalBalanceInUsd, setTotalBalanceInUsd] = useState(0);
 	const [walletTokens, setWalletTokens] = useState([]);
+	const [totalBalanceInUsd, setTotalBalanceInUsd] = useState(0);
+	const [totalBalanceInNativeCoin, setTotalBalanceInNativeCoin] = useState(0);
 
 	const { userAddress } = useSelector((state) => state.userAddress)
 
@@ -53,17 +52,29 @@ const Wallet = () => {
 		if (userAddress) {
 			let userTokens = await fetchWalletTokens(userAddress);
 			let balanceInUsd = await getUserTotalBalanceinUsd()
-			// console.log({balanceInUsd})
+
 			let balanceInNative = await convertUsdToAmount(nativeCoin, balanceInUsd)
 			mountState && setTotalBalanceInUsd(balanceInUsd);
-			mountState && setWalletTokens(userTokens)
 			mountState && setTotalBalanceInNativeCoin(balanceInNative)
+
+			if (JSON.stringify(userTokens) !== JSON.stringify(walletTokens)) {
+				mountState && setWalletTokens(userTokens)
+				mountState && setLocalStorage('userTokens', JSON.stringify({ [userAddress]: userTokens }))
+			}
 		}
 
 		return () => {
 			mountState = false;
 		}
 	}, [userAddress, totalBalanceInUsd, totalBalanceInNativeCoin])
+
+	
+	useEffect(() => {
+		let userLocalTokens = JSON.parse(getLocalStorage('userTokens'))
+		if (userLocalTokens[userAddress])
+			setWalletTokens(userLocalTokens[userAddress])
+
+	}, [])
 
 
 	return (

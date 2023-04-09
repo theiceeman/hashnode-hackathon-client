@@ -27,7 +27,7 @@ export default function Routes() {
 	}
 
 
-	useEffect(async () => {
+	useEffect(() => {
 		userNetwork && userAddress && authenticateUser(userNetwork, userAddress)
 	}, [userAddress, userNetwork, isAuth])
 
