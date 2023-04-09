@@ -28,12 +28,13 @@ const TransferModal = ({ show, setShow, setTotalBalanceInUsd }) => {
 		const { tokenAddress, amount } = values;
 
 		let res = await approve(provider, userAddress, tokenAddress, amount)
-		console.log({res})
+		console.log({ res })
 		if (!res.ok) {
 			SimpleToastError((await rpcErrors(res.data)).data); return;
 		}
 
 		let action = await deposit(provider, userAddress, tokenAddress, amount);
+		console.log({ action })
 		if (!action.ok) {
 			let error = await rpcErrors(action.data);
 			SimpleToastError(error.data); return;

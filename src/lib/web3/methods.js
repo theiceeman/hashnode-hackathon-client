@@ -87,7 +87,7 @@ export async function approve(client, from, tokenAddress, amount) {
             gas: 300000,   //   300000 GAS
             gasPrice: 500000000000  //  wei
         })
-        console.log({txn})
+        // console.log({txn})
         return { ok: true, data: txn }
     } catch (error) {
         return TryCatchException(error)
@@ -111,7 +111,7 @@ export async function deposit(client, from, tokenAddress, amount) {
             // gas: 300000,   //   300000 GAS
             gasPrice: 500000000000  //  wei
         })
-        console.log({ txn })
+        // console.log({ txn })
 
         return { ok: true, data: txn }
     } catch (error) {
