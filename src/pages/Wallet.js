@@ -47,6 +47,18 @@ const Wallet = () => {
 
 
 
+	useEffect(() => {
+		let userLocalTokens = getLocalStorage('userTokens')
+		if (userLocalTokens === null)
+			return;
+
+		let usersTokens = JSON.parse(userLocalTokens)
+		if (usersTokens[userAddress])
+			setWalletTokens(usersTokens[userAddress])
+
+	}, [])
+
+
 	useEffect(async () => {
 		let mountState = true;
 		if (userAddress) {
@@ -69,16 +81,6 @@ const Wallet = () => {
 	}, [userAddress, totalBalanceInUsd, totalBalanceInNativeCoin])
 
 
-	useEffect(() => {
-		let userLocalTokens = getLocalStorage('userTokens')
-		if (userLocalTokens === null) {
-			return;
-		}
-		let usersTokens = JSON.parse(userLocalTokens)
-		if (usersTokens[userAddress])
-			setWalletTokens(userLocalTokens[userAddress])
-
-	}, [])
 
 
 	return (
