@@ -68,10 +68,14 @@ const Wallet = () => {
 		}
 	}, [userAddress, totalBalanceInUsd, totalBalanceInNativeCoin])
 
-	
+
 	useEffect(() => {
-		let userLocalTokens = JSON.parse(getLocalStorage('userTokens'))
-		if (userLocalTokens[userAddress])
+		let userLocalTokens = getLocalStorage('userTokens')
+		if (userLocalTokens === null) {
+			return;
+		}
+		let usersTokens = JSON.parse(userLocalTokens)
+		if (usersTokens[userAddress])
 			setWalletTokens(userLocalTokens[userAddress])
 
 	}, [])
